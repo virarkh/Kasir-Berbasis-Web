@@ -7,7 +7,7 @@
   <!-- Topbar -->
   <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-    <!-- <h4>Tik Tok</h4> -->
+    <h4>Tik Tok</h4>
     <!-- <img src="<?php echo base_url()?>assets/icon/home-page.png"> -->
 
     <!-- Sidebar Toggle (Topbar) -->

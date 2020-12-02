@@ -31,4 +31,14 @@ class TransaksiController extends CI_Controller {
         $this->load->view('pemilik/transaksi_tambah');
         $this->load->view('pemilik/master/footer');
     }
+
+    public function detail()
+    {
+        $this->load->view('pemilik/master/header');
+        $this->load->view('pemilik/master/sidebar');
+        $this->load->view('pemilik/master/topbar');
+        $this->load->view('pemilik/transaksi_detail');
+        $this->load->view('pemilik/master/footer');
+    }
+
 }

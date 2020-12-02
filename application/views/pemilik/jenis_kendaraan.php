@@ -38,13 +38,13 @@
                         <td>
                             <!-- <?php echo anchor('JenisKendaraanController/edit/'.$jnskendaraan->id, 'Edit');?>
                             <?php echo anchor('JenisKendaraanController/hapus/'.$jnskendaraan->id, 'Hapus');?> -->
-                            <a href="<?php echo base_url('JenisKendaraanController/edit/'.$d->id);?>" class="btn btn-success btn-icon-split">
+                            <a href="<?php echo base_url('JenisKendaraanController/edit/'.$jnskendaraan->id);?>" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-100">
                                 <i class="fas fa-edit"></i>
                                 </span>
                                 <span class="text">Edit</span>
                             </a>
-                            <a href="<?php echo base_url('JenisKendaraanController/hapus/'.$d->id);?>" class="btn btn-danger btn-icon-split">
+                            <a href="<?php echo base_url('JenisKendaraanController/hapus/'.$jnskendaraan->id);?>" class="btn btn-danger btn-icon-split">
                                 <span class="icon text-white-100">
                                 <i class="fas fa-trash"></i>
                                 </span>

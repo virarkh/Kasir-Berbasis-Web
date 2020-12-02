@@ -97,5 +97,15 @@ class PengeluaranController extends CI_Controller {
         redirect('PengeluaranController/index');
     }
 
+    public function detail()
+    {
+        $this->load->view('pemilik/master/header');
+        $this->load->view('pemilik/master/sidebar');
+        $this->load->view('pemilik/master/topbar');
+        $this->load->view('pemilik/pengeluaran_detail');
+        $this->load->view('pemilik/master/footer');
+    }
+
+
 }
 
