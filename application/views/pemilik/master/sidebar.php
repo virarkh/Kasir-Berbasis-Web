@@ -78,7 +78,7 @@
       <hr class="sidebar-divider">
        
        <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url().'PenggunaController/index'?>">
+        <a class="nav-link" href="<?php echo base_url().'AuthController/daftar'?>">
         <i class="fas fa-user"></i>
           <span>Daftar Pengguna</span></a>
       </li>
