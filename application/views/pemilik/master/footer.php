@@ -36,7 +36,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="<?php echo base_url('AuthController/index')?>">Logout</a>
+          <a class="btn btn-primary" href="<?php echo base_url('AuthController/logout')?>">Logout</a>
         </div>
       </div>
     </div>
@@ -63,9 +63,9 @@
   <script src="<?php echo base_url() ?>assets/admin/js/demo/chart-pie-demo.js"></script>
   <script src="<?php echo base_url() ?>assets/admin/js/demo/datatables-demo.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.1/sweetalert2.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.1/sweetalert2.all.min.js"></script> -->
 
 </body>
 

@@ -12,7 +12,7 @@ class MetodeController extends CI_Controller {
 
 	public function index()
 	{
-		$data['metode_mencuci'] = $this->metodecuci_model->index()->result();
+		$data['metode_mencuci'] = $this->metodecuci_model->index();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);

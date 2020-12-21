@@ -8,12 +8,18 @@ class DiskonController extends CI_Controller {
         parent::__construct();
         $this->load->model('diskon_model');
         $this->load->helper('url');
+
+        if($this->session->userdata('logged_in') != TRUE){
+            $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
+            $this->session->set_flashdata('notif', $notif);
+            redirect('AuthController');
+        }
+
     }
 
 	public function index()
 	{
-        // $this->load->view('pemilik/master/index');
-        $data['diskon'] = $this->diskon_model->index()->result();
+        $data['diskon'] = $this->diskon_model->index();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);

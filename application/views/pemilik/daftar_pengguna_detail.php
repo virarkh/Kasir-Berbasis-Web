@@ -46,13 +46,18 @@
                <td></td>
                <td><?php echo $u->email?></td>
             </tr>
-            <!-- <tr>
+            <tr>
                <th><span><i class="fas fa-user-tag"></i></span>&nbsp; Sebagai</th>
                <td></td>
                <td>:</td>
                <td></td>
-               <td><?php echo $u->nama?></td>
-            </tr> -->
+               <td>
+                  <?php foreach($role->result() as $r):?>
+                    <?php echo $r->nama;?>
+                  <?php endforeach;?>
+                <!-- <?php echo $u->nama?> -->
+              </td>
+            </tr>
             <tr>
                <th><span><i class="fas fa-home"></i></span>&nbsp; Alamat</th>
                <td></td>

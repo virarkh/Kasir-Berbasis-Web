@@ -4,10 +4,10 @@ class pengeluaran_model extends CI_Model{
 
     public function index()
     {
-        // $this->db->select('pengeluaran.*', 'jenis_pengeluaran.nama');
-        $this->db->select('*');
+        $this->db->select('pengeluaran.*, jenis_pengeluaran.nama_pengeluaran, user.nama_user');
         $this->db->from('pengeluaran');
         $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
+        $this->db->join('user', 'user.id = pengeluaran.user_id');
         // $this->db->order_by($this->tanggal, 'DESC');
         $query = $this->db->get();
         return $query->result();
@@ -18,44 +18,46 @@ class pengeluaran_model extends CI_Model{
         return $this->db->insert('pengeluaran', $data);
     }
 
-    public function get($id)
+    public function edit($where, $table)
     {
-        return $this->db->where('id', $id)->get('pengeluaran')->row();
+        return $this->db->get_where($table, $where);
     }
 
-    public function Update($data, $id)
-    {
-        return $this->db->where('id', $id)->update('pengeluaran', $data);
-    }
-
-    public function delete($where)
+    public function Update($where, $data, $table)
     {
         $this->db->where($where);
-        $this->db->delete('pengeluaran');
-        return TRUE;
+        $this->db->update($table, $data);
+    }
+
+    public function delete($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
         // return $this->db->where('id', $id)->delete('pengeluaran');
     }
 
-    // function insert($data, $table)
-    // {
-    //     $this->db->insert($table, $data);
-    // }
+    public function get_jns_pengeluaran($id)
+    {
+        $this->db->select('*');
+        $this->db->from('pengeluaran p');
+        $this->db->join('jenis_pengeluaran jp', 'p.jns_pengeluaran_id=jp.id');
+        $this->db->where('p.id', $id);
+        return $this->db->get();
+    }
 
-    // function edit($where, $table)
-    // {
-    //     return $this->db->get_where($table, $where);
-    // }
+    public function get_user($id)
+    {
+        $this->db->select('*');
+        $this->db->from('pengeluaran p');
+        $this->db->join('user u', 'p.user_id=u.id');
+        $this->db->where('p.id', $id);
+        return $this->db->get();
+    }
 
-    // function edit_data($where, $data, $table)
-    // {
-    //     $this->db->where($where);
-    //     $this->db->update($table, $data);
-    // }
+    public function detail($where, $table)
+    {
 
-    // public function hapus_data($where, $table)
-    // {
-    //     $this->db->where($where);
-    //     $this->db->delete($table);
-    // }
+        return $this->db->get_where($table, $where);
+    }
     
 }

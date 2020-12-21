@@ -2,7 +2,7 @@
 
 class diskon_model extends CI_Model{
     function index(){
-        return $this->db->get('diskon');
+        return $this->db->get('diskon')->result();
     }
 
     function tambah_data($data, $table){

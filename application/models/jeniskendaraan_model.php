@@ -3,7 +3,7 @@
 class jeniskendaraan_model extends CI_Model{
 
     function index(){
-        return $this->db->get('jenis_kendaraan');
+        return $this->db->get('jenis_kendaraan')->result();
     }
 
     function tambah_data($data, $table){

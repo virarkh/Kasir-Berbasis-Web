@@ -7,6 +7,12 @@
   <!-- Topbar -->
   <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+  <?php
+              if ($this->session->flashdata('sukses')){
+                echo "<br/>"."<div class='alert-success'>".$this->session->flashdata('sukses')."</div>";
+              }
+            ?>
+
     <!-- <h4>Tik Tok</h4> -->
     <!-- <img src="<?php echo base_url()?>assets/icon/home-page.png"> -->
 
@@ -33,8 +39,14 @@
       <div class="topbar-divider d-none d-sm-block"></div>
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">Rokhmah Vira Santi</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+            <!-- Rokhmah Vira Santi -->
+            <div>
+              <?php echo $this->session->userdata('username');?>
+            </div>
+          </span>
           <img src="<?php echo base_url()?>assets/icon/exit.png">
+          <!-- <img src="<?php echo $this->session->userdata('foto_profil');?>"> -->
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

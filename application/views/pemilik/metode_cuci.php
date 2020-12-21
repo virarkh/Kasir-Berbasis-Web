@@ -42,7 +42,7 @@
                         <!-- <?php echo anchor('MetodeController/edit/'.$mc->id, 'Edit')?>
                         <?php echo anchor('MetodeController/hapus/'.$mc->id, 'Hapus')?> -->
 
-                        <a href="<?php echo base_url('MetodeController/edit'.$mc->id);?>" class="btn btn-success btn-icon-split">
+                        <a href="<?php echo base_url('MetodeController/edit/'.$mc->id);?>" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-100">
                             <i class="fas fa-edit"></i>
                             </span>

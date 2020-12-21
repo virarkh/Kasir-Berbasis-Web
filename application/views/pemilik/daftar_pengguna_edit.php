@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <?php foreach($user as $u) { ?>
-                        <form type="multipart" action="<?php echo base_url().'AuthController/edit_data'?>" method="POST">
+                        <form enctype="multipart/form-data" action="<?php echo base_url().'AuthController/edit_data'?>" method="POST">
                             <input type="hidden" name="id" value="<?php echo $u->id;?>">
                             <div class="form-group">
                                 <p>Foto Profil<br>

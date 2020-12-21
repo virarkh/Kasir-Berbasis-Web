@@ -12,7 +12,7 @@ class JenisKendaraanController extends CI_Controller {
 
 	public function index()
 	{
-		$data['jenis_kendaraan'] = $this->jeniskendaraan_model->index()->result();
+		$data['jenis_kendaraan'] = $this->jeniskendaraan_model->index();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);

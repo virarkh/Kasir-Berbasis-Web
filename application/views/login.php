@@ -22,6 +22,14 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/login/Login_v11/css/util.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/login/Login_v11/css/main.css">
 <!--===============================================================================================-->
+
+<!-- <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-1.11.1.min.js"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+
+
 </head>
 <body>
 	
@@ -32,7 +40,8 @@
 					<span class="login100-form-title p-b-55">
 						Login
 					</span>
-					<?php echo $this->session->flashdata('msg')?>
+					<b style="text-align:center"><?php echo $this->session->flashdata('msg')?></b>
+					<?php echo $this->session->flashdata('notif');?>
 					<div class="wrap-input100 validate-input m-b-16">
 					<!-- <div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz"> -->
 						<input class="input100" type="text" name="username" placeholder="Username" autofocus>
@@ -50,9 +59,13 @@
 							<span class="lnr lnr-lock"></span>
 						</span>
 					</div>
+					<div class="div">
+						<input type="checkbox" class="form-checkbox" style="font-size:10pt"> Show password
+					</div>
+					
 					
 					<div class="container-login100-form-btn p-t-25">
-						<button class="login100-form-btn" name="simpan" type="submit">
+						<button class="login100-form-btn" name="login" type="submit">
 							Login
 						</button>
 					</div>
@@ -73,6 +86,18 @@
 	<script src="<?php echo base_url();?>assets/login/Login_v11/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="<?php echo base_url();?>assets/login/Login_v11/js/main.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){		
+			$('.form-checkbox').click(function(){
+				if($(this).is(':checked')){
+					$('.form-password').attr('type','text');
+				}else{
+					$('.form-password').attr('type','password');
+				}
+			});
+		});
+	</script>
 
 </body>
 </html>

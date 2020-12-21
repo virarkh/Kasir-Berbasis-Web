@@ -3,7 +3,7 @@
 class metodecuci_model extends CI_Model{
 
     function index(){
-        return $this->db->get('metode_mencuci');
+        return $this->db->get('metode_mencuci')->result();
     }
 
     function tambah_data($data, $table){

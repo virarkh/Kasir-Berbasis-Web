@@ -331,7 +331,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `pengeluaran`
   ADD CONSTRAINT `pengeluaran_ibfk_1` FOREIGN KEY (`jns_pengeluaran_id`) REFERENCES `jenis_pengeluaran` (`id`);
-
+  ADD CONSTRAINT `pengeluaran_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 --
 -- Constraints for table `transaksi`
 --
