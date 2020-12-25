@@ -223,7 +223,28 @@
     } */
 </style>
 
-<script>
+<!-- <script src="http://localhost/kasir_cuci_motor/assets/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    function jenis_kendaraan() {
+        var jk = $('#jenis_kendaraan').val();
+        console.log(jenis_kendaraan);
+        $.ajax({
+            method: 'POST',
+            dataType: 'json',
+            url: 'http://localhost/kasir_cuci_motor/TransaksiController/jenis_kendaraan',
+            data: {
+                jenis_kendaraan: jk
+            },
+
+            success: function(result) {
+                console.log(result);
+                $('#tarif').html();
+            }
+        })
+    }
+</script> -->
+
+<script text="text/javascript">
     $(document).ready(function() {
         $('#jenis_kendaraan').change(function() {
             pil_jenis();
@@ -247,30 +268,17 @@
         });
 
         // $.ajax({
-        //     url: "<?php echo base_url('TransaksiController/subtotal') ?>",
+        //     url: "<?php echo base_url('TransaksiController/total') ?>",
         //     data: {
         //         jenis_kendaraan: jenis_kendaraan,
-        //         metode_mencuci: metode_mencuci
+        //         metode_mencuci: metode_mencuci,
+        //         diskon: diskon
         //     },
 
         //     success: function(data) {
-        //         $('#sub_total').val(data);
         //         $('#total').val(data);
         //     }
         // });
-
-        $.ajax({
-            url: "<?php echo base_url('TransaksiController/total') ?>",
-            data: {
-                jenis_kendaraan: jenis_kendaraan,
-                metode_mencuci: metode_mencuci,
-                diskon: diskon
-            },
-
-            success: function(data) {
-                $('#total').val(data);
-            }
-        });
     }
 
     $(document).ready(function() {
@@ -296,31 +304,17 @@
         });
 
         // $.ajax({
-        //     url: "<?php echo base_url('TransaksiController/sub_total') ?>",
+        //     url: "<?php echo base_url('TransaksiController/total') ?>",
         //     data: {
         //         jenis_kendaraan: jenis_kendaraan,
-        //         metode_mencuci: metode_mencuci
+        //         metode_mencuci: metode_mencuci,
+        //         diskon: diskon
         //     },
 
         //     success: function(data) {
-        //         // $('#tarif_tambahan').html(data);
-        //         $('#sub_total').val(data);
         //         $('#total').val(data);
         //     }
         // });
-
-        $.ajax({
-            url: "<?php echo base_url('TransaksiController/total') ?>",
-            data: {
-                jenis_kendaraan: jenis_kendaraan,
-                metode_mencuci: metode_mencuci,
-                diskon: diskon
-            },
-
-            success: function(data) {
-                $('#total').val(data);
-            }
-        });
     }
 
     $(document).ready(function() {
@@ -355,7 +349,8 @@
             },
 
             success: function(data) {
-                $('#total').val(data);
+                $('#total').html(data);
+                alert(data);
             }
         });
 

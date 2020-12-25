@@ -1,24 +1,25 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class DiskonController extends CI_Controller {
+class DiskonController extends CI_Controller
+{
 
     function __construct()
     {
         parent::__construct();
         $this->load->model('diskon_model');
         $this->load->helper('url');
+        $this->load->library('session');
 
-        if($this->session->userdata('logged_in') != TRUE){
+        if ($this->session->userdata('logged_in') != TRUE) {
             $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
             $this->session->set_flashdata('notif', $notif);
             redirect('AuthController');
         }
-
     }
 
-	public function index()
-	{
+    public function index()
+    {
         $data['diskon'] = $this->diskon_model->index();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
@@ -45,11 +46,18 @@ class DiskonController extends CI_Controller {
             'nama_diskon'       => $nama_diskon,
             'potongan_harga'    => $potongan_harga
         );
+
+        // if ($this->db->affected_rows() > 0) {
+
+        // }
+        $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
+
         $this->diskon_model->tambah_data($data, 'diskon');
         redirect('DiskonController/index');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $where          = array('id' => $id);
         $data['diskon'] = $this->diskon_model->edit($where, 'diskon')->result();
         $this->load->view('pemilik/master/header', $data);
@@ -59,7 +67,8 @@ class DiskonController extends CI_Controller {
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function edit_data(){
+    public function edit_data()
+    {
         $id             = $this->input->post('id');
         $nama_diskon    = $this->input->post('nama_diskon');
         $potongan_harga = $this->input->post('potongan_harga');
@@ -73,15 +82,19 @@ class DiskonController extends CI_Controller {
             'id'    => $id
         );
 
+        $this->session->set_flashdata('success', 'Data Berhasil di Ubah');
+
         $this->diskon_model->edit_data($where, $data, 'diskon');
         redirect('DiskonController/index');
     }
 
-    public function hapus($id){
+    public function hapus($id)
+    {
         $where = array('id' => $id);
         $this->diskon_model->hapus_data($where, 'diskon');
+
+        $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
+
         redirect('DiskonController/index');
     }
-    
-
 }

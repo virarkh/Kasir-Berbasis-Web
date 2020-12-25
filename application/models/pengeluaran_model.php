@@ -1,6 +1,7 @@
 <?php
 
-class pengeluaran_model extends CI_Model{
+class pengeluaran_model extends CI_Model
+{
 
     public function index()
     {
@@ -12,6 +13,71 @@ class pengeluaran_model extends CI_Model{
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function view_by_date($tgl_awal, $tgl_akhir)
+    {
+        $tgl_awal = $this->db->escape($tgl_awal);
+        $tgl_akhir = $this->db->escape($tgl_akhir);
+
+        $this->db->select('pengeluaran.*, jenis_pengeluaran.nama_pengeluaran, user.nama_user');
+        $this->db->from('pengeluaran');
+        $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
+        $this->db->join('user', 'user.id = pengeluaran.user_id');
+        $this->db->where('DATE(tanggal) BETWEEN' . $tgl_awal . 'AND' . $tgl_akhir);
+        $query = $this->db->get();
+        return $query->result();
+        // return $this->db->get('pengeluaran')->result();
+    }
+
+    // public function view_by_date($date)
+    // {
+    //     $this->db->where('DATE(tanggal)', $date);
+
+    //     $this->db->select('pengeluaran.*, jenis_pengeluaran.nama_pengeluaran, user.nama_user');
+    //     $this->db->from('pengeluaran');
+    //     $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
+    //     $this->db->join('user', 'user.id = pengeluaran.user_id');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
+    // public function view_by_month($date)
+    // {
+    //     $this->db->where('MONTH(tanggal)', $date);
+    //     $this->db->where('YEAR(tanggal)', $date);
+
+    //     $this->db->select('pengeluaran.*, jenis_pengeluaran.nama_pengeluaran, user.nama_user');
+    //     $this->db->from('pengeluaran');
+    //     $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
+    //     $this->db->join('user', 'user.id = pengeluaran.user_id');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
+    // public function view_by_year($date)
+    // {
+    //     $this->db->where('YEAR(tanggal)', $date);
+
+    //     $this->db->select('pengeluaran.*, jenis_pengeluaran.nama_pengeluaran, user.nama_user');
+    //     $this->db->from('pengeluaran');
+    //     $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
+    //     $this->db->join('user', 'user.id = pengeluaran.user_id');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
+    // public function option_tahun()
+    // {
+    //     $this->db->where('YEAR(tanggal) AS Tahun');
+
+    //     $this->db->select('pengeluaran.*, jenis_pengeluaran.nama_pengeluaran, user.nama_user');
+    //     $this->db->from('pengeluaran');
+    //     $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
+    //     $this->db->join('user', 'user.id = pengeluaran.user_id');
+    //     $this->db->order_by('YEAR(tanggal)');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
 
     public function insert($data)
     {
@@ -59,5 +125,4 @@ class pengeluaran_model extends CI_Model{
 
         return $this->db->get_where($table, $where);
     }
-    
 }

@@ -48,6 +48,10 @@ class TransaksiController extends CI_Controller
 
     public function jenis_kendaraan()
     {
+        // $data = $this->input->post('jenis_kendaraan');
+        // $jk = $this->transaksi_model->get_jenis_kendaraan($data);
+        // echo json_encode($jk);
+
         $id = $_GET['jenis_kendaraan'];
         $this->db->select('*');
         $this->db->from('jenis_kendaraan');
@@ -186,11 +190,8 @@ class TransaksiController extends CI_Controller
                             echo $d->tarif;
                         }
                     }
-
                 endforeach;
-
             endforeach;
-
         endforeach;
     }
 

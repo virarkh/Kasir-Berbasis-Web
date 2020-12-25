@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class AuthController extends CI_Controller {
+class AuthController extends CI_Controller
+{
 
 	public function __construct()
 	{
@@ -10,33 +11,11 @@ class AuthController extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 		$this->load->helper('url', 'form');
-
-		// if($this->session->userdata('logged_in') != TRUE){
-        //     $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-        //     $this->session->set_flashdata('notif', $notif);
-        //     redirect('AuthController');
-        // }
 	}
 
 	public function index()
 	{
 		$this->load->view('login.php');
-
-		// if($this->input->post('login')){
-		// 	$this->form_validation->set_rules('username', 'username', 'trim|required');
-		// 	$this->form_validation->set_rules('password', 'password', 'trim|required|call_check_database');
-
-		// 	if($this->form_validation->run() == FALSE){
-		// 		$this->load->view('login.php');
-		// 	} else{
-		// 		if($role_id === '1'){
-		// 			redirect('DashboardController/index');
-		// 		}else{
-		// 			redirect('KasirController/index');
-		// 		}
-		// 	}
-		// }
-
 	}
 
 	// untuk login
@@ -45,21 +24,20 @@ class AuthController extends CI_Controller {
 		$this->form_validation->set_rules('username', 'username', 'required');
 		$this->form_validation->set_rules('password', 'password', 'required');
 
-		if($this->form_validation->run() === FALSE){
+		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('login.php');
-
-		}else{
+		} else {
 			$username = $this->input->post('username', TRUE);
 			$password = md5($this->input->post('password', TRUE));
 			// $login = $this->user_model->login($username, $password);
-			
+
 			$where = array(
 				'username'	=> $username,
 				'password'	=> $password,
 			);
 
 			$cek = $this->user_model->login('user', $where);
-			if($cek->num_rows() > 0){
+			if ($cek->num_rows() > 0) {
 				$data = $cek->row_array();
 				$id			= $data['id'];
 				$nama_user	= $data['nama_user'];
@@ -81,69 +59,16 @@ class AuthController extends CI_Controller {
 				//  set message
 				$this->session->set_flashdata('sukses', 'Selamat Anda Berhasil Login');
 				// login pemilik
-				if($role_id === '1'){
+				if ($role_id === '1') {
 					redirect('DashboardController/index');
-				}else{
+				} else {
 					redirect('KasirController/index');
 				}
-			}else{
+			} else {
 				echo $this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
 				redirect('AuthController/index');
 			}
-
 		}
-
-
-			// if($login->num_rows() > 0){
-			// 	$data = $login->row_array();
-			// 	// $nama_user	= $data['nama_user'];
-			// 	$username 	= $data['username'];
-			// 	$role_id	= $data['role_id'];
-			// 	$sesdata = array(
-			// 		'username'	=> $username,
-			// 		'role_id'	=> $role_id,
-			// 		'logged_in'	=> TRUE
-			// 	);
-			// 	$this->session->set_userdata('logged_in', $sesdata);
-			// 	// set message
-			// 	$this->session->set_flashdata('sukses', 'Selamat Anda Berhasil Login');
-			// 	// login pemilik
-			// 	if($role_id === '1'){
-			// 		redirect('DashboardController/index');
-			// 	}else{
-			// 		redirect('KasirController/index');
-			// 	}
-			// }else{
-			// 	echo $this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
-			// 	redirect('AuthController/index');
-			// }
-
-		// LOGIN SUKSES
-
-		// $username = $this->input->post('username', TRUE);
-		// $password = md5($this->input->post('password', TRUE));
-		// $login = $this->user_model->login($username, $password);
-		// if($login->num_rows() > 0){
-		// 	$data = $login->row_array();
-		// 	// $nama_user	= $data['nama_user'];
-		// 	$username 	= $data['username'];
-		// 	$role_id	= $data['role_id'];
-		// 	$sesdata = array(
-		// 		'username'	=> $username,
-		// 		'role_id'	=> $role_id,
-		// 		'logged_in'	=> TRUE
-		// 	);
-		// 	$this->session->set_userdata($sesdata);
-		// 	// login pemilik
-		// 	if($role_id === '1'){
-		// 		redirect('DashboardController/index');
-		// 	}else{
-		// 		redirect('KasirController/index');
-		// 	}
-		// }else{
-		// 	echo $this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
-		// 	redirect('AuthController/index');
-		// }
 	}
 
 	public function logout()
@@ -154,42 +79,41 @@ class AuthController extends CI_Controller {
 		$this->session->unset_userdata('logged_in');
 		session_destroy();
 		redirect('AuthController/index');
-
 	}
 
 	// menampilkan daftar pengguna
 	public function daftar()
 	{
 
-		if($this->session->userdata('logged_in') != TRUE){
-            $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-            $this->session->set_flashdata('notif', $notif);
-            redirect('AuthController');
-        }
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$notif = "<div class='alert-warning'>Anda harus login dulu</div>";
+			$this->session->set_flashdata('notif', $notif);
+			redirect('AuthController');
+		}
 
 		$data['user'] = $this->user_model->index();
 		$this->load->view('pemilik/master/header', $data);
-        $this->load->view('pemilik/master/sidebar', $data);
-        $this->load->view('pemilik/master/topbar', $data);
-        $this->load->view('pemilik/daftar_pengguna', $data);
-        $this->load->view('pemilik/master/footer', $data);
+		$this->load->view('pemilik/master/sidebar', $data);
+		$this->load->view('pemilik/master/topbar', $data);
+		$this->load->view('pemilik/daftar_pengguna', $data);
+		$this->load->view('pemilik/master/footer', $data);
 	}
 
 	//view tambah user
 	public function tambah()
 	{
 
-		if($this->session->userdata('logged_in') != TRUE){
-            $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-            $this->session->set_flashdata('notif', $notif);
-            redirect('AuthController');
-        }
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$notif = "<div class='alert-warning'>Anda harus login dulu</div>";
+			$this->session->set_flashdata('notif', $notif);
+			redirect('AuthController');
+		}
 
 		$this->load->view('pemilik/master/header');
-        $this->load->view('pemilik/master/sidebar');
-        $this->load->view('pemilik/master/topbar');
-        $this->load->view('pemilik/daftar_pengguna_tambah');
-        $this->load->view('pemilik/master/footer');
+		$this->load->view('pemilik/master/sidebar');
+		$this->load->view('pemilik/master/topbar');
+		$this->load->view('pemilik/daftar_pengguna_tambah');
+		$this->load->view('pemilik/master/footer');
 	}
 
 	// proses sign up
@@ -219,7 +143,7 @@ class AuthController extends CI_Controller {
 		$role_id	= $this->input->post("role_id");
 
 		$data = array(
-			
+
 			'nama_user'		=> $nama_user,
 			'username' 		=> $username,
 			'password'		=> $password,
@@ -231,6 +155,8 @@ class AuthController extends CI_Controller {
 			'role_id'       => $role_id
 		);
 
+		$this->session->set_flashdata('success', 'Data Berhasil di Tambah');
+
 		$this->user_model->sign_in($data);
 		redirect('AuthController/daftar');
 	}
@@ -241,10 +167,10 @@ class AuthController extends CI_Controller {
 		$where			= array('id' => $id);
 		$data['user']	= $this->user_model->edit($where, 'user')->result();
 		$this->load->view('pemilik/master/header', $data);
-        $this->load->view('pemilik/master/sidebar', $data);
-        $this->load->view('pemilik/master/topbar', $data);
-        $this->load->view('pemilik/daftar_pengguna_edit', $data);
-        $this->load->view('pemilik/master/footer', $data);
+		$this->load->view('pemilik/master/sidebar', $data);
+		$this->load->view('pemilik/master/topbar', $data);
+		$this->load->view('pemilik/daftar_pengguna_edit', $data);
+		$this->load->view('pemilik/master/footer', $data);
 	}
 
 	// proses edit
@@ -291,17 +217,25 @@ class AuthController extends CI_Controller {
 			'id' => $id
 		);
 
+		$this->session->set_flashdata('success', 'Data Berhasil di Ubah');
+
 		$this->user_model->edit_data($where, $data, 'user');
 		redirect('AuthController/daftar');
 	}
 
 	public function hapus($id)
+	// public function hapus()
 	{
-        $where = array('id' => $id);
-        $this->user_model->hapus_data($where, 'user');
-        redirect('AuthController/daftar');
+		$where = array('id' => $id);
+		$this->user_model->hapus_data($where, 'user');
+		// $id = $this->input->get('foto');
+		// $this->user_model->hapus_data($id);
+
+		$this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
+
+		redirect('AuthController/daftar');
 	}
-	
+
 	public function detail($id)
 	{
 		$where				= array('id' => $id);
@@ -315,12 +249,9 @@ class AuthController extends CI_Controller {
 		$data['role']		= $role;
 
 		$this->load->view('pemilik/master/header', $data);
-        $this->load->view('pemilik/master/sidebar', $data);
-        $this->load->view('pemilik/master/topbar', $data);
-        $this->load->view('pemilik/daftar_pengguna_detail', $data);
-        $this->load->view('pemilik/master/footer', $data);
+		$this->load->view('pemilik/master/sidebar', $data);
+		$this->load->view('pemilik/master/topbar', $data);
+		$this->load->view('pemilik/daftar_pengguna_detail', $data);
+		$this->load->view('pemilik/master/footer', $data);
 	}
-
-
-
 }

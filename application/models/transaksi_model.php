@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 class transaksi_model extends CI_Model
 {
 
-    public function index(){
+    public function index()
+    {
         $this->db->select('transaksi.*, jenis_kendaraan.nama_kendaraan, diskon.nama_diskon, metode_mencuci.nama_metode, user.nama_user');
         $this->db->from('transaksi');
         $this->db->join('diskon', 'diskon.id=transaksi.diskon_id');
@@ -14,8 +15,16 @@ class transaksi_model extends CI_Model
         return $query->result();
     }
 
-    public function simpanData($data){
-        return $this->db->insert('transaksi', $data);
+    public function get_jenis_kendaraan()
+    {
+        $jk = "SELECT * FROM jenis_kendaraan";
+        $query = $this->db->query($jk);
+
+        return $query->result_array();
     }
 
+    public function simpanData($data)
+    {
+        return $this->db->insert('transaksi', $data);
+    }
 }

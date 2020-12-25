@@ -86,7 +86,7 @@
           </table>
         </div>
 
-        <a class="btn btn-secondary col-sm-2" style="margin-left:20px; margin-top: 50px; margin-bottom: 10px" href="<?php echo base_url() . 'AuthController/daftar' ?>"><span><i class="fas fa-chevron-left"></i></span>&nbsp; Kembali</a>
+        <a class="btn btn-secondary col-sm-2" style="margin-left:20px; margin-top: 50px; margin-bottom: 10px" href="<?php echo base_url() . 'PengeluaranController/index' ?>"><span><i class="fas fa-chevron-left"></i></span>&nbsp; Kembali</a>
 
       </div>
 

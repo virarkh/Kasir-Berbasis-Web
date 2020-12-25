@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class JenisPengeluaranController extends CI_Controller {
+class JenisPengeluaranController extends CI_Controller
+{
 
     function __construct()
     {
@@ -10,16 +11,16 @@ class JenisPengeluaranController extends CI_Controller {
         $this->load->helper('url');
     }
 
-	public function index()
-	{
-		$data['jenis_pengeluaran'] = $this->jenispengeluaran_model->index();
+    public function index()
+    {
+        $data['jenis_pengeluaran'] = $this->jenispengeluaran_model->index();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
         $this->load->view('pemilik/jenis_pengeluaran', $data);
         $this->load->view('pemilik/master/footer', $data);
     }
-    
+
     public function tambah()
     {
         $this->load->view('pemilik/master/header');
@@ -36,11 +37,15 @@ class JenisPengeluaranController extends CI_Controller {
         $data = array(
             'nama_pengeluaran'  => $nama_pengeluaran
         );
+
+        $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
+
         $this->jenispengeluaran_model->tambah_data($data, 'jenis_pengeluaran');
         redirect('JenisPengeluaranController/index');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $where          = array('id' => $id);
         $data['jenis_pengeluaran'] = $this->jenispengeluaran_model->edit($where, 'jenis_pengeluaran')->result();
         $this->load->view('pemilik/master/header', $data);
@@ -50,7 +55,8 @@ class JenisPengeluaranController extends CI_Controller {
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function edit_data(){
+    public function edit_data()
+    {
         $id                 = $this->input->post('id');
         $nama_pengeluaran   = $this->input->post('nama_pengeluaran');
 
@@ -62,14 +68,19 @@ class JenisPengeluaranController extends CI_Controller {
             'id' => $id
         );
 
+        $this->session->set_flashdata('success', 'Data Berhasil di Ubah');
+
         $this->jenispengeluaran_model->edit_data($where, $data, 'jenis_pengeluaran');
         redirect('JenisPengeluaranController/index');
     }
 
-    public function hapus($id){
+    public function hapus($id)
+    {
         $where = array('id' => $id);
         $this->jenispengeluaran_model->hapus_data($where, 'jenis_pengeluaran');
+
+        $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
+
         redirect('JenisPengeluaranController/index');
     }
-
 }

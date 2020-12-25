@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class user_model extends CI_Model {
+class user_model extends CI_Model
+{
 
     public function index()
     {
@@ -12,7 +13,8 @@ class user_model extends CI_Model {
         return $result->result();
     }
 
-    public function login($table, $where){
+    public function login($table, $where)
+    {
         return $this->db->get_where($table, $where);
     }
 
@@ -20,7 +22,7 @@ class user_model extends CI_Model {
     // public function login($username, $password)
     // {
 
-        // MODEL SUKSES
+    // MODEL SUKSES
 
     //     $this->db->select('*');
     //     $this->db->from('user');
@@ -41,10 +43,20 @@ class user_model extends CI_Model {
         return $this->db->get_where($table, $where);
     }
 
-    function edit_data($where, $data, $table){
+    function edit_data($where, $data, $table)
+    {
         $this->db->where($where);
         $this->db->update($table, $data);
     }
+
+    // public function hapus_data($id)
+    // {
+    //     $row = $this->db->where('id', $id)->get('foto_profil')->row();
+    //     unlink('./assets/profil/' . $row->foto_profil);
+    //     $this->db->where('id', $id);
+    //     $this->db->delete($this->table);
+    //     return true;
+    // }
 
     public function hapus_data($where, $table)
     {
@@ -65,5 +77,4 @@ class user_model extends CI_Model {
         $this->db->where('u.id', $id);
         return $this->db->get();
     }
-
 }
