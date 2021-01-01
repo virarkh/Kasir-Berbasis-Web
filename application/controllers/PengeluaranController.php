@@ -1,5 +1,7 @@
 <?php
 
+setlocale(LC_ALL, 'id-ID', 'id_ID');
+
 use Spipu\Html2Pdf\Html2Pdf;
 
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -19,8 +21,7 @@ class PengeluaranController extends CI_Controller
         $this->load->library('dompdf_gen');
 
         if ($this->session->userdata('logged_in') != TRUE) {
-            $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-            $this->session->set_flashdata('notif', $notif);
+            $this->session->set_flashdata('notif', 'Anda harus login dulu');
             redirect('AuthController');
         }
     }
@@ -37,8 +38,8 @@ class PengeluaranController extends CI_Controller
         } else {
             $pengeluaran    = $this->pengeluaran_model->view_by_date($tgl_awal, $tgl_akhir);
             $url_cetak      = 'PengeluaranController/cetak?tgl_awal=' . $tgl_awal . '&tgl_akhir=' . $tgl_akhir;
-            $tgl_awal       = date('d F Y', strtotime($tgl_awal));
-            $tgl_akhir      = date('d F Y', strtotime($tgl_akhir));
+            $tgl_awal       = strftime('%d %B %Y', strtotime($tgl_awal));
+            $tgl_akhir      = strftime('%d %B %Y', strtotime($tgl_akhir));
             $label          = 'Periode Tanggal &nbsp;' . $tgl_awal . ' - ' . $tgl_akhir;
         }
 
@@ -63,8 +64,8 @@ class PengeluaranController extends CI_Controller
             $label          = 'Semua Data Transaksi';
         } else {
             $pengeluaran    = $this->pengeluaran_model->view_by_date($tgl_awal, $tgl_akhir);
-            $tgl_awal       = date('d F Y', strtotime($tgl_awal));
-            $tgl_akhir      = date('d F Y', strtotime($tgl_akhir));
+            $tgl_awal       = strftime('%d %B %Y', strtotime($tgl_awal));
+            $tgl_akhir      = strftime('%d %B %Y', strtotime($tgl_akhir));
             $label          = 'Periode Tanggal &nbsp;' . $tgl_awal . ' - ' . $tgl_akhir;
         }
 

@@ -9,6 +9,11 @@ class MetodeController extends CI_Controller
         parent::__construct();
         $this->load->model('metodecuci_model');
         $this->load->helper('url');
+
+        if ($this->session->userdata('logged_in') != TRUE) {
+            $this->session->set_flashdata('notif', 'Anda harus login dulu');
+            redirect('AuthController');
+        }
     }
 
     public function index()

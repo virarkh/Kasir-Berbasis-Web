@@ -12,8 +12,7 @@ class DiskonController extends CI_Controller
         $this->load->library('session');
 
         if ($this->session->userdata('logged_in') != TRUE) {
-            $notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-            $this->session->set_flashdata('notif', $notif);
+            $this->session->set_flashdata('notif', 'Anda harus login dulu');
             redirect('AuthController');
         }
     }

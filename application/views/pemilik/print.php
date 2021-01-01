@@ -28,7 +28,7 @@
     <h2 style="text-align: center; font-family: sans-serif;">Data Pengeluaran</h2>
     <p style="text-align: center; font-size: 12pt; font-family: sans-serif; margin-top: -5px;"><?php echo $label ?><p>
             <hr class="line">
-            <table class="table" border="1" width="100%" style="margin-top:30px;rules:none">
+            <table class="table" border="1" width="100%" style="margin-top:30px; rules:none">
                 <!--  <tr>
             <th>Tanggal</th>
             <th>Kode Nota</th>

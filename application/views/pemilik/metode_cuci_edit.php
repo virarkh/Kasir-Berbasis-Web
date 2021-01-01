@@ -30,12 +30,9 @@
                                 <button class="btn btn-success col-sm-2" style="margin-top: 3%;">Simpan</button>
                             </div>
                         </form>
-
                     <?php } ?>
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>

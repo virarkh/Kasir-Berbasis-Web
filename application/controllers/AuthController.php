@@ -65,7 +65,7 @@ class AuthController extends CI_Controller
 					redirect('KasirController/index');
 				}
 			} else {
-				echo $this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
+				$this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
 				redirect('AuthController/index');
 			}
 		}
@@ -86,8 +86,7 @@ class AuthController extends CI_Controller
 	{
 
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-			$this->session->set_flashdata('notif', $notif);
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
 			redirect('AuthController');
 		}
 
@@ -104,8 +103,7 @@ class AuthController extends CI_Controller
 	{
 
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$notif = "<div class='alert-warning'>Anda harus login dulu</div>";
-			$this->session->set_flashdata('notif', $notif);
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
 			redirect('AuthController');
 		}
 
@@ -119,6 +117,11 @@ class AuthController extends CI_Controller
 	// proses sign up
 	public function registrasi()
 	{
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			redirect('AuthController');
+		}
+
 		$config = array(
 			'upload_path'	=> './assets/profil',
 			'allowed_types'	=> 'jpg|jpeg|png',
@@ -164,6 +167,11 @@ class AuthController extends CI_Controller
 	// view edit
 	public function edit($id)
 	{
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			redirect('AuthController');
+		}
+
 		$where			= array('id' => $id);
 		$data['user']	= $this->user_model->edit($where, 'user')->result();
 		$this->load->view('pemilik/master/header', $data);
@@ -176,6 +184,11 @@ class AuthController extends CI_Controller
 	// proses edit
 	public function edit_data()
 	{
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			redirect('AuthController');
+		}
+
 		$id		= $this->input->post('id');
 
 		$config = array(
@@ -226,6 +239,11 @@ class AuthController extends CI_Controller
 	public function hapus($id)
 	// public function hapus()
 	{
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			redirect('AuthController');
+		}
+
 		$where = array('id' => $id);
 		$this->user_model->hapus_data($where, 'user');
 		// $id = $this->input->get('foto');
@@ -238,6 +256,11 @@ class AuthController extends CI_Controller
 
 	public function detail($id)
 	{
+		if ($this->session->userdata('logged_in') != TRUE) {
+			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			redirect('AuthController');
+		}
+
 		$where				= array('id' => $id);
 		$data['user']		= $this->user_model->detail_profil($where, 'user')->result();
 		// $data['role']	= $this->user_model->role($where, 'role')->result();

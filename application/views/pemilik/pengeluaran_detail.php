@@ -17,14 +17,14 @@
           <h6 class="m-0 font-weight-bold text-primary">Detail Pengeluaran</h6>
         </div>
         <div class="card-body">
-          <table style="font-size: 13pt;">
+          <table>
             <tr>
               <th><i class="fas fa-calendar-week"></i></th>
               <th>Tanggal</th>
               <td></td>
               <td>:</td>
               <td></td>
-              <td><?php echo $p->tanggal ?></td>
+              <td><?php echo strftime('%A, %d %B %Y', strtotime($p->tanggal)) ?></td>
             </tr>
             <tr>
               <th><i class="fas fa-file-invoice"></i></th>
@@ -44,7 +44,6 @@
                 <?php foreach ($jns_pengeluaran->result() as $jp) : ?>
                   <?php echo $jp->nama_pengeluaran; ?>
                 <?php endforeach; ?>
-                <!-- <?php echo $p->nama_pengeluaran ?> -->
               </td>
             </tr>
             <tr>
@@ -53,7 +52,7 @@
               <td></td>
               <td>:</td>
               <td></td>
-              <td><?php echo $p->biaya ?></td>
+              <td>Rp <?php echo number_format($p->biaya, 0, ',', '.') ?></td>
             </tr>
             <tr>
               <th><i class="fas fa-user-alt"></i></th>
@@ -68,13 +67,6 @@
                 <!-- <?php echo $p->nama ?> -->
               </td>
             </tr>
-            <!-- <tr>
-               <th><span><i class="fas fa-user-tag"></i></span>&nbsp; Sebagai</th>
-               <td></td>
-               <td>:</td>
-               <td></td>
-               <td><?php echo $u->nama ?></td>
-            </tr> -->
             <tr>
               <th><i class="fas fa-info"></i></th>
               <th>Keterangan</th>
@@ -83,15 +75,14 @@
               <td></td>
               <td><?php echo $p->detail ?></td>
             </tr>
-          </table>
+          </table><br>
+          <div class="row">
+            <div class="col-sm">
+              <a href="<?php echo base_url('PengeluaranController/index'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
+            </div>
+          </div>
         </div>
-
-        <a class="btn btn-secondary col-sm-2" style="margin-left:20px; margin-top: 50px; margin-bottom: 10px" href="<?php echo base_url() . 'PengeluaranController/index' ?>"><span><i class="fas fa-chevron-left"></i></span>&nbsp; Kembali</a>
-
       </div>
-
-
-
     </div>
 
     <!-- Donut Chart -->
@@ -112,7 +103,5 @@
   <!-- <?php
         }
         ?> -->
-
-
 </div>
 <!-- /.container-fluid -->

@@ -1,8 +1,7 @@
 <?php
 
-class transaksi_model extends CI_Model
+class kasir_model extends CI_Model
 {
-
     public function index()
     {
         // $this->db->select('transaksi.*, jenis_kendaraan.*, diskon.*, metode_mencuci.*, user.*');
@@ -50,26 +49,7 @@ class transaksi_model extends CI_Model
         return $invoice;
     }
 
-    // public function get_jenis_kendaraan()
-    // {
-    //     $jk = "SELECT * FROM jenis_kendaraan";
-    //     $query = $this->db->query($jk);
-
-    //     return $query->result_array();
-    // }
-
-    public function simpanData($data)
-    {
-        return $this->db->insert('transaksi', $data);
-    }
-
-    public function delete($where, $table)
-    {
-        $this->db->where($where);
-        $this->db->delete($table);
-    }
-
-    public function get_jenis_kendaraan($id)
+    public function get_jns_kendaraan($id)
     {
         $this->db->select('*');
         $this->db->from('transaksi t');
@@ -78,7 +58,7 @@ class transaksi_model extends CI_Model
         return $this->db->get();
     }
 
-    public function get_metode_mencuci($id)
+    public function get_met_cuci($id)
     {
         $this->db->select('*');
         $this->db->from('transaksi t');
@@ -98,7 +78,7 @@ class transaksi_model extends CI_Model
 
     public function get_user($id)
     {
-        $this->db->select('t.*, u.nama_user');
+        $this->db->select('*');
         $this->db->from('transaksi t');
         $this->db->join('user u', 't.user_id=u.id');
         $this->db->where('t.id', $id);
@@ -107,6 +87,7 @@ class transaksi_model extends CI_Model
 
     public function detail($where, $table)
     {
+
         return $this->db->get_where($table, $where);
     }
 }

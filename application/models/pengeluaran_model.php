@@ -9,7 +9,7 @@ class pengeluaran_model extends CI_Model
         $this->db->from('pengeluaran');
         $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
         $this->db->join('user', 'user.id = pengeluaran.user_id');
-        // $this->db->order_by($this->tanggal, 'DESC');
+        $this->db->order_by('tanggal', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -24,6 +24,7 @@ class pengeluaran_model extends CI_Model
         $this->db->join('jenis_pengeluaran', 'jenis_pengeluaran.id = pengeluaran.jns_pengeluaran_id');
         $this->db->join('user', 'user.id = pengeluaran.user_id');
         $this->db->where('DATE(tanggal) BETWEEN' . $tgl_awal . 'AND' . $tgl_akhir);
+        $this->db->order_by('tanggal', 'DESC');
         $query = $this->db->get();
         return $query->result();
         // return $this->db->get('pengeluaran')->result();

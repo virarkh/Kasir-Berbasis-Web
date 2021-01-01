@@ -17,7 +17,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Detail Profil</h6>
           </div>
           <div class="card-body">
-            <table style="font-size: 13pt;">
+            <table>
               <tr>
                 <th><span><i class="far fa-address-card"></i></span>&nbsp; Nama</th>
                 <td></td>
@@ -55,7 +55,6 @@
                   <?php foreach ($role->result() as $r) : ?>
                     <?php echo $r->nama; ?>
                   <?php endforeach; ?>
-                  <!-- <?php echo $u->nama ?> -->
                 </td>
               </tr>
               <tr>
@@ -66,14 +65,14 @@
                 <td><?php echo $u->alamat ?></td>
               </tr>
             </table>
+            <br>
+            <div class="row">
+              <div class="col-sm">
+                <a href="<?php echo base_url('AuthController/daftar'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
+              </div>
+            </div>
           </div>
-
-          <a class="btn btn-secondary col-sm-2" style="margin-left:20px; margin-top: 50px; margin-bottom: 10px" href="<?php echo base_url() . 'AuthController/daftar' ?>"><span><i class="fas fa-chevron-left"></i></span>&nbsp; Kembali</a>
-
         </div>
-
-
-
       </div>
 
       <!-- Donut Chart -->
@@ -94,7 +93,5 @@
   <?php
   }
   ?>
-
-
 </div>
 <!-- /.container-fluid -->

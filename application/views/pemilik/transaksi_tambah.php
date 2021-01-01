@@ -1,3 +1,8 @@
+<?php
+setlocale(LC_ALL, 'id-ID', 'id_ID');
+// $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'))
+?>
+
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -14,16 +19,30 @@
                 <div class="card-body">
                     <form action="<?php echo base_url() . 'TransaksiController/simpanData' ?>" method="POST">
                         <div class="row">
-                            <div class="col-sm">
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Tanggal
-                                    </div>
-                                    <div class="col-md-7">
-                                        <input type="datetime-local" name="tanggal" id="tanggal" class="form-control" required>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                Tanggal :
+                                <input type="datetime" name="tanggal" id="tanggal" value="<?php echo strftime('%a, %d %B %Y, %H:%M:%S') ?>" class="form-control" readonly>
+                            </div>
+                            <!-- <div class="col-md-1">
+                                    Invoice
+                                </div> -->
+                            <div class="col-md-4">
+                                Invoice :
+                                <input type="text" name="invoice" id="invoice" value="<?php echo $invoice ?>" class="form-control" readonly>
+                            </div>
+                            <!-- <div class="col-md-1">
+                                    Kasir
+                                </div> -->
+                            <div class="col-md-4">
+                                Kasir :
+                                <input type="text" id="user_id" class="form-control" value="<?php echo $this->session->userdata('nama_user') ?>" readonly>
+                            </div>
+                        </div>
+                        <br>
 
+                        <div class="row">
+
+                            <div class="col-sm">
                                 <div class="row form-group">
                                     <div class="col-md-4">
                                         Nama Customer
@@ -32,29 +51,6 @@
                                         <input type="text" name="nama_customer" id="nama_customer" class="form-control" required>
                                     </div>
                                 </div>
-
-                                <!-- <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Metode Cuci
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="metode_id" id="metode_mencuci" class="form-control" required>
-                                            <option value="" disabled selected style="display:none">Pilih Metode Mencuci</option>
-                                            <?php foreach ($metode_mencuci as $metode) : ?>
-                                                <option value="<?php echo $metode->id ?>"><?php echo $metode->nama_metode ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Tarif Tambahan
-                                    </div>
-                                    <div class="col-md-7" id="tarif_tambahan" style="text-align: right; padding-right:30px">
-
-                                    </div>
-                                </div> -->
 
                                 <div class="row form-group">
                                     <div class="col-md-4">
@@ -100,43 +96,10 @@
 
                                     </div>
                                 </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Diskon
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="diskon_id" id="diskon" class="form-control" required>
-                                            <option value="" disabled selected style="display:none">Pilih Diskon</option>
-                                            <?php foreach ($diskon as $d) : ?>
-                                                <option value="<?php echo $d->id ?>"><?php echo $d->nama_diskon ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Potongan Harga
-                                    </div>
-                                    <div class="col-md-7" id="potongan_harga" style="text-align: right; padding-right:30px">
-                                    </div>
-                                </div>
-
-
-
-                                <!-- <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Sub Total
-                                    </div>
-                                    <div class="col-md-7">
-                                        <p><input name="sub_total" id="sub_total" class="form-control" style="text-align: right;" readonly></p>
-                                    </div>
-                                </div> -->
-
                             </div>
                             <div class="col-sm">
-                                <!-- <div class="row form-group">
+
+                                <div class="row form-group">
                                     <div class="col-md-4">
                                         Diskon
                                     </div>
@@ -156,7 +119,7 @@
                                     </div>
                                     <div class="col-md-7" id="potongan_harga" style="text-align: right; padding-right:30px">
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <div class="row form-group">
                                     <div class="col-md-4">
@@ -184,21 +147,6 @@
                                         <input name="kembalian" id="kembalian" class="form-control" readonly>
                                     </div>
                                 </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        User
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="user_id" id="user_id" class="form-control" required>
-                                            <option value="" disabled selected style="display:none">Pilih User</option>
-                                            <?php foreach ($user as $u) : ?>
-                                                <option value="<?php echo $u->id ?>"><?php echo $u->nama_user ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <div class="row form-group">
                                     <div class="col-md-4">
                                     </div>
@@ -215,34 +163,6 @@
     </div>
 
 </div>
-
-<style>
-    /* #input{
-        margin-top: 5px;
-        height: 35px;
-    } */
-</style>
-
-<!-- <script src="http://localhost/kasir_cuci_motor/assets/js/jquery-3.3.1.js"></script>
-<script type="text/javascript">
-    function jenis_kendaraan() {
-        var jk = $('#jenis_kendaraan').val();
-        console.log(jenis_kendaraan);
-        $.ajax({
-            method: 'POST',
-            dataType: 'json',
-            url: 'http://localhost/kasir_cuci_motor/TransaksiController/jenis_kendaraan',
-            data: {
-                jenis_kendaraan: jk
-            },
-
-            success: function(result) {
-                console.log(result);
-                $('#tarif').html();
-            }
-        })
-    }
-</script> -->
 
 <script text="text/javascript">
     $(document).ready(function() {
@@ -267,18 +187,18 @@
             }
         });
 
-        // $.ajax({
-        //     url: "<?php echo base_url('TransaksiController/total') ?>",
-        //     data: {
-        //         jenis_kendaraan: jenis_kendaraan,
-        //         metode_mencuci: metode_mencuci,
-        //         diskon: diskon
-        //     },
+        $.ajax({
+            url: "<?php echo base_url('TransaksiController/total') ?>",
+            data: {
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
+                diskon: diskon
+            },
 
-        //     success: function(data) {
-        //         $('#total').val(data);
-        //     }
-        // });
+            success: function(data) {
+                $('#total').val(data);
+            }
+        });
     }
 
     $(document).ready(function() {
@@ -303,18 +223,18 @@
             }
         });
 
-        // $.ajax({
-        //     url: "<?php echo base_url('TransaksiController/total') ?>",
-        //     data: {
-        //         jenis_kendaraan: jenis_kendaraan,
-        //         metode_mencuci: metode_mencuci,
-        //         diskon: diskon
-        //     },
+        $.ajax({
+            url: "<?php echo base_url('TransaksiController/total') ?>",
+            data: {
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
+                diskon: diskon
+            },
 
-        //     success: function(data) {
-        //         $('#total').val(data);
-        //     }
-        // });
+            success: function(data) {
+                $('#total').val(data);
+            }
+        });
     }
 
     $(document).ready(function() {
@@ -349,8 +269,7 @@
             },
 
             success: function(data) {
-                $('#total').html(data);
-                alert(data);
+                $('#total').val(data);
             }
         });
 

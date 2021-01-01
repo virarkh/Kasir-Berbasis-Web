@@ -9,7 +9,6 @@
     </span>
     <span class="text">Tambah Data</span>
   </a>
-  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4" style="margin-top: 5px;">
@@ -32,12 +31,10 @@
             $no = 1;
             foreach ($jenis_kendaraan as $jnskendaraan) { ?>
               <tr>
-                <td style="width: 1%;"><?php echo $no++ ?></td>
+                <td style="width: 1%; text-align:center"><?php echo $no++ ?></td>
                 <td><?php echo $jnskendaraan->nama_kendaraan ?></td>
-                <td>Rp. <?php echo $jnskendaraan->tarif ?></td>
+                <td>Rp <?php echo number_format($jnskendaraan->tarif, 0, ',', '.') ?></td>
                 <td style="width: 25%;">
-                  <!-- <?php echo anchor('JenisKendaraanController/edit/' . $jnskendaraan->id, 'Edit'); ?>
-                            <?php echo anchor('JenisKendaraanController/hapus/' . $jnskendaraan->id, 'Hapus'); ?> -->
                   <a href="<?php echo base_url('JenisKendaraanController/edit/' . $jnskendaraan->id); ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
@@ -52,7 +49,6 @@
                   </a>
                 </td>
               </tr>
-
             <?php } ?>
           </tbody>
         </table>

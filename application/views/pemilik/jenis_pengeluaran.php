@@ -9,7 +9,6 @@
     </span>
     <span class="text">Tambah Data</span>
   </a>
-  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4" style="margin-top: 5px;">
@@ -24,8 +23,6 @@
               <th>No</th>
               <th>Jenis Pengeluaran</th>
               <th>Action</th>
-              <!-- <th>Start date</th>
-                      <th>Salary</th> -->
             </tr>
           </thead>
           <tbody>
@@ -34,7 +31,7 @@
             foreach ($jenis_pengeluaran as $jp) {
             ?>
               <tr>
-                <td style="width: 1%;"><?php echo $no++ ?></td>
+                <td style="width: 1%; text-align:center"><?php echo $no++ ?></td>
                 <td><?php echo $jp->nama_pengeluaran ?></td>
                 <td style="width: 25%;">
                   <a href="<?php echo base_url('JenisPengeluaranController/edit/' . $jp->id); ?>" class="btn btn-success btn-icon-split">
@@ -51,13 +48,7 @@
                   </a>
                 </td>
               </tr>
-
-
             <?php } ?>
-
-
-
-
           </tbody>
         </table>
       </div>

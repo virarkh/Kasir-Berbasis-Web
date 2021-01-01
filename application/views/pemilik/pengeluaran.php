@@ -9,7 +9,6 @@
     </span>
     <span class="text">Tambah Data</span>
   </a>
-  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4" style="margin-top: 5px;">
@@ -45,44 +44,10 @@
             echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-default">Reset</a>';
           ?>
         </div>
-        <!-- <div class="col-md-3">
-          
-        </div>
-        <div class="col-md-2">
-          
-        </div>
-        <div class="col-md-1">
-          
-        </div> -->
-
       </div>
     </form>
-    <!-- <div class="row">
-        <div class="col-sm-12 col-md-12">
-          <div class="form-group">
-            <label>Filter Tanggal</label>
-            <div class="input-group">
-              <input type="date" name="tgl_awal" value="<?= @$_GET['tgl_awal'] ?>" class="form-control tgl_awal" placeholder="Tanggal Awal" autocomplete="off">
-              <span class="input-group-addon">s/d</span>
-              <input type="date" name="tgl_akhir" value="<?= @$_GET['tgl_akhir'] ?>" class="form-control tgl_akhir" placeholder="Tanggal Akhir" autocomplete="off">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button type="submit" name="filter" value="true" class="btn btn-primary">Tampilkan</button>
-
-      <?php
-      if (isset($_GET['filter']))
-        echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-default">Reset</a>';
-
-      ?> -->
-
-
 
     <p style="text-align:center; margin-bottom: -2%; margin-top:2%"><b><?php echo $label ?></b></p>
-    <!-- <a href=" <?php echo base_url('PengeluaranController/cetak'); ?>">Cetak</a> -->
-    <!-- <a href="<?php echo $url_cetak ?>" class="btn btn-warning"><i class="fa fa-filel">Cetak PDF</i></a> -->
 
     <div class="card-body">
       <div class="table-responsive">
@@ -95,21 +60,20 @@
               <th>Pengeluaran</th>
               <th>Biaya</th>
               <th>Action</th>
-              <!-- <th>Start date</th>
-                      <th>Salary</th> -->
             </tr>
           </thead>
           <tbody>
             <?php
             $no = 1;
             foreach ($pengeluaran as $p) {
+              setlocale(LC_ALL, 'id-ID', 'id_ID');
             ?>
               <tr>
-                <td style="width: 1%;"><?php echo $no++ ?></td>
+                <td style="width: 1%; text-align:center"><?php echo $no++ ?></td>
                 <td><?php echo $p->kode ?></td>
-                <td><?php echo date('d F Y', strtotime($p->tanggal)) ?></td>
+                <td><?php echo strftime('%a, %d %b %Y', strtotime($p->tanggal)) ?></td>
                 <td><?php echo $p->nama_pengeluaran ?></td>
-                <td>Rp. <?php echo $p->biaya ?></td>
+                <td>Rp <?php echo number_format($p->biaya, 0, ',', '.') ?></td>
                 <td style="width: 35%;">
 
                   <a href="<?php echo base_url('PengeluaranController/detail/' . $p->id); ?>" class="btn btn-info btn-icon-split">
@@ -133,23 +97,6 @@
                 </td>
               </tr>
             <?php } ?>
-            <!-- // if (empty($pengeluaran)) {
-            // echo "<tr>
-              <td colspan='5'>Data Tidak Ada</td>
-            </tr>";
-            // } else {
-            // foreach ($pengeluaran as $p) {
-            // $tanggal = date('d-m-Y', strtotime($p->tanggal));
-            // echo "<tr>";
-              // echo "<td>" . $no++ . "</td>";
-              // echo "<td>" . $p->kode . "</td>";
-              // echo "<td>" . $p->tanggal . "</td>";
-              // echo "<td>" . $p->nama_pengeluaran . "</td>";
-              // echo "<td>" . $p->biaya . "</td>";
-              // echo "
-            <tr>";
-              // }
-              // } -->
 
           </tbody>
 
