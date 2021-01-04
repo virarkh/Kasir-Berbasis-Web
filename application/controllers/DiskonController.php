@@ -12,13 +12,14 @@ class DiskonController extends CI_Controller
         $this->load->library('session');
 
         if ($this->session->userdata('logged_in') != TRUE) {
-            $this->session->set_flashdata('notif', 'Anda harus login dulu');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
             redirect('AuthController');
         }
     }
 
     public function index()
     {
+
         $data['diskon'] = $this->diskon_model->index();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);

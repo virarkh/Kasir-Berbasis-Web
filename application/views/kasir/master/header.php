@@ -21,5 +21,4 @@
   <link href="<?php echo base_url() ?>assets/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
-
 </head>

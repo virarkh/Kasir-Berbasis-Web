@@ -7,11 +7,15 @@
     <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-      <?php
-      if ($this->session->flashdata('sukses')) {
-        echo "<br/>" . "<div class='alert-success'>" . $this->session->flashdata('sukses') . "</div>";
-      }
-      ?>
+      <!-- <?php
+            if ($this->session->flashdata('sukses')) {
+              echo "<br/>" . "<div class='alert-success'>" . $this->session->flashdata('sukses') . "</div>";
+            }
+            ?> -->
+      <div style="margin-top: 1%;">
+        <?= $this->session->flashdata('message'); ?>
+      </div>
+
 
       <div style="margin-top: 1%;">
         <?php $this->view('pemilik/message_success.php') ?>
@@ -20,6 +24,8 @@
       <div style="margin-top: 1%;">
         <?php $this->view('pemilik/message_delete.php') ?>
       </div>
+
+
 
 
       <!-- <div class="alert alert-success alert-dismissible">
@@ -56,6 +62,7 @@
         <div class="topbar-divider d-none d-sm-block"></div>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
               <!-- Rokhmah Vira Santi -->
               <div>

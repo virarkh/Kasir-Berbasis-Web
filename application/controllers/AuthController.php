@@ -21,18 +21,18 @@ class AuthController extends CI_Controller
 	// untuk login
 	public function loginForm()
 	{
-		$this->form_validation->set_rules('username', 'username', 'required');
+		$this->form_validation->set_rules('email', 'email', 'required');
 		$this->form_validation->set_rules('password', 'password', 'required');
 
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('login.php');
 		} else {
-			$username = $this->input->post('username', TRUE);
+			$email = $this->input->post('email', TRUE);
 			$password = md5($this->input->post('password', TRUE));
 			// $login = $this->user_model->login($username, $password);
 
 			$where = array(
-				'username'	=> $username,
+				'email'	=> $email,
 				'password'	=> $password,
 			);
 
@@ -44,6 +44,8 @@ class AuthController extends CI_Controller
 				$username 	= $data['username'];
 				$role_id	= $data['role_id'];
 				$user_id	= $data['user_id'];
+				$email		= $data['email'];
+				$foto_profil = $data['foto_profil'];
 
 				$data_session = array(
 					'id'		=> $id,
@@ -51,13 +53,17 @@ class AuthController extends CI_Controller
 					'username' 	=> $username,
 					'role_id'	=> $role_id,
 					'user_id'	=> $user_id,
+					'email'		=> $email,
+					'foto_profil' => $foto_profil,
 					'logged_in'	=> TRUE
 				);
 
 				$this->session->set_userdata($data_session);
 
 				//  set message
-				$this->session->set_flashdata('sukses', 'Selamat Anda Berhasil Login');
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" >Selamat! Anda Berhasil Login</div>');
+				// $this->session->set_flashdata('sukses', 'Selamat Anda Berhasil Login');
+
 				// login pemilik
 				if ($role_id === '1') {
 					redirect('DashboardController/index');
@@ -65,7 +71,8 @@ class AuthController extends CI_Controller
 					redirect('KasirController/index');
 				}
 			} else {
-				$this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
+				// $this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Username / Password yang Anda Masukkan Salah</div>');
 				redirect('AuthController/index');
 			}
 		}
@@ -86,7 +93,8 @@ class AuthController extends CI_Controller
 	{
 
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
+			// $this->session->set_flashdata('notif', 'Anda harus login dulu');
 			redirect('AuthController');
 		}
 
@@ -103,7 +111,7 @@ class AuthController extends CI_Controller
 	{
 
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
@@ -118,7 +126,7 @@ class AuthController extends CI_Controller
 	public function registrasi()
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
@@ -138,6 +146,7 @@ class AuthController extends CI_Controller
 
 		$nama_user	= $this->input->post("nama_user");
 		$username	= $this->input->post("username");
+		// $password 	= $this->input->post("password");
 		$password	= md5($this->input->post("password"));
 		$view_pass	= $this->input->post("password");
 		$no_hp		= $this->input->post("no_hp");
@@ -168,7 +177,7 @@ class AuthController extends CI_Controller
 	public function edit($id)
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
@@ -185,7 +194,7 @@ class AuthController extends CI_Controller
 	public function edit_data()
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
@@ -208,6 +217,7 @@ class AuthController extends CI_Controller
 		$nama_user	= $this->input->post("nama_user");
 		$username	= $this->input->post("username");
 		$password	= md5($this->input->post("password"));
+		// $password 	= $this->input->post("password");
 		$view_pass	= $this->input->post("password");
 		$no_hp		= $this->input->post("no_hp");
 		$email		= $this->input->post("email");
@@ -240,7 +250,7 @@ class AuthController extends CI_Controller
 	// public function hapus()
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
@@ -257,7 +267,7 @@ class AuthController extends CI_Controller
 	public function detail($id)
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
-			$this->session->set_flashdata('notif', 'Anda harus login dulu');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
@@ -276,5 +286,121 @@ class AuthController extends CI_Controller
 		$this->load->view('pemilik/master/topbar', $data);
 		$this->load->view('pemilik/daftar_pengguna_detail', $data);
 		$this->load->view('pemilik/master/footer', $data);
+	}
+
+	private function _sendEmail($token, $type)
+	{
+		$config = [
+			'protocol'	=> 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_user' => 'tumbuhsehat7@gmail.com',
+			'smtp_pass' => 'tumbuhsehat789',
+			'smtp_port' => 465,
+			'mailtype' 	=> 'html',
+			'charset' 	=> 'utf-8',
+			'newline' 	=> "\r\n"
+		];
+
+		$this->load->library('email', $config);
+		// $this->load->initialize($config);
+
+		$this->email->from('tumbuhsehat7@gmail.com', 'Rokhmah Vira Santi');
+		$this->email->to($this->input->post('email'));
+
+		if ($type == 'forgot') {
+			$this->email->subject('Reset Password');
+			$this->email->message('Klik link berikut untuk mengganti password Anda : <a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
+		}
+
+
+		if ($this->email->send()) {
+			return true;
+		} else {
+			echo $this->email->print_debugger();
+			die;
+		}
+	}
+
+	public function resetpassword()
+	{
+		$email = $this->input->get('email');
+		$token = $this->input->get('token');
+
+		$user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+		if ($user) {
+			$user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+
+			if ($user_token) {
+				$this->session->set_userdata('reset_email', $email);
+				$this->changePassword();
+			} else {
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Reset Password Gagal! Token Salah</div>');
+				redirect('AuthController');
+			}
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Reset Password Gagal! Email Salah</div>');
+			redirect('AuthController');
+		}
+	}
+
+	public function lupa_pass()
+	{
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view('forgot_pass');
+		} else {
+			$email = $this->input->post('email');
+
+			$user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+			if ($user) {
+				$token = base64_encode(random_bytes(32));
+				$user_token = [
+					'email' => $email,
+					'token' => $token,
+					'date_created' => time()
+				];
+
+				$this->db->insert('user_token', $user_token);
+				$this->_sendEmail($token, 'forgot');
+
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" >Cek Email Anda!</div>');
+				redirect('AuthController/lupa_pass');
+			} else {
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Email tidak terdaftar</div>');
+				redirect('AuthController/lupa_pass');
+			}
+		}
+	}
+
+	public function changePassword()
+	{
+		if (!$this->session->userdata('reset_email')) {
+			redirect('AuthController');
+		}
+
+		$this->form_validation->set_rules('password1', 'Password', 'trim|required|min_length[5]|matches[password2]');
+		$this->form_validation->set_rules('password2', 'Repeat Password', 'trim|required|min_length[5]|matches[password1]');
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view('changePass');
+		} else {
+			// $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+			$password 	= md5($this->input->post('password1'));
+			$view_password 	= $this->input->post('password1');
+			$email = $this->session->userdata('reset_email');
+
+			$this->db->set('password', $password);
+			$this->db->set('view_password', $view_password);
+			$this->db->where('email', $email);
+			$this->db->update('user');
+
+			$this->session->unset_userdata('reset_email');
+
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" >Berhasil!</div>');
+			redirect('AuthController');
+		}
 	}
 }

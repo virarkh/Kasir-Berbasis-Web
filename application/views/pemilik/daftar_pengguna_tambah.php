@@ -36,10 +36,17 @@
                                 <input type="email" name="email" class="form-control" placeholder="Masukkan Email ">
                             </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <p>Password
-                                <input type="password" name="password" class="form-control" placeholder="Masukkan Password " required>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password " required>
                             </p>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <br>
+                                <input type="checkbox" class="custom-control-input" id="checkbox">
+                                <label class="custom-control-label" for="checkbox">Show Password</label>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -69,10 +76,21 @@
                         <button class="btn btn-success col-sm-2" style="margin-top: 3%;">Simpan</button>
                     </div>
                     <?php echo form_close(); ?>
-                    <!-- </form> -->
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#checkbox').click(function() {
+            if ($(this).is(':checked')) {
+                $('#password').attr('type', 'text');
+            } else {
+                $('#password').attr('type', 'password');
+            }
+        })
+    })
+</script>

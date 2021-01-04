@@ -21,7 +21,7 @@ class TransaksiController extends CI_Controller
         $this->load->library('dompdf_gen');
 
         if ($this->session->userdata('logged_in') != TRUE) {
-            $this->session->set_flashdata('notif', 'Anda harus login dulu');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
             redirect('AuthController');
         }
     }

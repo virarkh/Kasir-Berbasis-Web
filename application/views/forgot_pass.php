@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="<?php echo base_url() ?>assets/logo.png" type="image/png" />
-    <title>Sign In</title>
+    <title>Reset Password</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo base_url(); ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,31 +37,22 @@
                             <div class="col">
                                 <div class=" p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Reset Password!</h1>
                                     </div>
-                                    <form class="user" action="<?= site_url('AuthController/loginForm') ?>" method="POST">
-                                        <!-- <small class="text-danger"><?php echo $this->session->flashdata('msg') ?></small>
-                                        <small class="text-danger"><?php echo $this->session->flashdata('notif') ?></small> -->
-                                        <?= $this->session->flashdata('message'); ?>
+
+                                    <?= $this->session->flashdata('message'); ?>
+                                    <form class="user" action="<?= site_url('AuthController/lupa_pass') ?>" method="POST">
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user" placeholder="Email" required>
+                                            <input type="text" name="email" id="email" class="form-control form-control-user" placeholder="Email">
+                                            <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
                                         </div>
-                                        <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="checkbox">
-                                                <label class="custom-control-label" for="checkbox">Show Password</label>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary btn-user btn-block" name="login" type="submit">
-                                            Login
+                                        <button class="btn btn-primary btn-user btn-block" type="submit">
+                                            Reset Password
                                         </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="<?php echo base_url('AuthController/lupa_pass') ?>">Lupa Password ?</a>
+                                        <a class="small" href="<?php echo base_url('AuthController/index') ?>">Login ?</a>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +78,7 @@
 
     <script>
         $(document).ready(function() {
-            $(' #checkbox').click(function() {
+            $('#checkbox').click(function() {
                 if ($(this).is(':checked')) {
                     $('#password').attr('type', 'text');
                 } else {
@@ -96,6 +87,7 @@
             })
         })
     </script>
+
 </body>
 
 </html>
