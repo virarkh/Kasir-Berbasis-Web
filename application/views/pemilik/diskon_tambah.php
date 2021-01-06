@@ -24,7 +24,17 @@
                             </p>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success col-sm-2" style="margin-top:3%">Simpan</button>
+                            <a href="<?php echo base_url('DiskonController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                <span class="icon text-white-600">
+                                    <i class="far fa-window-close"></i>
+                                </span>
+                                <span class="text">Batal</span>
+                            </a>&nbsp;
+                            <button type="submit" class="btn btn-success btn-icon-split"><span class="icon text-white-600">
+                                    <i class="far fa-check-square"></i>
+                                </span>
+                                <span class="text">Simpan</span></button>
+                            <!-- <button type="submit" class="btn btn-success col-sm-2" style="margin-top:3%">Simpan</button> -->
                         </div>
                     </form>
                 </div>

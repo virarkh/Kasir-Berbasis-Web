@@ -41,7 +41,14 @@
           </a>
           <?php
           if (isset($_GET['filter']))
-            echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-default">Reset</a>';
+            echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-danger btn-icon-split">
+          <span class="icon text-white-600">
+          <i class="fas fa-eraser"></i>
+          </span>
+          <span class="text">
+            Reset
+          </span></a>';
+          // echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-default">Reset</a>';
           ?>
         </div>
       </div>

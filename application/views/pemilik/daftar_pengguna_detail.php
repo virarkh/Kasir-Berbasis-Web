@@ -68,9 +68,17 @@
                 <td></td>
               </tr>
               <tr>
-                <td colspan="5"><a href="<?php echo base_url('AuthController/daftar'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a></td>
+
+                <!-- <td colspan="5"><a href="<?php echo base_url('AuthController/daftar'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a></td> -->
               </tr>
             </table>
+            <a href="<?php echo base_url('AuthController/daftar') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+              <span class="icon text-white-600">
+                <i class="fas fa-chevron-left"></i>
+              </span>
+              <span class="text">Kembali</span>
+            </a>
+
           </div>
         </div>
       </div>

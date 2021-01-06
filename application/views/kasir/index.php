@@ -61,13 +61,18 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr style="text-align:center">
-              <th style="width: 1%;">No</th>
+              <!-- <th style="width: 1%;">No</th> -->
+              <th>Invoice</th>
               <th>Tanggal</th>
-              <th>Nama Customer</th>
-              <th>Jenis Kendaraan</th>
+              <th>Customer</th>
+              <th>Kendaraan</th>
+              <th>Metode</th>
+              <th>Diskon</th>
               <th>Sub Total</th>
               <th>Total</th>
-              <th style="width: 5%;">Aksi</th>
+              <th>Bayar</th>
+              <th>Kembalian</th>
+              <!-- <th style="width: 5%;">Aksi</th> -->
             </tr>
           </thead>
           <?php
@@ -76,23 +81,30 @@
             setlocale(LC_ALL, 'id-ID', 'id-ID')
           ?>
             <tr>
-              <td style="text-align: center;"><?php echo $no++ ?></td>
-              <td><?php echo strftime('%a, %d %b %Y %H:%M:%S', strtotime($t->tanggal)) ?> </td>
+              <!-- <td style="text-align: center;"><?php echo $no++ ?></td> -->
+              <td><?php echo $t->invoice ?></td>
+              <td><?php echo strftime('%d %b %y %H:%M:%S', strtotime($t->tanggal)) ?> </td>
+
               <td><?php echo $t->nama_customer ?></td>
               <td><?php echo $t->nama_kendaraan ?></td>
+              <td><?php echo $t->nama_metode ?></td>
+              <td><?php echo $t->nama_diskon ?></td>
               <td>Rp <?php echo number_format($t->sub_total, 0, ',', '.') ?></td>
               <td>Rp <?php echo number_format($t->total, 0, ',', '.') ?></td>
-              <td>
-                <!-- <button class="btn btn-info btn-icon-split" type="button" data-toggle="modal" data-target="#kasir_detail"> -->
-                <a href="<?php echo base_url('KasirController/detail/' . $t->id); ?>" class="btn btn-info btn-icon-split">
+              <td>Rp <?php echo number_format($t->bayar, 0, ',', '.') ?></td>
+              <td>Rp <?php echo number_format($t->kembalian, 0, ',', '.') ?></td>
+              <!-- <td> -->
+              <!-- <a href="<?php echo base_url('KasirController/detail/' . $t->id); ?>" class="btn btn-info btn-icon-split">
                   <span class="icon text-white-600">
                     <i class="fas fa-info"></i>
                   </span>
                   <span class="text">Detail</span>
-                </a>
-                <!-- </button> -->
-                <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#detaildata">Detail</button> -->
-              </td>
+                </a> -->
+              <!-- <button class="btn btn-info btn-icon-split" type="button" data-toggle="modal" data-target="#kasir_detail">
+
+                  </button> -->
+              <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#detaildata">Detail</button> -->
+              <!-- </td> -->
             </tr>
           <?php } ?>
 

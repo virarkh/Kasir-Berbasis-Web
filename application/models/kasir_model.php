@@ -49,7 +49,7 @@ class kasir_model extends CI_Model
         return $invoice;
     }
 
-    public function get_jns_kendaraan($id)
+    public function get_jenis_kendaraan($id)
     {
         $this->db->select('*');
         $this->db->from('transaksi t');
@@ -58,7 +58,7 @@ class kasir_model extends CI_Model
         return $this->db->get();
     }
 
-    public function get_met_cuci($id)
+    public function get_metode_mencuci($id)
     {
         $this->db->select('*');
         $this->db->from('transaksi t');
@@ -78,7 +78,7 @@ class kasir_model extends CI_Model
 
     public function get_user($id)
     {
-        $this->db->select('*');
+        $this->db->select('t.*, u.nama_user');
         $this->db->from('transaksi t');
         $this->db->join('user u', 't.user_id=u.id');
         $this->db->where('t.id', $id);
@@ -87,7 +87,6 @@ class kasir_model extends CI_Model
 
     public function detail($where, $table)
     {
-
         return $this->db->get_where($table, $where);
     }
 }

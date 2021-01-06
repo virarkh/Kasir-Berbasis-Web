@@ -151,7 +151,17 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                     <div class="col-md-4">
                                     </div>
                                     <div class="col-md-7">
-                                        <button class="btn btn-success col-sm-4">Simpan</button>
+                                        <a href="<?php echo base_url('TransaksiController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                            <span class="icon text-white-600">
+                                                <i class="far fa-window-close"></i>
+                                            </span>
+                                            <span class="text">Batal</span>
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-icon-split"><span class="icon text-white-600">
+                                                <i class="fas fa-receipt"></i>
+                                            </span>
+                                            <span class="text">Bayar</span></button>
+                                        <!-- <button class="btn btn-success col-sm-4">Simpan</button> -->
                                     </div>
                                 </div>
                             </div>

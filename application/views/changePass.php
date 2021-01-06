@@ -37,8 +37,8 @@
                             <div class="col">
                                 <div class=" p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900">Ubah Password for</h1>
-                                        <h5 class="mb-4"><?= $this->session->userdata('reset_email') ?></h5>
+                                        <h1 class="h4 text-gray-900">Ubah Password</h1>
+                                        <h6 class="mb-4"><?= $this->session->userdata('reset_email') ?></h6>
                                     </div>
 
                                     <?= $this->session->flashdata('message'); ?>
@@ -50,6 +50,12 @@
                                         <div class="form-group">
                                             <input type="password" name="password2" id="password2" class="form-control form-control-user" placeholder="Ulangi Password Baru">
                                             <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="checkbox">
+                                                <label class="custom-control-label" for="checkbox">Show Password</label>
+                                            </div>
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block" type="submit">
                                             Ubah Password
@@ -71,7 +77,6 @@
 
     </div>
 
-    <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url(); ?>assets/admin/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -83,11 +88,11 @@
 
     <script>
         $(document).ready(function() {
-            $('#checkbox').click(function() {
+            $(' #checkbox').click(function() {
                 if ($(this).is(':checked')) {
-                    $('#password').attr('type', 'text');
+                    $('#password2').attr('type', 'text');
                 } else {
-                    $('#password').attr('type', 'password');
+                    $('#password2').attr('type', 'password');
                 }
             })
         })

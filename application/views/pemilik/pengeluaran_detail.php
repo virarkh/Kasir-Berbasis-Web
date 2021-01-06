@@ -78,7 +78,13 @@
           </table><br>
           <div class="row">
             <div class="col-sm">
-              <a href="<?php echo base_url('PengeluaranController/index'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
+              <a href="<?php echo base_url('PengeluaranController/index') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+                <span class="icon text-white-600">
+                  <i class="fas fa-chevron-left"></i>
+                </span>
+                <span class="text">Kembali</span>
+              </a>
+              <!-- <a href="<?php echo base_url('PengeluaranController/index'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a> -->
             </div>
           </div>
         </div>

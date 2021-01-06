@@ -309,7 +309,8 @@ class AuthController extends CI_Controller
 
 		if ($type == 'forgot') {
 			$this->email->subject('Reset Password');
-			$this->email->message('Klik link berikut untuk mengganti password Anda : <a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
+			$this->email->message('<h4>Klik button dibawah ini untuk mengganti password Anda : </h4><br>
+			<a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '" class="btn btn-primary">Reset Password</a>');
 		}
 
 

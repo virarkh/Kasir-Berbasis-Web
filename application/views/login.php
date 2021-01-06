@@ -37,7 +37,7 @@
                             <div class="col">
                                 <div class=" p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Selamat Datang Kembali!</h1>
                                     </div>
                                     <form class="user" action="<?= site_url('AuthController/loginForm') ?>" method="POST">
                                         <!-- <small class="text-danger"><?php echo $this->session->flashdata('msg') ?></small>

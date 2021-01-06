@@ -259,6 +259,31 @@ class TransaksiController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
+    public function detail_kasir($id)
+    {
+        $where  = array('id' => $id);
+        $data['transaksi'] = $this->transaksi_model->detail($where, 'transaksi')->result();
+
+        $jenis_kendaraan            = $this->transaksi_model->get_jenis_kendaraan($id);
+        $data['jenis_kendaraan']    = $jenis_kendaraan;
+
+        $metode_mencuci             = $this->transaksi_model->get_metode_mencuci($id);
+        $data['metode_mencuci']     = $metode_mencuci;
+
+        $diskon                     = $this->transaksi_model->get_diskon($id);
+        $data['diskon']             = $diskon;
+
+        $user   = $this->transaksi_model->get_user($id);
+        $data['user']   = $user;
+
+        $this->load->view('kasir/master/header', $data);
+        // $this->load->view('pemilik/master/sidebar', $data);
+        $this->load->view('kasir/master/topbar', $data);
+        $this->load->view('kasir/kasir_detail', $data);
+        $this->load->view('kasir/master/footer', $data);
+    }
+
+
     public function delete($id)
     {
         $where = array('id' => $id);

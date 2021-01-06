@@ -11,9 +11,14 @@
 
                         <div class="card">
                             <div class=" row no-gutters">
+                                <!-- <div class="container" style="height: 100%; display: flex; justify-content: center; align-items: center;"> -->
                                 <div class="col-md-4">
-                                    <img src="<?= base_url('assets/profil/') . $user['foto_profil'] ?>" class="card-img" style="border-radius:100%">
+                                    <!-- <div class="col-md-4"> -->
+                                    <img src="<?= base_url('assets/profil/') . $user['foto_profil'] ?>" class="card-img" style="border-radius:100%; margin-left:5%; position: absolute; top: 50%; transform: translate(0, -50%)">
+                                    <!-- </div> -->
                                 </div>
+                                <!-- </div> -->
+
                                 <div class=" col-md-8 ">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $user['nama_user'] ?></h5>
@@ -57,7 +62,7 @@
                                         </a>
                                         <!-- <a href="<?php echo base_url('KasirController/edit') ?>" class="btn btn-primary">Edit</a> -->
 
-                                        <a href="<?php echo base_url('KasirController/ganti_pass') ?>">Ganti Password</a>
+                                        <!-- <a href="<?php echo base_url('KasirController/changePassword') ?>">Ganti Password</a> -->
 
                                     </div>
                                 </div>

@@ -27,10 +27,10 @@ class KasirController extends CI_Controller
 
         public function index()
         {
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
+                if ($this->session->userdata('logged_in') != TRUE) {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
+                        redirect('AuthController');
+                }
 
                 $tgl_awal   = $this->input->get('tgl_awal');
                 $tgl_akhir  = $this->input->get('tgl_akhir');
@@ -54,15 +54,16 @@ class KasirController extends CI_Controller
                 $this->load->view('kasir/master/header', $data);
                 $this->load->view('kasir/master/topbar', $data);
                 $this->load->view('kasir/index', $data);
+                $this->load->view('kasir/kasir_detail1', $data);
                 $this->load->view('kasir/master/footer', $data);
         }
 
         public function tambah()
         {
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
+                if ($this->session->userdata('logged_in') != TRUE) {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
+                        redirect('AuthController');
+                }
 
                 $data['transaksi']          = $this->kasir_model->index();
                 $data['jenis_kendaraan']    = $this->jeniskendaraan_model->index();
@@ -75,31 +76,28 @@ class KasirController extends CI_Controller
                 );
 
                 $this->load->view('kasir/master/header', $data);
+                $this->load->view('kasir/master/topbar', $data);
                 $this->load->view('kasir/kasir_tambah', $data, array('error' => ''));
                 $this->load->view('kasir/master/footer', $data);
         }
 
+
         public function detail($id)
         {
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
-
                 $where  = array('id' => $id);
                 $data['transaksi'] = $this->kasir_model->detail($where, 'transaksi')->result();
 
-                $jenis_kendaraan = $this->kasir_model->get_jns_kendaraan($id);
-                $data['jenis_kendaraan'] = $jenis_kendaraan;
+                $jenis_kendaraan            = $this->kasir_model->get_jenis_kendaraan($id);
+                $data['jenis_kendaraan']    = $jenis_kendaraan;
 
-                $metode_mencuci = $this->kasir_model->get_met_cuci($id);
-                $data['metode_mencuci'] = $metode_mencuci;
+                $metode_mencuci             = $this->kasir_model->get_metode_mencuci($id);
+                $data['metode_mencuci']     = $metode_mencuci;
 
-                $diskon = $this->kasir_model->get_diskon($id);
-                $data['diskon'] = $diskon;
+                $diskon                     = $this->kasir_model->get_diskon($id);
+                $data['diskon']             = $diskon;
 
-                $user = $this->kasir_model->get_user($id);
-                $data['user'] = $user;
+                $user   = $this->kasir_model->get_user($id);
+                $data['user']   = $user;
 
                 $this->load->view('kasir/master/header', $data);
                 $this->load->view('kasir/master/topbar', $data);
@@ -192,25 +190,25 @@ class KasirController extends CI_Controller
                 }
         }
 
-        public function ganti_pass()
+        public function changePassword()
         {
                 // if ($this->session->userdata('logged_in') != TRUE) {
                 //         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
                 //         redirect('AuthController');
                 // }
 
-                $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+                $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
                 $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
 
-                $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[8]|matches[new_password2]');
+                $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[5]|matches[new_password2]');
 
-                $this->form_validation->set_rules('new_password2', 'Confirm New Password', 'required|trim|min_length[8]|matches[new_password1]');
+                $this->form_validation->set_rules('new_password2', 'Confirm New Password', 'required|trim|min_length[5]|matches[new_password1]');
 
                 if ($this->form_validation->run() == false) {
                         $this->load->view('kasir/master/header', $data);
                         $this->load->view('kasir/master/topbar', $data);
-                        $this->load->view('kasir/ganti_pass', $data);
+                        $this->load->view('kasir/change_password', $data);
                         $this->load->view('kasir/master/footer', $data);
                 } else {
                         $current_password = $this->input->post('current_password');
@@ -218,17 +216,21 @@ class KasirController extends CI_Controller
 
                         if (!password_verify($current_password, $data['user']['password']['view_password'])) {
                                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah Semua</div>');
-                                redirect('KasirController/ganti_pass');
+                                redirect('KasirController/changePassword');
                         } else {
                                 if ($current_password == $new_password) {
                                         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Baru tidak boleh sama dengan password lama</div>');
-                                        redirect('KasirController/ganti_pass');
+                                        redirect('KasirController/changePassword');
                                 } else {
                                         // jika pass sudah OK
-                                        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                                        // $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                                        $password         = md5($this->input->post('password1'));
+                                        $view_password         = $this->input->post('password1');
 
-                                        $this->db->set('password', $password_hash);
-                                        $this->db->where('username', $this->session->userdata('username'));
+
+                                        $this->db->set('password', $password);
+                                        $this->db->set('view_password', $view_password);
+                                        $this->db->where('email', $this->session->userdata('email'));
                                         $this->db->update('user');
 
                                         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password berhasil diganti</div>');

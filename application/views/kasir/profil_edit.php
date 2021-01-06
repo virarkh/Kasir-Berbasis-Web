@@ -13,35 +13,35 @@
                         <div class="form-group row">
                             <label for="fullname" class="col-sm-3 col-form-label">Nama Lengkap</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_user" class="form-control" id="fullname" value="<?php echo $user['nama_user'] ?>" required>
+                                <input type="text" name="nama_user" class="form-control" id="fullname" placeholder="Nama Lengkap" value="<?php echo $user['nama_user'] ?>" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="username" class="col-sm-3 col-form-label">Username</label>
                             <div class="col-sm-9">
-                                <input type="text" name="username" class="form-control" id="username" value="<?php echo $user['username'] ?>" readonly>
+                                <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<?php echo $user['username'] ?>" readonly>
                             </div>
                         </div>
 
                         <div class=" form-group row">
                             <label for="email" class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
-                                <input type="email" name="email" class="form-control" id="email" value="<?php echo $user['email'] ?>">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?php echo $user['email'] ?>">
                             </div>
                         </div>
 
                         <div class=" form-group row">
                             <label for="no_hp" class="col-sm-3 col-form-label">No Handphone</label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_hp" class="form-control" id="ho_hp" value="<?php echo $user['no_hp'] ?>" required>
+                                <input type="text" name="no_hp" class="form-control" id="ho_hp" placeholder="No. Handphone" value="<?php echo $user['no_hp'] ?>" required>
                             </div>
                         </div>
 
                         <div class=" form-group row">
                             <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                             <div class="col-sm-9">
-                                <textarea name="alamat" class="form-control" id="alamat" required><?php echo $user['alamat'] ?></textarea>
+                                <textarea name="alamat" class="form-control" id="alamat" placeholder="Alamat" required><?php echo $user['alamat'] ?></textarea>
                             </div>
                         </div>
 
@@ -66,7 +66,16 @@
 
                         <div class="form-group row justify-content-end">
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary">Edit</button>
+                                <a href="<?php echo base_url('KasirController/profil') ?>" class="btn btn-secondary btn-icon-split">
+                                    <span class="icon text-white-600">
+                                        <i class="far fa-window-close"></i>
+                                    </span>
+                                    <span class="text">Batal</span>
+                                </a>&nbsp;
+                                <button type="submit" class="btn btn-primary btn-icon-split"><span class="icon text-white-600">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                    <span class="text">Edit</span></button>
                             </div>
                         </div>
 

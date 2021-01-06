@@ -123,7 +123,6 @@ class pengeluaran_model extends CI_Model
 
     public function detail($where, $table)
     {
-
         return $this->db->get_where($table, $where);
     }
 }

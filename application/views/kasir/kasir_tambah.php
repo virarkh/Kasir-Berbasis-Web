@@ -44,7 +44,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                             Nama Customer
                                         </div>
                                         <div class="col-md-7">
-                                            <input type="text" name="nama_customer" id="nama_customer" class="form-control" required>
+                                            <input type="text" name="nama_customer" id="nama_customer" placeholder="Nama Customer" class="form-control" required>
                                         </div>
                                     </div>
 
@@ -148,10 +148,19 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                         <div class="col-md-4">
                                         </div>
                                         <div class="col-md-3">
-                                            <a href="<?php echo base_url() . 'KasirController/index' ?>" class="btn btn-secondary">Batal</a>
+                                            <a href="<?php echo base_url('KasirController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                                <span class="icon text-white-600">
+                                                    <i class="far fa-window-close"></i>
+                                                </span>
+                                                <span class="text">Batal</span>
+                                            </a>
+                                            <!-- <a href="<?php echo base_url() . 'KasirController/index' ?>" class="btn btn-secondary">Batal</a> -->
                                         </div>
                                         <div class="col-md-3">
-                                            <button class="btn btn-success">Bayar</button>
+                                            <button type="submit" class="btn btn-success btn-icon-split"><span class="icon text-white-600">
+                                                    <i class="fas fa-receipt"></i>
+                                                </span>
+                                                <span class="text">Bayar</span></button>
                                         </div>
                                     </div>
                                 </div>
