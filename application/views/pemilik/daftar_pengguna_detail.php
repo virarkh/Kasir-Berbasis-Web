@@ -92,7 +92,7 @@
           </div>
           <!-- Card Body -->
           <div class="card-body">
-            <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" style="width: 80%; height:80%; border-radius:100%; display:block; margin:auto">
+            <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" style="width: 220px; height:220px; border-radius:100%; display:block; margin:auto">
           </div>
         </div>
       </div>

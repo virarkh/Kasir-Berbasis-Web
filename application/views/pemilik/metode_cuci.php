@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800">Metode Cuci</h2><br>
 
-  <a href="<?php echo base_url() . 'MetodeController/tambah' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'MetodeController/addMM' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
@@ -36,13 +36,13 @@
                 <td><?php echo $mc->nama_metode ?></td>
                 <td>Rp <?php echo number_format($mc->tarif_tambahan, 0, ',', '.') ?></td>
                 <td style="width: 25%">
-                  <a href="<?php echo base_url('MetodeController/edit/' . $mc->id); ?>" class="btn btn-success btn-icon-split">
+                  <a href="<?php echo base_url('MetodeController/editMM/' . $mc->id); ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
                     </span>
                     <span class="text">Edit</span>
                   </a>
-                  <a href="<?php echo base_url('MetodeController/hapus/' . $mc->id); ?>" class="btn btn-danger btn-icon-split">
+                  <a href="<?php echo base_url('MetodeController/delMM/' . $mc->id); ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
                     </span>

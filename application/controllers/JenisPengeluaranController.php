@@ -16,9 +16,9 @@ class JenisPengeluaranController extends CI_Controller
         }
     }
 
-    public function index()
+    public function indexJP()
     {
-        $data['jenis_pengeluaran'] = $this->jenispengeluaran_model->index();
+        $data['jenis_pengeluaran'] = $this->jenispengeluaran_model->indexJP();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -26,7 +26,7 @@ class JenisPengeluaranController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function tambah()
+    public function addJP()
     {
         $this->load->view('pemilik/master/header');
         $this->load->view('pemilik/master/sidebar');
@@ -35,7 +35,7 @@ class JenisPengeluaranController extends CI_Controller
         $this->load->view('pemilik/master/footer');
     }
 
-    public function tambah_data()
+    public function addDataJP()
     {
         $nama_pengeluaran   = $this->input->post('nama_pengeluaran');
 
@@ -45,14 +45,14 @@ class JenisPengeluaranController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
 
-        $this->jenispengeluaran_model->tambah_data($data, 'jenis_pengeluaran');
-        redirect('JenisPengeluaranController/index');
+        $this->jenispengeluaran_model->addModelJP($data, 'jenis_pengeluaran');
+        redirect('JenisPengeluaranController/indexJP');
     }
 
-    public function edit($id)
+    public function editJP($id)
     {
         $where          = array('id' => $id);
-        $data['jenis_pengeluaran'] = $this->jenispengeluaran_model->edit($where, 'jenis_pengeluaran')->result();
+        $data['jenis_pengeluaran'] = $this->jenispengeluaran_model->editModelJP($where, 'jenis_pengeluaran')->result();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -60,7 +60,7 @@ class JenisPengeluaranController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function edit_data()
+    public function editDataJP()
     {
         $id                 = $this->input->post('id');
         $nama_pengeluaran   = $this->input->post('nama_pengeluaran');
@@ -75,17 +75,17 @@ class JenisPengeluaranController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Ubah');
 
-        $this->jenispengeluaran_model->edit_data($where, $data, 'jenis_pengeluaran');
-        redirect('JenisPengeluaranController/index');
+        $this->jenispengeluaran_model->saveModelJP($where, $data, 'jenis_pengeluaran');
+        redirect('JenisPengeluaranController/indexJP');
     }
 
-    public function hapus($id)
+    public function delJP($id)
     {
         $where = array('id' => $id);
-        $this->jenispengeluaran_model->hapus_data($where, 'jenis_pengeluaran');
+        $this->jenispengeluaran_model->delModelJP($where, 'jenis_pengeluaran');
 
         $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
 
-        redirect('JenisPengeluaranController/index');
+        redirect('JenisPengeluaranController/indexJP');
     }
 }

@@ -12,7 +12,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Tambah Metode Cuci</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url() . 'MetodeController/tambah_data' ?>" method="POST">
+                    <form action="<?php echo base_url() . 'MetodeController/addDataMM' ?>" method="POST">
                         <div class="form-group">
                             <p>Metode Cuci
                                 <input type="text" name="nama_metode" placeholder="Masukan Metode Cuci" class="form-control" style="margin-top: 5px;" required>
@@ -24,7 +24,7 @@
                             </p>
                         </div>
                         <div class="text-center">
-                            <a href="<?php echo base_url('MetodeController/index') ?>" class="btn btn-secondary btn-icon-split">
+                            <a href="<?php echo base_url('MetodeController/indexMM') ?>" class="btn btn-secondary btn-icon-split">
                                 <span class="icon text-white-600">
                                     <i class="far fa-window-close"></i>
                                 </span>

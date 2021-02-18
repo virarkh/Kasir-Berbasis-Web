@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <?php foreach ($diskon as $d) { ?>
-                        <form action="<?php echo base_url() . 'DiskonController/edit_data'; ?>" method="POST">
+                        <form action="<?php echo base_url() . 'DiskonController/editDataDiskon'; ?>" method="POST">
                             <input type="hidden" name="id" value="<?php echo $d->id ?>">
                             <div class="form-group">
                                 <p>Nama Diskon
@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="text-center">
-                                <a href="<?php echo base_url('DiskonController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                <a href="<?php echo base_url('DiskonController/indexDiskon') ?>" class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-600">
                                         <i class="far fa-window-close"></i>
                                     </span>

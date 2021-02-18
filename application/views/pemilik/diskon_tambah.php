@@ -12,7 +12,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Tambah Daftar Diskon</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url() . 'DiskonController/tambah_data' ?>" method="POST">
+                    <form action="<?php echo base_url() . 'DiskonController/addDataDiskon' ?>" method="POST">
                         <div class="form-group">
                             <p>Nama Diskon
                                 <input type="text" name="nama_diskon" placeholder="Masukkan Nama Diskon" class="form-control" style="margin-top: 5px;" required>
@@ -24,7 +24,7 @@
                             </p>
                         </div>
                         <div class="text-center">
-                            <a href="<?php echo base_url('DiskonController/index') ?>" class="btn btn-secondary btn-icon-split">
+                            <a href="<?php echo base_url('DiskonController/indexDiskon') ?>" class="btn btn-secondary btn-icon-split">
                                 <span class="icon text-white-600">
                                     <i class="far fa-window-close"></i>
                                 </span>

@@ -10,6 +10,9 @@ class TransaksiController extends CI_Controller
     function __construct()
     {
         parent::__construct();
+
+        date_default_timezone_set('Asia/Jakarta');
+
         $this->load->model('transaksi_model');
         $this->load->model('jeniskendaraan_model');
         $this->load->model('metodecuci_model');
@@ -26,13 +29,13 @@ class TransaksiController extends CI_Controller
         }
     }
 
-    public function index()
+    public function indexTransaksi()
     {
         $tgl_awal   = $this->input->get('tgl_awal');
         $tgl_akhir  = $this->input->get('tgl_akhir');
 
         if (empty($tgl_awal) or empty($tgl_akhir)) {
-            $transaksi      = $this->transaksi_model->index();
+            $transaksi      = $this->transaksi_model->indexTransaksi();
             $url_cetak      = 'TransaksiController/cetak';
             $label          = 'Semua Data Pengeluaran';
         } else {
@@ -89,27 +92,40 @@ class TransaksiController extends CI_Controller
         $this->dompdf->stream("Laporan Transaksi" . $label_name . ".pdf", array('Attachment' => 0));
     }
 
-    public function tambah()
+    public function addTransaksi()
     {
-        $data['transaksi']          = $this->transaksi_model->index();
-        $data['jenis_kendaraan']    = $this->jeniskendaraan_model->index();
-        $data['metode_mencuci']     = $this->metodecuci_model->index();
-        $data['diskon']             = $this->diskon_model->index();
+        $data['transaksi']          = $this->transaksi_model->indexTransaksi();
+        $data['jenis_kendaraan']    = $this->jeniskendaraan_model->indexJK();
+        $data['metode_mencuci']     = $this->metodecuci_model->indexMM();
+        $data['diskon']             = $this->diskon_model->indexDiskon();
         $data['user']               = $this->user_model->index();
-
-        $data = array(
-            'invoice' => $this->transaksi_model->tambah_data()
-        );
+        $data['invoice']            = $this->transaksi_model->invoice();
 
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
-        $this->load->view('pemilik/transaksi_tambah', $data, array('error' => ''));
+        $this->load->view('pemilik/transaksi_tambah', $data);
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function simpanData()
+    public function addDataTransaksi()
     {
+        $data =  [
+            'tanggal'           => $this->input->post('tanggal'),
+            'invoice '          => $this->input->post('invoice'),
+            'user_id'           => $this->input->post('user_id'),
+            'nama_customer '    => $this->input->post('nama_customer'),
+            'jenis_id'          => $this->input->post('jenis_id'),
+            'metode_id'         => $this->input->post('metode_id'),
+            'sub_total'         => $this->input->post('sub_total'),
+            'diskon_id'         => $this->input->post('diskon_id'),
+            'total'             => $this->input->post('total'),
+        ];
+
+        $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
+
+        $this->transaksi_model->addModelTransaksi($data);
+        redirect('TransaksiController/indexTransaksi');
     }
 
     public function jenis_kendaraan()
@@ -118,10 +134,10 @@ class TransaksiController extends CI_Controller
         $this->db->select('*');
         $this->db->from('jenis_kendaraan');
         $this->db->where('id', $id);
-        $data = $this->db->get('')->result();
+        $jenis_kendaraan = $this->db->get('')->result();
 
-        foreach ($data as $t) :
-            echo $t->tarif;
+        foreach ($jenis_kendaraan as $jk) :
+            echo $jk->tarif;
         endforeach;
     }
 
@@ -131,10 +147,10 @@ class TransaksiController extends CI_Controller
         $this->db->select('*');
         $this->db->from('metode_mencuci');
         $this->db->where('id', $id2);
-        $data = $this->db->get('')->result();
+        $metode_mencuci = $this->db->get('')->result();
 
-        foreach ($data as $tm) :
-            echo $tm->tarif_tambahan;
+        foreach ($metode_mencuci as $mm) :
+            echo $mm->tarif_tambahan;
         endforeach;
     }
 
@@ -144,9 +160,9 @@ class TransaksiController extends CI_Controller
         $this->db->select('*');
         $this->db->from('diskon');
         $this->db->where('id', $id3);
-        $data = $this->db->get('')->result();
+        $diskon = $this->db->get('')->result();
 
-        foreach ($data as $d) :
+        foreach ($diskon as $d) :
             echo $d->potongan_harga;
         endforeach;
     }
@@ -155,78 +171,83 @@ class TransaksiController extends CI_Controller
     {
         $id     = $_GET['jenis_kendaraan'];
         $id2    = $_GET['metode_mencuci'];
+        // $id3    = $_GET['diskon'];
 
         $this->db->select('*');
         $this->db->from('jenis_kendaraan');
         $this->db->where('id', $id);
-        $data1 = $this->db->get('')->result();
+        $jenis_kendaraan = $this->db->get('')->result();
 
         $this->db->select('*');
         $this->db->from('metode_mencuci');
         $this->db->where('id', $id2);
-        $data2 = $this->db->get('')->result();
+        $metode_mencuci = $this->db->get('')->result();
 
-        foreach ($data1 as $d1) :
-            foreach ($data2 as $d2) :
-                //         $sub_total = $d1->tarif + $d2->tarif_tambahan;
-                //         echo $sub_total;
+        // BENAR!!
+        // foreach ($jenis_kendaraan as $jk) :
+        //     if (!empty($id2)) {
+        //         $total = $jk->tarif * $id2;
+        //         echo $total;
+        //     } else {
+        //         echo $jk->tarif;
+        //     }
+        // endforeach;
 
-                if (!empty($data2)) {
-                    $sub_total = $d1->tarif + $d2->tarif_tambahan;
-                    echo $sub_total;
+        foreach ($jenis_kendaraan as $jk) :
+            foreach ($metode_mencuci as $mm) :
+                if (!empty($id2)) {
+                    // if (!empty($id3)) {
+                    $subtotal = $jk->tarif + $mm->tarif_tambahan;
+                    echo $subtotal;
+                    // }
                 } else {
-                    echo $d1->tarif;
+                    echo $jk->tarif;
                 }
-
             endforeach;
         endforeach;
     }
 
     public function total()
     {
-        $id  = $_GET['jenis_kendaraan'];
-        $id2 = $_GET['metode_cuci'];
-        $id3 = $_GET['diskon'];
+        $id     = $_GET['jenis_kendaraan'];
+        $id2    = $_GET['metode_mencuci'];
+        $id3    = $_GET['diskon'];
 
         $this->db->select('*');
         $this->db->from('jenis_kendaraan');
         $this->db->where('id', $id);
-        $data1 = $this->db->get('')->result();
+        $jenis_kendaraan = $this->db->get('')->result();
 
         $this->db->select('*');
-        $this->db->from('metode_cuci');
+        $this->db->from('metode_mencuci');
         $this->db->where('id', $id2);
-        $data2 = $this->db->get('')->result();
+        $metode_mencuci = $this->db->get('')->result();
 
         $this->db->select('*');
         $this->db->from('diskon');
         $this->db->where('id', $id3);
-        $data3 = $this->db->get('')->result();
+        $diskon = $this->db->get('')->result();
 
-        foreach ($data1 as $jk) :
-            foreach ($data2 as $mc) :
-                foreach ($data3 as $d) :
-                    if (!empty($id3)) {
-                        if (!empty($id2)) {
-                            $jenis_kendaraan    = $jk->tarif;
-                            $metode             = $mc->tarif_tambahan;
-                            $diskon             = $d->potongan_harga;
+        // BENAR!!
+        // foreach ($jenis_kendaraan as $jk) :
+        //     if (!empty($id2)) {
+        //         $total = $jk->tarif * $id2;
+        //         echo $total;
+        //     } else {
+        //         echo $jk->tarif;
+        //     }
+        // endforeach;
 
-                            $total = ($jenis_kendaraan + $metode) - $diskon;
+        foreach ($jenis_kendaraan as $jk) :
+            foreach ($metode_mencuci as $mm) :
+                foreach ($diskon as $d) :
+                    if (!empty($id2)) {
+                        if (!empty($id3)) {
+                            $total = (($jk->tarif + $mm->tarif_tambahan) - $d->potongan_harga);
                             echo $total;
-                        } else {
-                            echo $jk->tarif;
-                        }
-                    } elseif ($id3 == 0) {
-                        if (!empty($id2)) {
-                            $total = $jk->tarif +  $mc->tarif_tambahan;
-                            echo $total;
-                        } else {
-                            echo $jk->tarif;
                         }
                     } else {
-                        $total = $jk->tarif;
-                        echo $total;
+                        echo $jk->tarif;
                     }
 
                 endforeach;
@@ -234,11 +255,10 @@ class TransaksiController extends CI_Controller
         endforeach;
     }
 
-
-    public function detail($id)
+    public function detailTransaksi($id)
     {
         $where  = array('id' => $id);
-        $data['transaksi'] = $this->transaksi_model->detail($where, 'transaksi')->result();
+        $data['transaksi'] = $this->transaksi_model->detailModelTransaksi($where, 'transaksi')->result();
 
         $jenis_kendaraan            = $this->transaksi_model->get_jenis_kendaraan($id);
         $data['jenis_kendaraan']    = $jenis_kendaraan;
@@ -259,36 +279,11 @@ class TransaksiController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function detail_kasir($id)
-    {
-        $where  = array('id' => $id);
-        $data['transaksi'] = $this->transaksi_model->detail($where, 'transaksi')->result();
-
-        $jenis_kendaraan            = $this->transaksi_model->get_jenis_kendaraan($id);
-        $data['jenis_kendaraan']    = $jenis_kendaraan;
-
-        $metode_mencuci             = $this->transaksi_model->get_metode_mencuci($id);
-        $data['metode_mencuci']     = $metode_mencuci;
-
-        $diskon                     = $this->transaksi_model->get_diskon($id);
-        $data['diskon']             = $diskon;
-
-        $user   = $this->transaksi_model->get_user($id);
-        $data['user']   = $user;
-
-        $this->load->view('kasir/master/header', $data);
-        // $this->load->view('pemilik/master/sidebar', $data);
-        $this->load->view('kasir/master/topbar', $data);
-        $this->load->view('kasir/kasir_detail', $data);
-        $this->load->view('kasir/master/footer', $data);
-    }
-
-
-    public function delete($id)
+    public function delTransaksi($id)
     {
         $where = array('id' => $id);
-        $this->transaksi_model->delete($where, 'transaksi');
+        $this->transaksi_model->delModelTransaksi($where, 'transaksi');
         $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
-        redirect('TransaksiController/index');
+        redirect('TransaksiController/indexTransaksi');
     }
 }

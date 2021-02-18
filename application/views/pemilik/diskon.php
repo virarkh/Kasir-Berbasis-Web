@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800">Diskon</h2><br>
 
-  <a href="<?php echo base_url() . 'DiskonController/tambah' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'DiskonController/addDiskon' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
@@ -36,13 +36,13 @@
                 <td><?php echo $d->nama_diskon ?></td>
                 <td>Rp <?php echo number_format($d->potongan_harga, 0, ',', '.') ?></td>
                 <td style="width: 25%;">
-                  <a href="<?php echo base_url('DiskonController/edit/' . $d->id); ?>" class="btn btn-success btn-icon-split">
+                  <a href="<?php echo base_url('DiskonController/editDiskon/' . $d->id); ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
                     </span>
                     <span class="text">Edit</span>
                   </a>
-                  <a href="<?php echo base_url('DiskonController/hapus/' . $d->id) ?>" class="btn btn-danger btn-icon-split">
+                  <a href="<?php echo base_url('DiskonController/delDiskon/' . $d->id) ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
                     </span>

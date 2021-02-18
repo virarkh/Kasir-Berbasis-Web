@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <?php foreach ($jenis_pengeluaran as $jp) { ?>
 
-                        <form action="<?php echo base_url() . 'JenisPengeluaranController/edit_data' ?>" method="POST">
+                        <form action="<?php echo base_url() . 'JenisPengeluaranController/editDataJP' ?>" method="POST">
                             <input type="hidden" name="id" , value="<?php echo $jp->id ?>">
                             <div class="form-group">
                                 <p>Jenis Pengeluaran
@@ -22,7 +22,7 @@
                                 </p>
                             </div>
                             <div class="text-center">
-                                <a href="<?php echo base_url('JenisPengeluaranController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                <a href="<?php echo base_url('JenisPengeluaranController/indexJP') ?>" class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-600">
                                         <i class="far fa-window-close"></i>
                                     </span>

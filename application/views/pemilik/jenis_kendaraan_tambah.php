@@ -12,7 +12,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Tambah Jenis Kendaraan</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url() . 'JenisKendaraanController/tambah_data' ?>" method="POST">
+                    <form action="<?php echo base_url() . 'JenisKendaraanController/addDataJK' ?>" method="POST">
                         <div class="form-group">
                             <p>Jenis Kendaraan
                                 <input type="text" name="nama_kendaraan" placeholder="Masukkan Jenis Kendaraan" class="form-control" style="margin-top: 5px;" required>
@@ -24,7 +24,7 @@
                             </p>
                         </div>
                         <div class="text-center">
-                            <a href="<?php echo base_url('JenisKendaraanController/index') ?>" class="btn btn-secondary btn-icon-split">
+                            <a href="<?php echo base_url('JenisKendaraanController/indexJK') ?>" class="btn btn-secondary btn-icon-split">
                                 <span class="icon text-white-600">
                                     <i class="far fa-window-close"></i>
                                 </span>

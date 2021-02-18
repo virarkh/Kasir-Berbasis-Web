@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800">Pengeluaran</h2><br>
 
-  <a href="<?php echo base_url() . 'PengeluaranController/tambahData' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'PengeluaranController/addPengeluaran' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
@@ -16,7 +16,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Tabel Pengeluaran</h6>
     </div>
 
-    <form method="GET" action="<?php echo base_url('PengeluaranController/index') ?>">
+    <form method="GET" action="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>">
       <div class="row" style="margin-top: 2%; margin-left:1%">
         <div class="col-md-6 input-group">
           Filter Tanggal &nbsp;
@@ -41,7 +41,7 @@
           </a>
           <?php
           if (isset($_GET['filter']))
-            echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-danger btn-icon-split">
+            echo '<a href="' . base_url('PengeluaranController/indexPengeluaran') . '" class="btn btn-danger btn-icon-split">
           <span class="icon text-white-600">
           <i class="fas fa-eraser"></i>
           </span>
@@ -78,24 +78,24 @@
               <tr>
                 <td style="width: 1%; text-align:center"><?php echo $no++ ?></td>
                 <td><?php echo $p->kode ?></td>
-                <td><?php echo strftime('%a, %d %b %Y', strtotime($p->tanggal)) ?></td>
+                <td><?php echo strftime('%A, %e %B %Y', strtotime($p->tanggal)) ?></td>
                 <td><?php echo $p->nama_pengeluaran ?></td>
                 <td>Rp <?php echo number_format($p->biaya, 0, ',', '.') ?></td>
                 <td style="width: 35%;">
 
-                  <a href="<?php echo base_url('PengeluaranController/detail/' . $p->id); ?>" class="btn btn-info btn-icon-split">
+                  <a href="<?php echo base_url('PengeluaranController/detailPengeluaran/' . $p->id); ?>" class="btn btn-info btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-info-circle"></i>
                     </span>
                     <span class="text">Detail</span>
                   </a>
-                  <a href="<?php echo base_url('PengeluaranController/edit/' . $p->id) ?>" class="btn btn-success btn-icon-split">
+                  <a href="<?php echo base_url('PengeluaranController/editPengeluaran/' . $p->id) ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
                     </span>
                     <span class="text">Edit</span>
                   </a>
-                  <a href="<?php echo base_url('PengeluaranController/delete/' . $p->id) ?>" class="btn btn-danger btn-icon-split">
+                  <a href="<?php echo base_url('PengeluaranController/delPengeluaran/' . $p->id) ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
                     </span>

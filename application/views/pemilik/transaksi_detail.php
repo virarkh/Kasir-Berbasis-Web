@@ -17,6 +17,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                         <h6 class="m-0 font-weight-bold text-primary">Detail Transaksi</h6>
                     </div>
                     <div class="card-body">
+                        <!-- <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p> -->
                         <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p>
                         <p><b>Kasir</b> &nbsp;: <?php foreach ($user->result() as $u) : ?>
                                 <?php echo $u->nama_user; ?>
@@ -52,7 +53,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                             <?php echo $mm->nama_metode; ?>
                                         <?php endforeach; ?><br>
                                     </td>
-                                    <td style="text-align: right;">Rp <?php echo number_format($t->sub_total, 0, ',', '.') ?></td>
+                                    <td style="text-align: right;"><b>Rp <?php echo number_format($t->sub_total, 0, ',', '.') ?></b></td>
                                 </tr>
                                 <tr>
                                     <th colspan="4" style="text-align: right; border:0">Diskon</th>
@@ -64,18 +65,30 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                 </tr>
                                 <tr style="text-align: right;">
                                     <th colspan="4">Total</th>
-                                    <td>Rp <?php echo number_format($t->total, 0, ',', '.') ?></td>
+                                    <td><b>Rp <?php echo number_format($t->total, 0, ',', '.') ?></b></td>
                                 </tr>
-                                <tr style="text-align: right;">
+                                <!-- <tr style="text-align: right;">
                                     <th colspan="4">Bayar</th>
                                     <td>Rp <?php echo number_format($t->bayar, 0, ',', '.') ?></td>
                                 </tr>
                                 <tr style="text-align: right;">
                                     <th colspan="4">Kembalian</th>
                                     <td>Rp <?php echo number_format($t->kembalian, 0, ',', '.') ?></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <a href="<?php echo base_url('TransaksiController/indexTransaksi') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="text">Kembali</span>
+                                </a>
+                                <!-- <a href="<?php echo base_url('PengeluaranController/index'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a> -->
+                            </div>
+                        </div>
                     </div>
                 </div>
 

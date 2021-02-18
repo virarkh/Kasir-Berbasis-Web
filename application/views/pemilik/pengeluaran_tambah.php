@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <!-- <form action="<?php echo base_url() . 'PengeluaranController/simpanData' ?>" method="POST"> -->
-                    <?php echo form_open_multipart('PengeluaranController/simpanData'); ?>
+                    <?php echo form_open_multipart('PengeluaranController/addDataPengeluaran'); ?>
                     <div class="row">
                         <div class="col-md-3">
                             <p>Tanggal
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="<?php echo base_url('PengeluaranController/index') ?>" class="btn btn-secondary btn-icon-split">
+                        <a href="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>" class="btn btn-secondary btn-icon-split">
                             <span class="icon text-white-600">
                                 <i class="far fa-window-close"></i>
                             </span>

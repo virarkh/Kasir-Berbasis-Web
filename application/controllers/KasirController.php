@@ -5,10 +5,10 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
 class KasirController extends CI_Controller
 {
-
         function __construct()
         {
                 parent::__construct();
+                date_default_timezone_set('Asia/Jakarta');
                 $this->load->model('kasir_model');
                 $this->load->model('jeniskendaraan_model');
                 $this->load->model('metodecuci_model');
@@ -25,18 +25,13 @@ class KasirController extends CI_Controller
                 }
         }
 
-        public function index()
+        public function indexKasir()
         {
-                if ($this->session->userdata('logged_in') != TRUE) {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
-                        redirect('AuthController');
-                }
-
                 $tgl_awal   = $this->input->get('tgl_awal');
                 $tgl_akhir  = $this->input->get('tgl_akhir');
 
                 if (empty($tgl_awal) or empty($tgl_akhir)) {
-                        $transaksi      = $this->kasir_model->index();
+                        $transaksi      = $this->kasir_model->indexKasir();
                         // $url_cetak      = 'TransaksiController/cetak';
                         $label          = 'Semua Data Pengeluaran';
                 } else {
@@ -54,26 +49,17 @@ class KasirController extends CI_Controller
                 $this->load->view('kasir/master/header', $data);
                 $this->load->view('kasir/master/topbar', $data);
                 $this->load->view('kasir/index', $data);
-                $this->load->view('kasir/kasir_detail1', $data);
                 $this->load->view('kasir/master/footer', $data);
         }
 
-        public function tambah()
+        public function addKasir()
         {
-                if ($this->session->userdata('logged_in') != TRUE) {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
-                        redirect('AuthController');
-                }
-
-                $data['transaksi']          = $this->kasir_model->index();
-                $data['jenis_kendaraan']    = $this->jeniskendaraan_model->index();
-                $data['metode_mencuci']     = $this->metodecuci_model->index();
-                $data['diskon']             = $this->diskon_model->index();
+                $data['transaksi']          = $this->kasir_model->indexKasir();
+                $data['jenis_kendaraan']    = $this->jeniskendaraan_model->indexJK();
+                $data['metode_mencuci']     = $this->metodecuci_model->indexMM();
+                $data['diskon']             = $this->diskon_model->indexDiskon();
                 $data['user']               = $this->user_model->index();
-
-                $data = array(
-                        'invoice' => $this->kasir_model->tambah_data()
-                );
+                $data['invoice']            = $this->kasir_model->invoice();
 
                 $this->load->view('kasir/master/header', $data);
                 $this->load->view('kasir/master/topbar', $data);
@@ -81,42 +67,157 @@ class KasirController extends CI_Controller
                 $this->load->view('kasir/master/footer', $data);
         }
 
-
-        public function detail($id)
+        public function jenis_kendaraan()
         {
-                $where  = array('id' => $id);
-                $data['transaksi'] = $this->kasir_model->detail($where, 'transaksi')->result();
+                $id = $_GET['jenis_kendaraan'];
+                $this->db->select('*');
+                $this->db->from('jenis_kendaraan');
+                $this->db->where('id', $id);
+                $jenis_kendaraan = $this->db->get('')->result();
 
-                $jenis_kendaraan            = $this->kasir_model->get_jenis_kendaraan($id);
-                $data['jenis_kendaraan']    = $jenis_kendaraan;
-
-                $metode_mencuci             = $this->kasir_model->get_metode_mencuci($id);
-                $data['metode_mencuci']     = $metode_mencuci;
-
-                $diskon                     = $this->kasir_model->get_diskon($id);
-                $data['diskon']             = $diskon;
-
-                $user   = $this->kasir_model->get_user($id);
-                $data['user']   = $user;
-
-                $this->load->view('kasir/master/header', $data);
-                $this->load->view('kasir/master/topbar', $data);
-                $this->load->view('kasir/kasir_detail', $data);
-                $this->load->view('kasir/master/footer', $data);
+                foreach ($jenis_kendaraan as $jk) :
+                        echo $jk->tarif;
+                endforeach;
         }
+
+        public function metode_mencuci()
+        {
+                $id2 = $_GET['metode_mencuci'];
+                $this->db->select('*');
+                $this->db->from('metode_mencuci');
+                $this->db->where('id', $id2);
+                $metode_mencuci = $this->db->get('')->result();
+
+                foreach ($metode_mencuci as $mm) :
+                        echo $mm->tarif_tambahan;
+                endforeach;
+        }
+
+        public function diskon()
+        {
+                $id3 = $_GET['diskon'];
+                $this->db->select('*');
+                $this->db->from('diskon');
+                $this->db->where('id', $id3);
+                $diskon = $this->db->get('')->result();
+
+                foreach ($diskon as $d) :
+                        echo $d->potongan_harga;
+                endforeach;
+        }
+
+        public function subtotal()
+        {
+                $id     = $_GET['jenis_kendaraan'];
+                $id2    = $_GET['metode_mencuci'];
+                // $id3    = $_GET['diskon'];
+
+                $this->db->select('*');
+                $this->db->from('jenis_kendaraan');
+                $this->db->where('id', $id);
+                $jenis_kendaraan = $this->db->get('')->result();
+
+                $this->db->select('*');
+                $this->db->from('metode_mencuci');
+                $this->db->where('id', $id2);
+                $metode_mencuci = $this->db->get('')->result();
+
+                foreach ($jenis_kendaraan as $jk) :
+                        foreach ($metode_mencuci as $mm) :
+                                if (!empty($id2)) {
+                                        $subtotal = $jk->tarif + $mm->tarif_tambahan;
+                                        echo $subtotal;
+                                        // }
+                                } else {
+                                        echo $jk->tarif;
+                                }
+                        endforeach;
+                endforeach;
+        }
+
+        public function total()
+        {
+                $id     = $_GET['jenis_kendaraan'];
+                $id2    = $_GET['metode_mencuci'];
+                $id3    = $_GET['diskon'];
+
+                $this->db->select('*');
+                $this->db->from('jenis_kendaraan');
+                $this->db->where('id', $id);
+                $jenis_kendaraan = $this->db->get('')->result();
+
+                $this->db->select('*');
+                $this->db->from('metode_mencuci');
+                $this->db->where('id', $id2);
+                $metode_mencuci = $this->db->get('')->result();
+
+                $this->db->select('*');
+                $this->db->from('diskon');
+                $this->db->where('id', $id3);
+                $diskon = $this->db->get('')->result();
+
+                foreach ($jenis_kendaraan as $jk) :
+                        foreach ($metode_mencuci as $mm) :
+                                foreach ($diskon as $d) :
+                                        if (!empty($id2)) {
+                                                if (!empty($id3)) {
+                                                        $total = (($jk->tarif + $mm->tarif_tambahan) - $d->potongan_harga);
+                                                        echo $total;
+                                                }
+                                        } else {
+                                                echo $jk->tarif;
+                                        }
+
+                                endforeach;
+                        endforeach;
+                endforeach;
+        }
+
+        public function addDataKasir()
+        {
+                $data =  [
+                        'tanggal'           => $this->input->post('tanggal'),
+                        'invoice '          => $this->input->post('invoice'),
+                        'user_id'           => $this->input->post('user_id'),
+                        'nama_customer '    => $this->input->post('nama_customer'),
+                        'jenis_id'          => $this->input->post('jenis_id'),
+                        'metode_id'         => $this->input->post('metode_id'),
+                        'sub_total'         => $this->input->post('sub_total'),
+                        'diskon_id'         => $this->input->post('diskon_id'),
+                        'total'             => $this->input->post('total'),
+                ];
+                $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
+
+                $this->kasir_model->addModelKasir($data);
+                redirect('KasirController/indexKasir');
+        }
+
+        // NOT USE!!!!
+        // public function detail($id)
+        // {
+        //         $where  = array('id' => $id);
+        //         $data['transaksi'] = $this->kasir_model->detailModel($where, 'transaksi')->result();
+
+        //         $jenis_kendaraan            = $this->kasir_model->get_jenis_kendaraan($id);
+        //         $data['jenis_kendaraan']    = $jenis_kendaraan;
+
+        //         $metode_mencuci             = $this->kasir_model->get_metode_mencuci($id);
+        //         $data['metode_mencuci']     = $metode_mencuci;
+
+        //         $diskon                     = $this->kasir_model->get_diskon($id);
+        //         $data['diskon']             = $diskon;
+
+        //         $user   = $this->kasir_model->get_user($id);
+        //         $data['user']   = $user;
+
+        //         $this->load->view('kasir/master/header', $data);
+        //         $this->load->view('kasir/master/topbar', $data);
+        //         $this->load->view('kasir/kasir_detail', $data);
+        //         $this->load->view('kasir/master/footer', $data);
+        // }
 
         public function profil()
         {
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
-
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
-
                 $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
                 $this->load->view('kasir/master/header', $data);
@@ -127,16 +228,6 @@ class KasirController extends CI_Controller
 
         public function edit()
         {
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
-
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('notif', 'Anda harus login dulu');
-                //         redirect('AuthController');
-                // }
-
                 $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
                 $this->form_validation->set_rules('username', 'username', 'required|trim');
@@ -176,7 +267,6 @@ class KasirController extends CI_Controller
                                 }
                         }
 
-
                         $this->db->set('nama_user', $nama_user);
                         $this->db->set('email', $email);
                         $this->db->set('no_hp', $no_hp);
@@ -190,53 +280,50 @@ class KasirController extends CI_Controller
                 }
         }
 
-        public function changePassword()
-        {
-                // if ($this->session->userdata('logged_in') != TRUE) {
-                //         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
-                //         redirect('AuthController');
-                // }
 
-                $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        // NOT USE!!!
+        // public function changePassword()
+        // {
+        //         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-                $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
+        //         $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
 
-                $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[5]|matches[new_password2]');
+        //         $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[5]|matches[new_password2]');
 
-                $this->form_validation->set_rules('new_password2', 'Confirm New Password', 'required|trim|min_length[5]|matches[new_password1]');
+        //         $this->form_validation->set_rules('new_password2', 'Confirm New Password', 'required|trim|min_length[5]|matches[new_password1]');
 
-                if ($this->form_validation->run() == false) {
-                        $this->load->view('kasir/master/header', $data);
-                        $this->load->view('kasir/master/topbar', $data);
-                        $this->load->view('kasir/change_password', $data);
-                        $this->load->view('kasir/master/footer', $data);
-                } else {
-                        $current_password = $this->input->post('current_password');
-                        $new_password     = $this->input->post('new_password1');
+        //         if ($this->form_validation->run() == false) {
+        //                 $this->load->view('kasir/master/header', $data);
+        //                 $this->load->view('kasir/master/topbar', $data);
+        //                 $this->load->view('kasir/change_password', $data);
+        //                 $this->load->view('kasir/master/footer', $data);
+        //         } else {
+        //                 $current_password = $this->input->post('current_password');
+        //                 $new_password     = $this->input->post('new_password1');
 
-                        if (!password_verify($current_password, $data['user']['password']['view_password'])) {
-                                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah Semua</div>');
-                                redirect('KasirController/changePassword');
-                        } else {
-                                if ($current_password == $new_password) {
-                                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Baru tidak boleh sama dengan password lama</div>');
-                                        redirect('KasirController/changePassword');
-                                } else {
-                                        // jika pass sudah OK
-                                        // $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-                                        $password         = md5($this->input->post('password1'));
-                                        $view_password         = $this->input->post('password1');
+        //                 if (!password_verify($current_password, $data['user']['password']['view_password'])) {
+        //                         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah Semua</div>');
+        //                         redirect('KasirController/changePassword');
+        //                 } else {
+        //                         if ($current_password == $new_password) {
+        //                                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Baru tidak boleh sama dengan password lama</div>');
+        //                                 redirect('KasirController/changePassword');
+        //                         } else {
+        //                                 // jika pass sudah OK
+        //                                 // $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+        //                                 $password         = md5($this->input->post('password1'));
+        //                                 $view_password         = $this->input->post('password1');
 
 
-                                        $this->db->set('password', $password);
-                                        $this->db->set('view_password', $view_password);
-                                        $this->db->where('email', $this->session->userdata('email'));
-                                        $this->db->update('user');
+        //                                 $this->db->set('password', $password);
+        //                                 $this->db->set('view_password', $view_password);
+        //                                 $this->db->where('email', $this->session->userdata('email'));
+        //                                 $this->db->update('user');
 
-                                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password berhasil diganti</div>');
-                                        redirect('KasirController/profil');
-                                }
-                        }
-                }
-        }
+        //                                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password berhasil diganti</div>');
+        //                                 redirect('KasirController/profil');
+        //                         }
+        //                 }
+        //         }
+        // }
 }

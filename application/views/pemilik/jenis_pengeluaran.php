@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800">Jenis Pengeluaran</h2><br>
 
-  <a href="<?php echo base_url() . 'JenisPengeluaranController/tambah' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'JenisPengeluaranController/addJP' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
@@ -34,13 +34,13 @@
                 <td style="width: 1%; text-align:center"><?php echo $no++ ?></td>
                 <td><?php echo $jp->nama_pengeluaran ?></td>
                 <td style="width: 25%;">
-                  <a href="<?php echo base_url('JenisPengeluaranController/edit/' . $jp->id); ?>" class="btn btn-success btn-icon-split">
+                  <a href="<?php echo base_url('JenisPengeluaranController/editJP/' . $jp->id); ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
                     </span>
                     <span class="text">Edit</span>
                   </a>
-                  <a href="<?php echo base_url('JenisPengeluaranController/hapus/' . $jp->id); ?>" class="btn btn-danger btn-icon-split">
+                  <a href="<?php echo base_url('JenisPengeluaranController/delJP/' . $jp->id); ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
                     </span>

@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800">Jenis Kendaraan</h2><br>
 
-  <a href="<?php echo base_url() . 'JenisKendaraanController/tambah' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'JenisKendaraanController/addJK' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
@@ -35,13 +35,13 @@
                 <td><?php echo $jnskendaraan->nama_kendaraan ?></td>
                 <td>Rp <?php echo number_format($jnskendaraan->tarif, 0, ',', '.') ?></td>
                 <td style="width: 25%;">
-                  <a href="<?php echo base_url('JenisKendaraanController/edit/' . $jnskendaraan->id); ?>" class="btn btn-success btn-icon-split">
+                  <a href="<?php echo base_url('JenisKendaraanController/editJK/' . $jnskendaraan->id); ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
                     </span>
                     <span class="text">Edit</span>
                   </a>
-                  <a href="<?php echo base_url('JenisKendaraanController/hapus/' . $jnskendaraan->id); ?>" class="btn btn-danger btn-icon-split">
+                  <a href="<?php echo base_url('JenisKendaraanController/delJK/' . $jnskendaraan->id); ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
                     </span>

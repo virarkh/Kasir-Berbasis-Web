@@ -3,21 +3,20 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800">Transaksi Customer</h2><br>
 
-  <a href="<?php echo base_url() . 'TransaksiController/tambah' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'TransaksiController/addTransaksi' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
     <span class="text">Tambah Data</span>
   </a>
-  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4" style="margin-top: 5px;">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Tabel Metode Cuci</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabel Transaksi</h6>
     </div>
 
-    <form method="GET" action="<?php echo base_url('TransaksiController/index') ?>">
+    <form method="GET" action="<?php echo base_url('TransaksiController/indexTransaksi') ?>">
       <div class="row" style="margin-top: 2%; margin-left:1%">
         <div class="col-md-6 input-group">
           Filter Tanggal &nbsp;
@@ -42,13 +41,14 @@
           </a>
           <?php
           if (isset($_GET['filter']))
-            echo '<a href="' . base_url('TransaksiController/index') . '" class="btn btn-danger btn-icon-split">
+            echo '<a href="' . base_url('TransaksiController/indexTransaksi') . '" class="btn btn-danger btn-icon-split">
           <span class="icon text-white-600">
           <i class="fas fa-eraser"></i>
           </span>
           <span class="text">
             Reset
           </span></a>';
+          // echo '<a href="' . base_url('PengeluaranController/index') . '" class="btn btn-default">Reset</a>';
           ?>
         </div>
       </div>
@@ -56,18 +56,24 @@
 
     <p style="text-align:center; margin-bottom: -2%; margin-top:2%"><b><?php echo $label ?></b></p>
 
-
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <!-- <th>No</th>
+              <th>Kode Nota</th>
+              <th>Tanggal</th>
+              <th>Pengeluaran</th>
+              <th>Biaya</th>
+              <th>Action</th> -->
               <th style="width: 1%;">No</th>
               <th>Tanggal</th>
               <th>Invoice</th>
               <th>Nama Customer</th>
-              <th>Total</th>
-              <th style="text-align: center; width:25%">Action</th>
+              <th style="text-align: center;">Total</th>
+              <!-- <th></th> -->
+              <th style=" text-align: center; width:25%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -78,19 +84,20 @@
             ?>
               <tr>
                 <td style="text-align:center"><?php echo $no++ ?></td>
-                <td><?php echo strftime('%a, %d %b %Y %H:%M:%S', strtotime($t->tanggal)) ?></td>
+                <td><?php echo strftime('%A, %e %B %Y, %H:%M:%S', strtotime($t->tanggal)) ?></td>
                 <td><?php echo $t->invoice ?></td>
                 <!-- <td><?php echo $t->nama_kendaraan ?></td> -->
                 <td><?php echo $t->nama_customer ?></td>
+                <!-- <td style="border-right: hidden;">Rp </td> -->
                 <td>Rp <?php echo number_format($t->total, 0, ',', '.') ?></td>
                 <td style="text-align: center;">
-                  <a href="<?php echo base_url('TransaksiController/detail/' . $t->id); ?>" class="btn btn-info btn-icon-split">
+                  <a href="<?php echo base_url('TransaksiController/detailTransaksi/' . $t->id); ?>" class="btn btn-info btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-info-circle"></i>
                     </span>
                     <span class="text">Detail</span>
                   </a>
-                  <a href="<?php echo base_url('TransaksiController/delete/' . $t->id); ?>" class="btn btn-danger btn-icon-split">
+                  <a href="<?php echo base_url('TransaksiController/delTransaksi/' . $t->id); ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
                     </span>
@@ -101,6 +108,7 @@
             <?php } ?>
 
           </tbody>
+
         </table>
       </div>
     </div>

@@ -78,7 +78,7 @@
           </table><br>
           <div class="row">
             <div class="col-sm">
-              <a href="<?php echo base_url('PengeluaranController/index') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+              <a href="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
                 <span class="icon text-white-600">
                   <i class="fas fa-chevron-left"></i>
                 </span>
@@ -100,7 +100,7 @@
         </div>
         <!-- Card Body -->
         <div class="card-body">
-          <img src="<?php echo base_url('./assets/nota/' . $p->foto) ?>" style="width: 250px; height:250px; display:block; margin:auto">
+          <img src="<?php echo base_url('./assets/nota/' . $p->foto) ?>" style="width: 220px; height:220px; display:block; margin:auto">
         </div>
       </div>
     </div>

@@ -17,25 +17,22 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                     <h6 class="m-0 font-weight-bold text-primary">Tambah Transaksi Customer</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url() . 'TransaksiController/simpanData' ?>" method="POST">
+                    <form action="<?php echo base_url() . 'TransaksiController/addDataTransaksi' ?>" method="POST">
                         <div class="row">
                             <div class="col-md-4">
+                                <!-- value="<?php echo strftime('%a, %d %B %Y, %H:%M:%S') ?>" -->
+                                <!-- <?= date('l, j F Y H:i:s') ?> -->
                                 Tanggal :
-                                <input type="datetime" name="tanggal" id="tanggal" value="<?php echo strftime('%a, %d %B %Y, %H:%M:%S') ?>" class="form-control" readonly>
+                                <input type="text" name="tanggal" value="<?= date('Y-m-j H:i:s') ?>" class="form-control" readonly>
                             </div>
-                            <!-- <div class="col-md-1">
-                                    Invoice
-                                </div> -->
                             <div class="col-md-4">
                                 Invoice :
-                                <input type="text" name="invoice" id="invoice" value="<?php echo $invoice ?>" class="form-control" readonly>
+                                <input type="text" name="invoice" value="<?php echo $invoice ?>" class="form-control" readonly>
                             </div>
-                            <!-- <div class="col-md-1">
-                                    Kasir
-                                </div> -->
                             <div class="col-md-4">
                                 Kasir :
-                                <input type="text" id="user_id" class="form-control" value="<?php echo $this->session->userdata('nama_user') ?>" readonly>
+                                <input type="text" name="user_id" class="form-control" value="<?php echo $this->session->userdata('id') ?>" hidden readonly>
+                                <input class="form-control" value="<?php echo $this->session->userdata('nama_user') ?>" readonly>
                             </div>
                         </div>
                         <br>
@@ -80,7 +77,10 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                     </div>
                                     <div class="col-md-7">
                                         <select name="metode_id" id="metode_mencuci" class="form-control" required>
-                                            <option value="" disabled selected style="display:none">Pilih Metode Mencuci</option>
+                                            <option value="0" disabled selected style="display:none">Pilih Metode Mencuci</option>
+                                            <!-- <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option> -->
                                             <?php foreach ($metode_mencuci as $metode) : ?>
                                                 <option value="<?php echo $metode->id ?>"><?php echo $metode->nama_metode ?></option>
                                             <?php endforeach ?>
@@ -96,6 +96,16 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
                                     </div>
                                 </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-4">
+                                        Sub Total
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input name="sub_total" id="sub_total" class="form-control" readonly style="text-align: right; font-weight:bold">
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="col-sm">
 
@@ -126,11 +136,11 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                         Total
                                     </div>
                                     <div class="col-md-7">
-                                        <input name="total" id="total" class="form-control" readonly>
+                                        <input name="total" id="total" class="form-control" style="text-align: right; font-weight:bold" readonly>
                                     </div>
                                 </div>
 
-                                <div class="row form-group">
+                                <!-- <div class="row form-group">
                                     <div class="col-md-4">
                                         Bayar
                                     </div>
@@ -146,12 +156,12 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                                     <div class="col-md-7">
                                         <input name="kembalian" id="kembalian" class="form-control" readonly>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row form-group">
                                     <div class="col-md-4">
                                     </div>
                                     <div class="col-md-7">
-                                        <a href="<?php echo base_url('TransaksiController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                        <a href="<?php echo base_url('TransaksiController/indexTransaksi') ?>" class="btn btn-secondary btn-icon-split">
                                             <span class="icon text-white-600">
                                                 <i class="far fa-window-close"></i>
                                             </span>
@@ -174,7 +184,8 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
 </div>
 
-<script text="text/javascript">
+<!-- <script text="text/javascript" src="<?php echo base_url() ?>assets/js/jquery-3.5.1.min.js"></script> -->
+<script>
     $(document).ready(function() {
         $('#jenis_kendaraan').change(function() {
             pil_jenis();
@@ -188,17 +199,36 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
         $.ajax({
             url: "<?php echo base_url('TransaksiController/jenis_kendaraan') ?>",
+            type: "GET",
             data: {
-                jenis_kendaraan: jenis_kendaraan
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
+                diskon: diskon
             },
 
             success: function(data) {
                 $('#tarif').html(data);
+                // $('#total').val(data);
+            }
+        })
+
+        $.ajax({
+            url: "<?php echo base_url('TransaksiController/subtotal') ?>",
+            // type: "GET",
+            data: {
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
+                diskon: diskon
+            },
+
+            success: function(data) {
+                $('#sub_total').val(data);
             }
         });
 
         $.ajax({
             url: "<?php echo base_url('TransaksiController/total') ?>",
+            // type: "GET",
             data: {
                 jenis_kendaraan: jenis_kendaraan,
                 metode_mencuci: metode_mencuci,
@@ -224,17 +254,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
         $.ajax({
             url: "<?php echo base_url('TransaksiController/metode_mencuci') ?>",
-            data: {
-                metode_mencuci: metode_mencuci
-            },
-
-            success: function(data) {
-                $('#tarif_tambahan').html(data);
-            }
-        });
-
-        $.ajax({
-            url: "<?php echo base_url('TransaksiController/total') ?>",
+            type: "GET",
             data: {
                 jenis_kendaraan: jenis_kendaraan,
                 metode_mencuci: metode_mencuci,
@@ -242,6 +262,36 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
             },
 
             success: function(data) {
+                $('#tarif_tambahan').html(data);
+                // $('#total').val(data);
+            }
+        })
+
+        $.ajax({
+            url: "<?php echo base_url('TransaksiController/subtotal') ?>",
+            // type: "GET",
+            data: {
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
+                diskon: diskon
+            },
+
+            success: function(data) {
+                $('#sub_total').val(data);
+            }
+        });
+
+        $.ajax({
+            url: "<?php echo base_url('TransaksiController/total') ?>",
+            // type: "GET",
+            data: {
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
+                diskon: diskon
+            },
+
+            success: function(data) {
+                // $('#tarif_tambahan').val(data);
                 $('#total').val(data);
             }
         });
@@ -260,7 +310,10 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
         $.ajax({
             url: "<?php echo base_url('TransaksiController/diskon') ?>",
+            type: "GET",
             data: {
+                jenis_kendaraan: jenis_kendaraan,
+                metode_mencuci: metode_mencuci,
                 diskon: diskon
             },
 
@@ -272,6 +325,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 
         $.ajax({
             url: "<?php echo base_url('TransaksiController/total') ?>",
+            // type: "GET",
             data: {
                 jenis_kendaraan: jenis_kendaraan,
                 metode_mencuci: metode_mencuci,

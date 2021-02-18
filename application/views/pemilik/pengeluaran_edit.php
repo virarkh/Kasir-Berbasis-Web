@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <?php foreach ($pengeluaran as $p) { ?>
 
-                        <form enctype="multipart/form-data" action="<?php echo base_url() . 'PengeluaranController/edit_data' ?>" method="POST">
+                        <form enctype="multipart/form-data" action="<?php echo base_url() . 'PengeluaranController/editDataPengeluaran' ?>" method="POST">
                             <input type="hidden" name="id" value="<?php echo $p->id ?>">
                             <div class="row">
                                 <div class="col-md-3">
@@ -50,6 +50,17 @@
                                     <p>Bukti Nota <br>
                                         <input type="file" name="foto">
                                     </p>
+                                    <!-- <label for="foto" class="col-sm-3 col-form-label">Foto Nota</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <img src="<?php echo base_url('assets/nota/') . $p->foto ?>" class="img-thumbnail">
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="file" name="foto">
+                                            </div>
+                                        </div>
+                                    </div> -->
                                 </div>
                                 <div class="col">
                                     <p>Yang bersangkutan<br>
@@ -61,7 +72,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="row col-md-12">
+                            <div class="row">
                                 <div class="col">
                                     <p>Detail<br>
                                         <textarea name="detail" class="form-control" style="margin-top: 5px;" required></textarea>
@@ -69,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <a href="<?php echo base_url('PengeluaranController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                <a href="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>" class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-600">
                                         <i class="far fa-window-close"></i>
                                     </span>
@@ -83,10 +94,15 @@
                             </div>
                         </form>
                     <?php } ?>
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+
+<script>
+    $('.custom-file-input').on('change', function() {
+        let fileName = $($this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+</script>

@@ -16,7 +16,8 @@
                     <?php echo form_open_multipart('AuthController/registrasi'); ?>
                     <div>
                         <p>Foto Profil<br>
-                            <input type="file" name="foto_profil" class="form-file" style="margin-top: 5px;" required></p>
+                            <input type="file" name="foto_profil" class="form-file" style="margin-top: 5px;" required>
+                        </p>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -59,8 +60,8 @@
                             <p>Level
                                 <select name="role_id" class="form-control">
                                     <option value="" disabled selected style="display:none">Pilih Hak Akses</option>
-                                    <option value="1">Pemilik</option>
-                                    <option value="2">Pegawai</option>
+                                    <option value="1">Pegawai</option>
+                                    <option value="2">Pemilik</option>
                                 </select>
                             </p>
                         </div>

@@ -12,14 +12,14 @@
                     <h6 class="m-0 font-weight-bold text-primary">Tambah Jenis Pengeluaran</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url() . 'JenisPengeluaranController/tambah_data' ?>" method="POST">
+                    <form action="<?php echo base_url() . 'JenisPengeluaranController/addDataJP' ?>" method="POST">
                         <div class="form-group">
                             <p>Jenis Pengeluaran
                                 <input type="text" name="nama_pengeluaran" placeholder="Masukkan Jenis Pengeluaran" class="form-control" style="margin-top: 5px;" required>
                             </p>
                         </div>
                         <div class="text-center">
-                            <a href="<?php echo base_url('JenisPengeluaranController/index') ?>" class="btn btn-secondary btn-icon-split">
+                            <a href="<?php echo base_url('JenisPengeluaranController/indexJP') ?>" class="btn btn-secondary btn-icon-split">
                                 <span class="icon text-white-600">
                                     <i class="far fa-window-close"></i>
                                 </span>

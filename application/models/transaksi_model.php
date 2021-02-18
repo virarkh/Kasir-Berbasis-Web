@@ -3,15 +3,14 @@
 class transaksi_model extends CI_Model
 {
 
-    public function index()
+    public function indexTransaksi()
     {
-        // $this->db->select('transaksi.*, jenis_kendaraan.*, diskon.*, metode_mencuci.*, user.*');
-        $this->db->select('t.*, jk.nama_kendaraan, jk.tarif, mm.tarif_tambahan, mm.nama_metode, d.nama_diskon, d.potongan_harga, u.nama_user, u.username');
-        $this->db->from('transaksi t');
-        $this->db->join('diskon d', 'd.id=t.diskon_id');
-        $this->db->join('jenis_kendaraan jk', 'jk.id=t.jenis_id');
-        $this->db->join('metode_mencuci mm', 'mm.id=t.metode_id');
-        $this->db->join('user u', 'u.id=t.user_id');
+        $this->db->select('transaksi.*, jenis_kendaraan.nama_kendaraan, jenis_kendaraan.tarif, metode_mencuci.tarif_tambahan, metode_mencuci.nama_metode, diskon.nama_diskon, diskon.potongan_harga, user.nama_user, user.username');
+        $this->db->from('transaksi');
+        $this->db->join('diskon', 'diskon.id=transaksi.diskon_id');
+        $this->db->join('jenis_kendaraan ', 'jenis_kendaraan.id=transaksi.jenis_id');
+        $this->db->join('metode_mencuci', 'metode_mencuci.id=transaksi.metode_id');
+        $this->db->join('user', 'user.id=transaksi.user_id');
         $this->db->order_by('tanggal', 'DESC');
         $query = $this->db->get();
         return $query->result();
@@ -22,7 +21,7 @@ class transaksi_model extends CI_Model
         $tgl_awal = $this->db->escape($tgl_awal);
         $tgl_akhir = $this->db->escape($tgl_akhir);
 
-        $this->db->select('transaksi.*, jenis_kendaraan.*, diskon.*, metode_mencuci.*, user.*');
+        $this->db->select('transaksi.*, jenis_kendaraan.nama_kendaraan, jenis_kendaraan.tarif, metode_mencuci.tarif_tambahan, metode_mencuci.nama_metode, diskon.nama_diskon, diskon.potongan_harga, user.nama_user, user.username');
         $this->db->from('transaksi');
         $this->db->join('diskon', 'diskon.id=transaksi.diskon_id');
         $this->db->join('jenis_kendaraan', 'jenis_kendaraan.id=transaksi.jenis_id');
@@ -35,7 +34,7 @@ class transaksi_model extends CI_Model
         // return $this->db->get('pengeluaran')->result();
     }
 
-    public function tambah_data()
+    public function invoice()
     {
         $sql = "SELECT MAX(MID(invoice,9,4)) AS invoice_no FROM transaksi WHERE MID(invoice,3,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
         $query = $this->db->query($sql);
@@ -50,20 +49,12 @@ class transaksi_model extends CI_Model
         return $invoice;
     }
 
-    // public function get_jenis_kendaraan()
-    // {
-    //     $jk = "SELECT * FROM jenis_kendaraan";
-    //     $query = $this->db->query($jk);
-
-    //     return $query->result_array();
-    // }
-
-    public function simpanData($data)
+    public function addModelTransaksi($data)
     {
         return $this->db->insert('transaksi', $data);
     }
 
-    public function delete($where, $table)
+    public function delModelTransaksi($where, $table)
     {
         $this->db->where($where);
         $this->db->delete($table);
@@ -105,7 +96,7 @@ class transaksi_model extends CI_Model
         return $this->db->get();
     }
 
-    public function detail($where, $table)
+    public function detailModelTransaksi($where, $table)
     {
         return $this->db->get_where($table, $where);
     }

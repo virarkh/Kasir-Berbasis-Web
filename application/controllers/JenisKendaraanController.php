@@ -16,9 +16,9 @@ class JenisKendaraanController extends CI_Controller
         }
     }
 
-    public function index()
+    public function indexJK()
     {
-        $data['jenis_kendaraan'] = $this->jeniskendaraan_model->index();
+        $data['jenis_kendaraan'] = $this->jeniskendaraan_model->indexJK();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -26,7 +26,7 @@ class JenisKendaraanController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function tambah()
+    public function addJK()
     {
         $this->load->view('pemilik/master/header');
         $this->load->view('pemilik/master/sidebar');
@@ -35,7 +35,7 @@ class JenisKendaraanController extends CI_Controller
         $this->load->view('pemilik/master/footer');
     }
 
-    public function tambah_data()
+    public function addDataJK()
     {
         $nama_kendaraan   = $this->input->post('nama_kendaraan');
         $tarif            = $this->input->post('tarif');
@@ -47,14 +47,14 @@ class JenisKendaraanController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
 
-        $this->jeniskendaraan_model->tambah_data($data, 'jenis_kendaraan');
-        redirect('JenisKendaraanController/index');
+        $this->jeniskendaraan_model->addModelJK($data, 'jenis_kendaraan');
+        redirect('JenisKendaraanController/indexJK');
     }
 
-    public function edit($id)
+    public function editJK($id)
     {
         $where = array('id' => $id);
-        $data['jenis_kendaraan'] = $this->jeniskendaraan_model->edit($where, 'jenis_kendaraan')->result();
+        $data['jenis_kendaraan'] = $this->jeniskendaraan_model->editModelJK($where, 'jenis_kendaraan')->result();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -63,7 +63,7 @@ class JenisKendaraanController extends CI_Controller
     }
 
 
-    public function edit_data()
+    public function editDataJK()
     {
         $id              = $this->input->post('id');
         $nama_kendaraan  = $this->input->post('nama_kendaraan');
@@ -80,17 +80,17 @@ class JenisKendaraanController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Ubah');
 
-        $this->jeniskendaraan_model->edit_data($where, $data, 'jenis_kendaraan');
-        redirect('JenisKendaraanController/index');
+        $this->jeniskendaraan_model->saveModelJK($where, $data, 'jenis_kendaraan');
+        redirect('JenisKendaraanController/indexJK');
     }
 
-    public function hapus($id)
+    public function delJK($id)
     {
         $where = array('id' => $id);
-        $this->jeniskendaraan_model->hapus_data($where, 'jenis_kendaraan');
+        $this->jeniskendaraan_model->delModelJK($where, 'jenis_kendaraan');
 
         $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
 
-        redirect('JenisKendaraanController/index');
+        redirect('JenisKendaraanController/indexJK');
     }
 }

@@ -7,11 +7,6 @@
     <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-      <!-- <?php
-            if ($this->session->flashdata('sukses')) {
-              echo "<br/>" . "<div class='alert-success'>" . $this->session->flashdata('sukses') . "</div>";
-            }
-            ?> -->
       <div style="margin-top: 1%;">
         <?= $this->session->flashdata('message'); ?>
       </div>

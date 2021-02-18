@@ -30,7 +30,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'TransaksiController/index' ?>">
+        <a class="nav-link" href="<?php echo base_url() . 'TransaksiController/indexTransaksi' ?>">
           <i class="fas fa-shopping-cart"></i>
           <span>Transaksi</span></a>
       </li>
@@ -38,7 +38,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'PengeluaranController/index' ?>">
+        <a class="nav-link" href="<?php echo base_url() . 'PengeluaranController/indexPengeluaran' ?>">
           <i class="fas fa-book"></i>
           <span>Pengeluaran</span></a>
       </li>
@@ -46,7 +46,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'JenisPengeluaranController/index' ?>">
+        <a class="nav-link" href="<?php echo base_url() . 'JenisPengeluaranController/indexJP' ?>">
           <i class="fas fa-tasks"></i>
           <span>Jenis Pengeluaran</span></a>
       </li>
@@ -54,7 +54,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'JenisKendaraanController/index' ?>">
+        <a class="nav-link" href="<?php echo base_url() . 'JenisKendaraanController/indexJK' ?>">
           <i class="fas fa-truck"></i>
           <span>Jenis Kendaraan</span></a>
       </li>
@@ -62,7 +62,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'DiskonController/index' ?>">
+        <a class="nav-link" href="<?php echo base_url() . 'DiskonController/indexDiskon' ?>">
           <i class="fas fa-star"></i>
           <span>Diskon</span></a>
       </li>
@@ -70,7 +70,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'MetodeController/index' ?>">
+        <a class="nav-link" href="<?php echo base_url() . 'MetodeController/indexMM' ?>">
           <i class="fas fa-magic"></i>
           <span>Metode Cuci</span></a>
       </li>
@@ -83,11 +83,11 @@
           <span>Daftar Pengguna</span></a>
       </li>
 
-      <!-- <hr class="sidebar-divider">
+      <hr class="sidebar-divider">
 
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div> -->
+      </div>
 
     </ul>
     <!-- End of Sidebar -->

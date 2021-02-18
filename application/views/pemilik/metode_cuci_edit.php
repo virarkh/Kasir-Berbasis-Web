@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <?php foreach ($metode_mencuci as $mc) { ?>
 
-                        <form action="<?php echo base_url() . 'MetodeController/edit_data' ?>" method="POST">
+                        <form action="<?php echo base_url() . 'MetodeController/editDataMM' ?>" method="POST">
                             <input type="hidden" name="id" , value="<?php echo $mc->id ?>">
                             <div class="form-group">
                                 <p>Metode Cuci
@@ -27,7 +27,7 @@
                                 </p>
                             </div>
                             <div class="text-center">
-                                <a href="<?php echo base_url('MetodeController/index') ?>" class="btn btn-secondary btn-icon-split">
+                                <a href="<?php echo base_url('MetodeController/indexMM') ?>" class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-600">
                                         <i class="far fa-window-close"></i>
                                     </span>

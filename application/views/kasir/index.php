@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h2 class="h4 text-gray-800" style="text-align:center">Daftar Transaksi</h2><br>
 
-  <a href="<?php echo base_url() . 'KasirController/tambah' ?>" class="btn btn-primary btn-icon-split">
+  <a href="<?php echo base_url() . 'KasirController/addKasir' ?>" class="btn btn-primary btn-icon-split">
     <span class="icon text-white-600">
       <i class="fas fa-plus"></i>
     </span>
@@ -23,7 +23,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Tabel Transaksi</h6>
     </div>
 
-    <form method="GET" action="<?php echo base_url('KasirController/index') ?>">
+    <form method="GET" action="<?php echo base_url('KasirController/indexKasir') ?>">
       <div class="row" style="margin-top: 2%; margin-left:1%">
         <div class="col-md-6 input-group">
           Filter Tanggal &nbsp;
@@ -42,7 +42,7 @@
           </button>
           <?php
           if (isset($_GET['filter']))
-            echo '<a href="' . base_url('KasirController/index') . '" class="btn btn-danger btn-icon-split">
+            echo '<a href="' . base_url('KasirController/indexKasir') . '" class="btn btn-danger btn-icon-split">
             <span class="icon text-white-600">
             <i class="fas fa-eraser"></i>
             </span>
@@ -61,17 +61,18 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr style="text-align:center">
-              <!-- <th style="width: 1%;">No</th> -->
+              <th>No</th>
               <th>Invoice</th>
               <th>Tanggal</th>
               <th>Customer</th>
               <th>Kendaraan</th>
               <th>Metode</th>
-              <th>Diskon</th>
               <th>Sub Total</th>
+              <th>Diskon</th>
               <th>Total</th>
-              <th>Bayar</th>
-              <th>Kembalian</th>
+              <!-- <th>Bayar</th>
+              <th>Kembalian</th> -->
+              <th>Kasir</th>
               <!-- <th style="width: 5%;">Aksi</th> -->
             </tr>
           </thead>
@@ -81,18 +82,27 @@
             setlocale(LC_ALL, 'id-ID', 'id-ID')
           ?>
             <tr>
-              <!-- <td style="text-align: center;"><?php echo $no++ ?></td> -->
+              <td style="text-align: center;"><?php echo $no++ ?></td>
               <td><?php echo $t->invoice ?></td>
-              <td><?php echo strftime('%d %b %y %H:%M:%S', strtotime($t->tanggal)) ?> </td>
-
+              <td><?php echo strftime('%e-%b-%y | %H:%M:%S', strtotime($t->tanggal)) ?></td>
               <td><?php echo $t->nama_customer ?></td>
-              <td><?php echo $t->nama_kendaraan ?></td>
-              <td><?php echo $t->nama_metode ?></td>
-              <td><?php echo $t->nama_diskon ?></td>
+              <td>
+                Rp <?php echo number_format($t->tarif, 0, ',', '.') ?><br>
+                <?php echo $t->nama_kendaraan ?>
+              </td>
+              <td>
+                Rp <?php echo number_format($t->tarif_tambahan, 0, ',', '.') ?><br>
+                <?php echo $t->nama_metode ?>
+              </td>
               <td>Rp <?php echo number_format($t->sub_total, 0, ',', '.') ?></td>
+              <td>
+                Rp <?php echo number_format($t->potongan_harga, 0, ',', '.') ?><br>
+                <?php echo $t->nama_diskon ?>
+              </td>
               <td>Rp <?php echo number_format($t->total, 0, ',', '.') ?></td>
-              <td>Rp <?php echo number_format($t->bayar, 0, ',', '.') ?></td>
-              <td>Rp <?php echo number_format($t->kembalian, 0, ',', '.') ?></td>
+              <!-- <td>Rp <?php echo number_format($t->bayar, 0, ',', '.') ?></td>
+              <td>Rp <?php echo number_format($t->kembalian, 0, ',', '.') ?></td> -->
+              <td><?php echo $t->nama_user ?></td>
               <!-- <td> -->
               <!-- <a href="<?php echo base_url('KasirController/detail/' . $t->id); ?>" class="btn btn-info btn-icon-split">
                   <span class="icon text-white-600">
@@ -107,9 +117,6 @@
               <!-- </td> -->
             </tr>
           <?php } ?>
-
-
-
         </table>
       </div>
     </div>

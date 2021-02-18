@@ -2,8 +2,6 @@
 
 setlocale(LC_ALL, 'id-ID', 'id_ID');
 
-use Spipu\Html2Pdf\Html2Pdf;
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class PengeluaranController extends CI_Controller
@@ -26,20 +24,20 @@ class PengeluaranController extends CI_Controller
         }
     }
 
-    public function index()
+    public function indexPengeluaran()
     {
         $tgl_awal   = $this->input->get('tgl_awal');
         $tgl_akhir  = $this->input->get('tgl_akhir');
 
         if (empty($tgl_awal) or empty($tgl_akhir)) {
-            $pengeluaran    = $this->pengeluaran_model->index();
+            $pengeluaran    = $this->pengeluaran_model->indexPengeluaran();
             $url_cetak      = 'PengeluaranController/cetak';
             $label          = 'Semua Data Pengeluaran';
         } else {
             $pengeluaran    = $this->pengeluaran_model->view_by_date($tgl_awal, $tgl_akhir);
             $url_cetak      = 'PengeluaranController/cetak?tgl_awal=' . $tgl_awal . '&tgl_akhir=' . $tgl_akhir;
-            $tgl_awal       = strftime('%d %B %Y', strtotime($tgl_awal));
-            $tgl_akhir      = strftime('%d %B %Y', strtotime($tgl_akhir));
+            $tgl_awal       = strftime('%e %B %Y', strtotime($tgl_awal));
+            $tgl_akhir      = strftime('%e %B %Y', strtotime($tgl_akhir));
             $label          = 'Periode Tanggal &nbsp;' . $tgl_awal . ' - ' . $tgl_akhir;
         }
 
@@ -60,12 +58,12 @@ class PengeluaranController extends CI_Controller
         $tgl_akhir  = $this->input->get('tgl_akhir');
 
         if (empty($tgl_awal) or empty($tgl_akhir)) {
-            $pengeluaran    = $this->pengeluaran_model->index();
-            $label          = 'Semua Data Transaksi';
+            $pengeluaran    = $this->pengeluaran_model->indexPengeluaran();
+            $label          = 'Semua Data Pengeluaran';
         } else {
             $pengeluaran    = $this->pengeluaran_model->view_by_date($tgl_awal, $tgl_akhir);
-            $tgl_awal       = strftime('%d %B %Y', strtotime($tgl_awal));
-            $tgl_akhir      = strftime('%d %B %Y', strtotime($tgl_akhir));
+            $tgl_awal       = strftime('%e %B %Y', strtotime($tgl_awal));
+            $tgl_akhir      = strftime('%e %B %Y', strtotime($tgl_akhir));
             $label          = 'Periode Tanggal &nbsp;' . $tgl_awal . ' - ' . $tgl_akhir;
         }
 
@@ -74,7 +72,7 @@ class PengeluaranController extends CI_Controller
 
         $label_name = ' tgl ' . $tgl_awal . ' SD ' . $tgl_akhir;
 
-        $this->load->view('pemilik/print', $data);
+        $this->load->view('pemilik/print_pengeluaran', $data);
 
         $paper_size     = 'A4';
         $orientation    = 'potrait';
@@ -86,23 +84,10 @@ class PengeluaranController extends CI_Controller
         $this->dompdf->stream("Laporan Pengeluaran" . $label_name . ".pdf", array('Attachment' => 0));
     }
 
-    // public function index2()
-    // {
-    //     $data['pengeluaran'] = $this->pengeluaran_model->index();
-    //     $this->load->view('pemilik/master/header', $data);
-    //     $this->load->view('pemilik/master/sidebar', $data);
-    //     $this->load->view('pemilik/master/topbar', $data);
-    //     $this->load->view('pemilik/pengeluaran', $data);
-    //     $this->load->view('pemilik/master/footer', $data);
-    // }
-
-    public function tambahData()
+    public function addPengeluaran()
     {
-        $data['jenis_pengeluaran']  = $this->jenispengeluaran_model->index();
+        $data['jenis_pengeluaran']  = $this->jenispengeluaran_model->indexJP();
         $data['user']               = $this->user_model->index();
-
-        // $user           = $this->pengeluaran_model->get_user();
-        // $data['user']   = $user;
 
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
@@ -111,12 +96,12 @@ class PengeluaranController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function simpanData()
+    public function addDataPengeluaran()
     {
         $config = array(
             'upload_path'    => './assets/nota',
             'allowed_types'    => 'jpg|jpeg|png',
-            'max_size'        => '2086'
+            'max_size'        => '10000'
         );
 
         $this->load->library('upload', $config);
@@ -131,8 +116,6 @@ class PengeluaranController extends CI_Controller
         $biaya              = $this->input->post('biaya');
         $detail             = $this->input->post('detail');
         $user_id            = $this->input->post('user_id');
-        // $user_id            = $this->session->userdata('user_id');
-
 
         $data = array(
             'tanggal'            => $tanggal,
@@ -146,16 +129,16 @@ class PengeluaranController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
 
-        $this->pengeluaran_model->insert($data);
-        redirect('PengeluaranController/index');
+        $this->pengeluaran_model->addModelPengeluaran($data);
+        redirect('PengeluaranController/indexPengeluaran');
     }
 
-    public function edit($id)
+    public function editPengeluaran($id)
     {
         $where = array('id' => $id);
-        $data['jenis_pengeluaran']  = $this->jenispengeluaran_model->index();
+        $data['jenis_pengeluaran']  = $this->jenispengeluaran_model->indexJP();
         $data['user']               = $this->user_model->index();
-        $data['pengeluaran']        = $this->pengeluaran_model->edit($where, 'pengeluaran')->result();
+        $data['pengeluaran']        = $this->pengeluaran_model->editModelPengeluaran($where, 'pengeluaran')->result();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -163,14 +146,14 @@ class PengeluaranController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function edit_data()
+    public function editDataPengeluaran()
     {
         $id = $this->input->post('id');
 
         $config = array(
             'upload_path'    => './assets/nota',
             'allowed_types'    => 'jpg|jpeg|png',
-            'max_size'        => '2086'
+            'max_size'        => '10000'
         );
 
         $this->load->library('upload', $config);
@@ -202,24 +185,24 @@ class PengeluaranController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Ubah');
 
-        $this->pengeluaran_model->update($where, $data, 'pengeluaran');
-        redirect('PengeluaranController/index');
+        $this->pengeluaran_model->saveModelPengeluaran($where, $data, 'pengeluaran');
+        redirect('PengeluaranController/indexPengeluaran');
     }
 
-    public function delete($id)
+    public function delPengeluaran($id)
     {
         $where = array('id' => $id);
-        $this->pengeluaran_model->delete($where, 'pengeluaran');
+        $this->pengeluaran_model->delModelPengeluaran($where, 'pengeluaran');
 
         $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
 
-        redirect('PengeluaranController/index');
+        redirect('PengeluaranController/indexPengeluaran');
     }
 
-    public function detail($id)
+    public function detailPengeluaran($id)
     {
         $where                      = array('id' => $id);
-        $data['pengeluaran']        = $this->pengeluaran_model->detail($where, 'pengeluaran')->result();
+        $data['pengeluaran']        = $this->pengeluaran_model->detailModelPengeluaran($where, 'pengeluaran')->result();
 
         $jns_pengeluaran            = $this->pengeluaran_model->get_jns_pengeluaran($id);
         $data['jns_pengeluaran']    = $jns_pengeluaran;

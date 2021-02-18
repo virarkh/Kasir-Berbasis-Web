@@ -7,7 +7,7 @@
     <!-- Topbar -->
 
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-      <a href="<?php echo base_url() ?>KasirController/index" title="Home" class="nav-link">
+      <a href="<?php echo base_url() ?>KasirController/indexKasir" title="Home" class="nav-link">
         <i class="fas fa-home"></i><span>&nbsp;Home</span>
       </a>
       <a href="<?php echo base_url() ?>KasirController/profil" title="Profile" class="nav-link">

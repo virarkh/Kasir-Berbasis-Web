@@ -1,27 +1,32 @@
 <?php
 
-class jenispengeluaran_model extends CI_Model{
+class jenispengeluaran_model extends CI_Model
+{
 
-    function index(){
+    function indexJP()
+    {
         return $this->db->get('jenis_pengeluaran')->result();
     }
 
-    function tambah_data($data, $table){
+    function addModelJP($data, $table)
+    {
         $this->db->insert($table, $data);
     }
 
-    function edit($where, $table){
+    function editModelJP($where, $table)
+    {
         return $this->db->get_where($table, $where);
     }
 
-    function edit_data($where, $data, $table){
+    function saveModelJP($where, $data, $table)
+    {
         $this->db->where($where);
         $this->db->update($table, $data);
     }
 
-    function hapus_data($where, $table){
+    function delModelJP($where, $table)
+    {
         $this->db->where($where);
         $this->db->delete($table);
     }
-
 }

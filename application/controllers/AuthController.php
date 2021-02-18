@@ -21,15 +21,14 @@ class AuthController extends CI_Controller
 	// untuk login
 	public function loginForm()
 	{
-		$this->form_validation->set_rules('email', 'email', 'required');
-		$this->form_validation->set_rules('password', 'password', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('login.php');
 		} else {
 			$email = $this->input->post('email', TRUE);
 			$password = md5($this->input->post('password', TRUE));
-			// $login = $this->user_model->login($username, $password);
 
 			$where = array(
 				'email'	=> $email,
@@ -60,18 +59,14 @@ class AuthController extends CI_Controller
 
 				$this->session->set_userdata($data_session);
 
-				//  set message
 				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" >Selamat! Anda Berhasil Login</div>');
-				// $this->session->set_flashdata('sukses', 'Selamat Anda Berhasil Login');
 
-				// login pemilik
 				if ($role_id === '1') {
-					redirect('DashboardController/index');
+					redirect('KasirController/indexKasir');
 				} else {
-					redirect('KasirController/index');
+					redirect('DashboardController/index');
 				}
 			} else {
-				// $this->session->set_flashdata('msg', 'Username / Password yang Anda Masukkan Salah');
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Username / Password yang Anda Masukkan Salah</div>');
 				redirect('AuthController/index');
 			}
@@ -80,9 +75,6 @@ class AuthController extends CI_Controller
 
 	public function logout()
 	{
-		// $this->session->sess_destroy();
-		// redirect('AuthController/index');
-
 		$this->session->unset_userdata('logged_in');
 		session_destroy();
 		redirect('AuthController/index');
@@ -91,7 +83,6 @@ class AuthController extends CI_Controller
 	// menampilkan daftar pengguna
 	public function daftar()
 	{
-
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			// $this->session->set_flashdata('notif', 'Anda harus login dulu');
@@ -109,7 +100,6 @@ class AuthController extends CI_Controller
 	//view tambah user
 	public function tambah()
 	{
-
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
@@ -133,9 +123,10 @@ class AuthController extends CI_Controller
 		$config = array(
 			'upload_path'	=> './assets/profil',
 			'allowed_types'	=> 'jpg|jpeg|png',
-			'max_size'		=> '2086',
-			'max_width'		=> '1024',
-			'max_height'	=> '768'
+			'max_size'		=> '10000'
+			// 'max_size'		=> '2086',
+			// 'max_width'		=> '1024',
+			// 'max_height'	=> '768'
 		);
 
 		$this->load->library('upload', $config);
@@ -203,9 +194,10 @@ class AuthController extends CI_Controller
 		$config = array(
 			'upload_path'	=> './assets/profil',
 			'allowed_types'	=> 'jpg|jpeg|png',
-			'max_size'		=> '2086',
-			'max_width'		=> '1024',
-			'max_height'	=> '768'
+			'max_size'		=> '10000'
+			// 'max_size'		=> '2086',
+			// 'max_width'		=> '1024',
+			// 'max_height'	=> '768'
 		);
 
 		$this->load->library('upload', $config);
@@ -304,13 +296,13 @@ class AuthController extends CI_Controller
 		$this->load->library('email', $config);
 		// $this->load->initialize($config);
 
-		$this->email->from('tumbuhsehat7@gmail.com', 'Rokhmah Vira Santi');
+		$this->email->from('tumbuhsehat7@gmail.com', 'Tika Cuci Sepeda Motor');
 		$this->email->to($this->input->post('email'));
 
 		if ($type == 'forgot') {
 			$this->email->subject('Reset Password');
-			$this->email->message('<h4>Klik button dibawah ini untuk mengganti password Anda : </h4><br>
-			<a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '" class="btn btn-primary">Reset Password</a>');
+			$this->email->message('<h3>Klik button dibawah ini untuk mengganti password Anda : </h3><br>
+			<a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '" class="btn btn-primary"><b>Reset Password</b></a>');
 		}
 
 
@@ -360,8 +352,8 @@ class AuthController extends CI_Controller
 				$token = base64_encode(random_bytes(32));
 				$user_token = [
 					'email' => $email,
-					'token' => $token,
-					'date_created' => time()
+					'token' => $token
+					// 'date_created' => time()
 				];
 
 				$this->db->insert('user_token', $user_token);

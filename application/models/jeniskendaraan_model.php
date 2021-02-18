@@ -1,27 +1,32 @@
 <?php
 
-class jeniskendaraan_model extends CI_Model{
+class jeniskendaraan_model extends CI_Model
+{
 
-    function index(){
+    function indexJK()
+    {
         return $this->db->get('jenis_kendaraan')->result();
     }
 
-    function tambah_data($data, $table){
+    function addModelJK($data, $table)
+    {
         $this->db->insert($table, $data);
     }
 
-    function edit($where, $table){
+    function editModelJK($where, $table)
+    {
         return $this->db->get_where($table, $where);
     }
 
-    function edit_data($where, $data, $table){
+    function saveModelJK($where, $data, $table)
+    {
         $this->db->where($where);
         $this->db->update($table, $data);
     }
 
-    function hapus_data($where, $table){
+    function delModelJK($where, $table)
+    {
         $this->db->where($where);
         $this->db->delete($table);
     }
-
 }

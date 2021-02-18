@@ -17,10 +17,9 @@ class DiskonController extends CI_Controller
         }
     }
 
-    public function index()
+    public function indexDiskon()
     {
-
-        $data['diskon'] = $this->diskon_model->index();
+        $data['diskon'] = $this->diskon_model->indexDiskon();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -28,7 +27,7 @@ class DiskonController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function tambah()
+    public function addDiskon()
     {
         $this->load->view('pemilik/master/header');
         $this->load->view('pemilik/master/sidebar');
@@ -37,7 +36,7 @@ class DiskonController extends CI_Controller
         $this->load->view('pemilik/master/footer');
     }
 
-    public function tambah_data()
+    public function addDataDiskon()
     {
         $nama_diskon    = $this->input->post('nama_diskon');
         $potongan_harga = $this->input->post('potongan_harga');
@@ -46,20 +45,16 @@ class DiskonController extends CI_Controller
             'nama_diskon'       => $nama_diskon,
             'potongan_harga'    => $potongan_harga
         );
-
-        // if ($this->db->affected_rows() > 0) {
-
-        // }
         $this->session->set_flashdata('success', 'Data Berhasil di Tambah');
 
-        $this->diskon_model->tambah_data($data, 'diskon');
-        redirect('DiskonController/index');
+        $this->diskon_model->addModelDiskon($data, 'diskon');
+        redirect('DiskonController/indexDiskon');
     }
 
-    public function edit($id)
+    public function editDiskon($id)
     {
         $where          = array('id' => $id);
-        $data['diskon'] = $this->diskon_model->edit($where, 'diskon')->result();
+        $data['diskon'] = $this->diskon_model->editModelDiskon($where, 'diskon')->result();
         $this->load->view('pemilik/master/header', $data);
         $this->load->view('pemilik/master/sidebar', $data);
         $this->load->view('pemilik/master/topbar', $data);
@@ -67,7 +62,7 @@ class DiskonController extends CI_Controller
         $this->load->view('pemilik/master/footer', $data);
     }
 
-    public function edit_data()
+    public function editDataDiskon()
     {
         $id             = $this->input->post('id');
         $nama_diskon    = $this->input->post('nama_diskon');
@@ -84,17 +79,17 @@ class DiskonController extends CI_Controller
 
         $this->session->set_flashdata('success', 'Data Berhasil di Ubah');
 
-        $this->diskon_model->edit_data($where, $data, 'diskon');
-        redirect('DiskonController/index');
+        $this->diskon_model->saveModelDiskon($where, $data, 'diskon');
+        redirect('DiskonController/indexDiskon');
     }
 
-    public function hapus($id)
+    public function delDiskon($id)
     {
         $where = array('id' => $id);
-        $this->diskon_model->hapus_data($where, 'diskon');
+        $this->diskon_model->delModelDiskon($where, 'diskon');
 
         $this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
 
-        redirect('DiskonController/index');
+        redirect('DiskonController/indexDiskon');
     }
 }

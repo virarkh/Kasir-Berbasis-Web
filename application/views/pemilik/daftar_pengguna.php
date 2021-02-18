@@ -35,10 +35,11 @@
             ?>
               <tr>
                 <td style="text-align: center; width: 1%;"><?php echo $no++ ?></td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   <?php if ($u->foto_profil == '') {
                   } else { ?>
-                    <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" / style="width:100px; border-radius:0%"></td>
+                    <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" style="width:100px; height:100px; border-radius:100%">
+                </td>
               <?php } ?>
               </td>
               <!-- <td><img src="<?php echo base_url() ?>$u->foto_profil?>"></td> -->
