@@ -64,7 +64,7 @@ class TransaksiController extends CI_Controller
         $tgl_akhir  = $this->input->get('tgl_akhir');
 
         if (empty($tgl_awal) or empty($tgl_akhir)) {
-            $transaksi  = $this->transaksi_model->index();
+            $transaksi  = $this->transaksi_model->indexTransaksi();
             $label      = 'Semua Data Transaksi';
         } else {
             setlocale(LC_ALL, 'id-ID', 'id_ID');

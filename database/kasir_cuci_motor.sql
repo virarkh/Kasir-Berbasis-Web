@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2021 at 05:04 AM
+-- Generation Time: Mar 24, 2021 at 09:12 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -38,16 +38,9 @@ CREATE TABLE `diskon` (
 --
 
 INSERT INTO `diskon` (`id`, `nama_diskon`, `potongan_harga`) VALUES
-(2, 'Lebaran idul fitri 2021', 15000),
-(4, 'Tahun Baru', 3000),
-(5, 'Weekend', 1000),
-(6, 'Weekday', 500),
-(9, 'Tahun Baru', 3000),
-(10, 'Ramadhan', 1000),
-(11, 'Maulid', 500),
-(12, 'Tahun Ajaran Baru', 500),
-(13, 'Natal', 2500),
-(14, 'Hari Pahlawan', 2500);
+(23, 'Tidak Ada', 0),
+(24, 'Ramadhan', 500),
+(25, 'Eid', 2000);
 
 -- --------------------------------------------------------
 
@@ -66,10 +59,10 @@ CREATE TABLE `jenis_kendaraan` (
 --
 
 INSERT INTO `jenis_kendaraan` (`id`, `nama_kendaraan`, `tarif`) VALUES
-(1, 'Matic', 10000),
-(2, 'Bebek', 13000),
-(3, 'NMax', 16000),
-(6, 'becak motor', 8000);
+(9, 'Matic', 10000),
+(10, 'Bebek', 10000),
+(11, 'Kopling', 15000),
+(12, 'Sport', 25000);
 
 -- --------------------------------------------------------
 
@@ -87,9 +80,10 @@ CREATE TABLE `jenis_pengeluaran` (
 --
 
 INSERT INTO `jenis_pengeluaran` (`id`, `nama_pengeluaran`) VALUES
-(1, 'air mineral'),
-(2, 'listrik'),
-(6, 'top up ovo');
+(9, 'Listrik'),
+(10, 'Air'),
+(11, 'Sabun'),
+(12, 'Kain Lap');
 
 -- --------------------------------------------------------
 
@@ -108,9 +102,8 @@ CREATE TABLE `metode_mencuci` (
 --
 
 INSERT INTO `metode_mencuci` (`id`, `nama_metode`, `tarif_tambahan`) VALUES
-(1, 'Biasa', 0),
-(2, 'Steam', 3000),
-(4, 'cuci bersih sekali', 4000);
+(8, 'Biasa', 500),
+(9, 'Steam', 2000);
 
 -- --------------------------------------------------------
 
@@ -134,13 +127,7 @@ CREATE TABLE `pengeluaran` (
 --
 
 INSERT INTO `pengeluaran` (`id`, `kode`, `tanggal`, `jns_pengeluaran_id`, `biaya`, `detail`, `foto`, `user_id`) VALUES
-(13, '', '2020-11-19', 6, 21000, 'top up ovo', '', 0),
-(14, '', '2020-11-20', 2, 4000, '', '', 0),
-(15, '', '2020-11-21', 1, 1200, '', '', 0),
-(16, '', '2020-11-21', 2, 2500, 'yuk', '', 0),
-(17, '', '2020-11-20', 2, 1000000, 'bayar listrik\r\n', '', 0),
-(18, '', '2020-08-05', 2, 60000, 'lorem\r\n', '', 0),
-(19, '1234', '2021-01-06', 1, 2424, 'asdf', 'photo_2020-11-29_17-02-42.jpg', 1);
+(25, '12345', '2021-03-16', 10, 40000, 'bayar air bulan februari 2021', 'nota.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -176,8 +163,6 @@ CREATE TABLE `transaksi` (
   `sub_total` int(11) NOT NULL,
   `diskon_id` int(11) NOT NULL,
   `total` int(11) NOT NULL,
-  `bayar` int(11) NOT NULL,
-  `kembalian` int(11) NOT NULL,
   `tanggal` datetime NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -186,22 +171,10 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id`, `invoice`, `nama_customer`, `jenis_id`, `metode_id`, `sub_total`, `diskon_id`, `total`, `bayar`, `kembalian`, `tanggal`, `user_id`) VALUES
-(2, 'CS2101090001', 'vira', 2, 1, 15000, 14, 13000, 15000, 3000, '2020-11-17 13:53:07', 1),
-(3, 'CS2101090002', 'susi', 1, 2, 0, 4, 3000, 0, 0, '0000-00-00 00:00:00', 0),
-(4, 'CS2101090003', 'halo', 2, 4, 0, 5, 1000, 0, 0, '0000-00-00 00:00:00', 0),
-(5, 'CS2101090004', 'asd', 6, 1, 0, 2, 15000, 0, 0, '0000-00-00 00:00:00', 0),
-(6, 'CS2101090005', 'qwert', 2, 1, 0, 4, 3000, 0, 0, '0000-00-00 00:00:00', 0),
-(7, 'CS2101090006', 'asdf', 1, 1, 0, 2, 15000, 0, 0, '0000-00-00 00:00:00', 0),
-(8, 'CS2101090007', 'halo', 1, 1, 0, 2, 15000, 0, 0, '0000-00-00 00:00:00', 0),
-(9, 'CS2101090008', 'halo', 3, 1, 0, 4, 3000, 0, 0, '0000-00-00 00:00:00', 0),
-(10, 'CS2101090009', 'ghj', 1, 1, 0, 2, 15000, 0, 0, '0000-00-00 00:00:00', 0),
-(11, 'CS2101090010', 'asd', 1, 1, 0, 4, 3000, 0, 0, '2021-01-09 23:25:00', 1),
-(12, 'CS2101120001', 'hjk', 1, 1, 0, 9, 3000, 0, 0, '0000-00-00 00:00:00', 0),
-(13, 'CS2101120002', 'GHJ', 2, 2, 0, 13, 2500, 0, 0, '0000-00-00 00:00:00', 0),
-(14, 'CS2101120003', 'ASDF', 1, 1, 0, 4, 3000, 0, 0, '0000-00-00 00:00:00', 4),
-(15, 'CS2101120004', 'a', 1, 2, 0, 4, 3000, 0, 0, '0000-00-00 00:00:00', 0),
-(16, 'CS2101120005', 'asdf', 1, 2, 0, 4, 3000, 0, 0, '0000-00-00 00:00:00', 0);
+INSERT INTO `transaksi` (`id`, `invoice`, `nama_customer`, `jenis_id`, `metode_id`, `sub_total`, `diskon_id`, `total`, `tanggal`, `user_id`) VALUES
+(80, 'CS2103240001', 'Tama', 9, 8, 10500, 24, 10000, '2021-03-24 13:05:14', 10),
+(81, 'CS2103240002', 'Cici', 12, 9, 27000, 23, 27000, '2021-03-24 13:15:51', 10),
+(82, 'CS2103240003', 'Jeje', 11, 8, 15500, 25, 13500, '2021-03-24 14:03:56', 10);
 
 -- --------------------------------------------------------
 
@@ -216,7 +189,7 @@ CREATE TABLE `user` (
   `email` varchar(45) NOT NULL,
   `password` text NOT NULL,
   `view_password` varchar(45) NOT NULL,
-  `no.hp` varchar(20) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
   `alamat` text NOT NULL,
   `foto_profil` text NOT NULL,
   `role_id` int(11) NOT NULL
@@ -226,10 +199,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama_user`, `username`, `email`, `password`, `view_password`, `no.hp`, `alamat`, `foto_profil`, `role_id`) VALUES
-(1, 'Diah', 'diadisana', '', 'diah123', '', '258', 'kedondong', '', 1),
-(2, 'gina', 'ginaginul', 'halo@gmail.com', '57f842286171094855e51fc3a541c1e2', 'halo', '08991303148', 'jakarta', '', 2),
-(3, 'Rokhmah Vira', 'vira', 'rokhmahv@gmail.com', 'd7324ebb4425f29915ecda12cb35333c', 'halo1', '089617271499', 'pasuruan', '', 1);
+INSERT INTO `user` (`id`, `nama_user`, `username`, `email`, `password`, `view_password`, `no_hp`, `alamat`, `foto_profil`, `role_id`) VALUES
+(3, 'Rokhmah Vira Santi', 'vira', 'rokhmahv@gmail.com', '37d153a06c79e99e4de5889dbe2e7c57', 'april', '089617271499', 'Pandaan', 'vira1.jpg', 1),
+(10, 'Owner', 'owner', 'rokhmahviras@gmail.com', 'd314592962db67e0a52d5e4c341203c7', 'melow', '089617271499', 'Indonesia', 'student.png', 2);
 
 -- --------------------------------------------------------
 
@@ -248,7 +220,21 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `email`, `token`) VALUES
-(1, 'rokhmahv@student.ub.ac.id', 'trICZMwIXtVv9CEw1qoejFBWmdfYF6b+7YOaoBkDBJI=');
+(1, 'rokhmahv@student.ub.ac.id', 'trICZMwIXtVv9CEw1qoejFBWmdfYF6b+7YOaoBkDBJI='),
+(2, 'rokhmahv@student.ub.ac.id', 'dpMv0bnqckSSTfGGXEg6LX90dBJm9WxcOUuW9Sm6MSI='),
+(3, 'rokhmahv@student.ub.ac.id', 'J0OYV+UYYsR1/5/suh1bwNqyfk6ZmUDc7qIkSsEcdXw='),
+(4, 'rokhmahv@student.ub.ac.id', 'YJxVbq5bVKr4e8cYq1Rkg4Qxp8W37uikhBaV3taEVf8='),
+(5, 'rokhmahv@gmail.com', 'DkqSbBBfqgx3nXHpuKjSsMGNb97kxn04nMz3OXU8T4k='),
+(6, 'rokhmahv@gmail.com', 'BtHE1wuDvuoC0C3blapnKaAdhWzAQGbXGuKj4Xv4FDc='),
+(7, 'rokhmahv@gmail.com', 'x7SlY5OFutrVOtdkd1/loBK8TEYQEsksxFSx6/pzugM='),
+(8, 'rokhmahv@gmail.com', '+Q32ZPuJ34quk7S6zip7bcHVhmJC4Tdj3NeSEFnDv5Y='),
+(9, 'rokhmahv@gmail.com', 'qkLtLHrRK2+NfS8WkSqT+P9CwyW4Q0EcLPVNQKnz0wY='),
+(10, 'rokhmahv@gmail.com', 'K8Ju6yGJwGJSAa11gtl1kAlkiHxhRWDmt3dHSCK2DHY='),
+(11, 'rokhmahv@gmail.com', 'V9enotgEnYgE44lLptrSfQd9htsLzOXjsWpvBxJ1yj0='),
+(12, 'rokhmahv@gmail.com', '1UBu8StXxiuURXF1yFvZ9gPbwrVirOxyi91koGi6lXg='),
+(13, 'rokhmahv@gmail.com', 'qq04942Q01F5YcAK4OBMAXY4mXbf1TgjQkwxsmzzmbM='),
+(14, 'rokhmahv@gmail.com', '4qeLJZBBRGnMH5kBFzpzWsojzyeGdd2FfNBbCBzsOZ0='),
+(15, 'rokhmahv@gmail.com', 'u+9D/4w4bDkt+f42nVOpQq/MAydzjBSwqAJYVHcvjgA=');
 
 --
 -- Indexes for dumped tables
@@ -323,31 +309,31 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `diskon`
 --
 ALTER TABLE `diskon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `jenis_kendaraan`
 --
 ALTER TABLE `jenis_kendaraan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jenis_pengeluaran`
 --
 ALTER TABLE `jenis_pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `metode_mencuci`
 --
 ALTER TABLE `metode_mencuci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -359,19 +345,19 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -381,7 +367,23 @@ ALTER TABLE `user_token`
 -- Constraints for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  ADD CONSTRAINT `pengeluaran_ibfk_1` FOREIGN KEY (`jns_pengeluaran_id`) REFERENCES `jenis_pengeluaran` (`id`);
+  ADD CONSTRAINT `pengeluaran_ibfk_1` FOREIGN KEY (`jns_pengeluaran_id`) REFERENCES `jenis_pengeluaran` (`id`),
+  ADD CONSTRAINT `pengeluaran_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`metode_id`) REFERENCES `metode_mencuci` (`id`),
+  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`jenis_id`) REFERENCES `jenis_kendaraan` (`id`),
+  ADD CONSTRAINT `transaksi_ibfk_4` FOREIGN KEY (`diskon_id`) REFERENCES `diskon` (`id`);
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

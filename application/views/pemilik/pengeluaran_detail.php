@@ -9,7 +9,7 @@
 
   <div class="row">
 
-    <div class="col-xl-8 col-lg-7">
+    <div class="col-xl-6 col-lg-7" style="height: 350px;">
 
       <!-- Area Chart -->
       <div class="card shadow mb-4">
@@ -78,7 +78,7 @@
           </table><br>
           <div class="row">
             <div class="col-sm">
-              <a href="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+              <a href="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 85px;">
                 <span class="icon text-white-600">
                   <i class="fas fa-chevron-left"></i>
                 </span>
@@ -92,19 +92,26 @@
     </div>
 
     <!-- Donut Chart -->
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-xl-6 col-lg-5">
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
-        <div class="card-header py-3">
+        <!-- <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Foto Nota</h6>
-        </div>
+        </div> -->
         <!-- Card Body -->
         <div class="card-body">
-          <img src="<?php echo base_url('./assets/nota/' . $p->foto) ?>" style="width: 220px; height:220px; display:block; margin:auto">
+          <img src="<?php echo base_url('./assets/nota/' . $p->foto) ?>" style="width: 350px; height:350px; display:block; margin:auto">
         </div>
       </div>
     </div>
   </div>
+
+  <!-- <a href="<?php echo base_url('PengeluaranController/indexPengeluaran') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+    <span class="icon text-white-600">
+      <i class="fas fa-chevron-left"></i>
+    </span>
+    <span class="text">Kembali</span>
+  </a> -->
 
   <!-- <?php
         }

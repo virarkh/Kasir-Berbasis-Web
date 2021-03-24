@@ -18,11 +18,30 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                     </div>
                     <div class="card-body">
                         <!-- <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p> -->
-                        <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p>
+                        <!-- <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p>
                         <p><b>Kasir</b> &nbsp;: <?php foreach ($user->result() as $u) : ?>
                                 <?php echo $u->nama_user; ?>
                             <?php endforeach; ?>
-                        </p>
+                        </p> -->
+                        <table>
+                            <tr>
+                                <td><b>Tanggal</b></td>
+                                <td>&nbsp; : &nbsp;</td>
+                                <td><?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kasir</b></td>
+                                <td>&nbsp; : &nbsp;</td>
+                                <td>
+                                    <?php foreach ($user->result() as $u) : ?>
+                                        <?php echo $u->nama_user; ?>
+                                    <?php endforeach; ?>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br>
+
                         <table class="table table-bordered" style="border: 2;">
                             <thead style="text-align: center;">
                                 <tr>

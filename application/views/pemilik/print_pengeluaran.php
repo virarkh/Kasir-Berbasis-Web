@@ -1,83 +1,90 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Pengeluaran</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-      .body{
-        font-family: sans-serif;
-        font-size: 15px;
-      }
-      #title{
-        text-align: center;
-        font-family: sans-serif;
-        margin-top: 5px;
-      }
-      .line-title{
+<html><head>
+  <title>Laporan Pengeluaran</title>
+  <style type="text/css">
+    .table1{
+      font-family: sans-serif;
+      color: #000;
+      border-collapse: collapse;
+      width: 100%;
+      /* border: 1px solid #000; */
+      font-size: 15px;
+    }
+
+    .table1 thead th{
+      background-color: #808080;
+      color: white;
+      text-align: center;
+      border: 1px solid gainsboro;
+    }
+
+    .table1 tbody td{
+      text-align: center;
+      background-color: #F5F5F5;
+      /* border-bottom: 1px solid gainsboro; */
+      border-right: 1px solid gainsboro;
+    }
+
+    #title{
+      text-align: center;
+      font-family: sans-serif;
+      margin-top: 5px;
+    }
+
+    .line-title{
         border: 0;
         /* border-style: solid ; */
-        border-top: 1px solid #000;
+        border-top: 3px solid #000;
       }
-      #table1 {
-      	font-family: sans-serif;
-      	color: #000;
-        border-collapse: collapse;
-      }
-      table{
-        width: 100%;
-      }
-      #table2 {
-      	font-family: sans-serif;
-      	color: black;
-        border: 0;
-        /* border-collapse: collapse; */
-      }
-    </style>
-</head><body class="body">
-  <?php
-    setlocale(LC_ALL, 'id-ID', 'id_ID');
-  ?>
 
-  <h2 id="title">Laporan Pengeluaran</h2>
-  <p id="title"><?php echo $label ?></p>
+  </style>
+</head><body>
+    <h2 id="title">Laporan Pengeluaran </h2>
+    <p id="title"><?php echo $label ?></p>
 
-  <hr class="line-title">
+    <hr class="line-title">
 
-  <table border="1">
+  <table class="table1">
     <?php
         if (empty($pengeluaran)) {
             echo "<tr>
-                    <td colspan='5'>Data tidak ada</td>
+                    <td style=text-align:center>Data tidak ada</td>
                   </tr>";
         } else {
             $no = 1;
             foreach ($pengeluaran as $p) {
-              // $tanggal = strftime('%a, %d %b %Y', strtotime($p->tanggal));
+              setlocale(LC_ALL, 'id-ID', 'id_ID');
+        $tanggal = strftime('%e %B %Y', strtotime($p->tanggal));
+
                     echo "<tr>
-                      <td colspan=5 style=border:none>Tanggal : " . strftime('%A, %d %B %Y', strtotime($p->tanggal)) . "</td>
-                    </tr>";
-                    echo "<tr>
-                      <td colspan=5 style=border:none>Bersangkutan : $p->nama_user</td>
+                      <td><b>Tanggal</b></td><td>: $tanggal</td>
+                    </tr>
+                    <tr>
+                      <td><b>Bersangkutan</b></td><td> : $p->nama_user</td>
                     </tr>";
 
-                    echo "<tr style=text-align:center>
-                      <th id=table2>No</th>
+                    echo "<thead><tr>
+                      <th style=text-align:center>No</th>
                       <th>No. Nota</th>
                       <th>Pengeluaran</th>
                       <th>Detail</th>
-                      <th>Biaya</th>
-                    </tr>";
+                      <th style=text-align:center>Biaya</th>
+                    </tr></thead>";
 
-                    echo "<tr style=text-align:center;>
-                      <td>" . $no++ ." </td>
+                    echo "<tbody><tr>
+                      <td style=text-align:center>" . $no++ ." </td>
                       <td> $p->kode </td>
                       <td> $p->nama_pengeluaran </td>
                       <td> $p->detail </td>
                       <td>Rp " . number_format($p->biaya, 0, ',', '.') . "</td>
-                    </tr>";
+                    </tr></tbody>";
 
+                    echo "<tr>
+                      <td style=border:none></td>
+                    </tr>";
+                    echo "<tr>
+                      <td style=border:none></td>
+                    </tr>";
                     echo "<tr>
                       <td style=border:none></td>
                     </tr>";

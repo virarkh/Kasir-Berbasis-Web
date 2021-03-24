@@ -64,7 +64,7 @@ class AuthController extends CI_Controller
 				if ($role_id === '1') {
 					redirect('KasirController/indexKasir');
 				} else {
-					redirect('DashboardController/index');
+					redirect('TransaksiController/indexTransaksi');
 				}
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Username / Password yang Anda Masukkan Salah</div>');
@@ -285,8 +285,10 @@ class AuthController extends CI_Controller
 		$config = [
 			'protocol'	=> 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_user' => 'tumbuhsehat7@gmail.com',
-			'smtp_pass' => 'tumbuhsehat789',
+			// 'smtp_user' => 'tumbuhsehat7@gmail.com',
+			// 'smtp_pass' => 'tumbuhsehat789',
+			'smtp_user' => 'cyclewash10@gmail.com',
+			'smtp_pass' => 'cucisepeda',
 			'smtp_port' => 465,
 			'mailtype' 	=> 'html',
 			'charset' 	=> 'utf-8',
@@ -296,13 +298,16 @@ class AuthController extends CI_Controller
 		$this->load->library('email', $config);
 		// $this->load->initialize($config);
 
-		$this->email->from('tumbuhsehat7@gmail.com', 'Tika Cuci Sepeda Motor');
+		$this->email->from('cyclewash10@gmail.com', 'Tika Cuci Sepeda Motor');
 		$this->email->to($this->input->post('email'));
 
 		if ($type == 'forgot') {
 			$this->email->subject('Reset Password');
-			$this->email->message('<h3>Klik button dibawah ini untuk mengganti password Anda : </h3><br>
-			<a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '" class="btn btn-primary"><b>Reset Password</b></a>');
+			// $this->email->message('<h2>Klik button dibawah ini untuk mengganti password Anda : </h2><br>
+			$this->email->message(
+				'<p>Halo..</p><p>Untuk dapat mengubah kata sandi akun anda, klik reset password dibawah ini !</p><br>
+				<a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '" class="btn btn-danger btn-icon-split"><h2>RESET PASSWORD</h2></a>'
+			);
 		}
 
 

@@ -50,7 +50,6 @@
                                         <label class="custom-control-label" for="checkbox">Show Password</label>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

@@ -21,7 +21,7 @@
 
                                 <div class=" col-md-8 ">
                                     <div class="card-body">
-                                        <h5 class="card-title"><?php echo $user['nama_user'] ?></h5>
+                                        <h5 class="card-title" style="text-align:center; font-weight:bold"><?php echo $user['nama_user'] ?></h5>
                                         <div class="card-text">
                                             <table class="table">
                                                 <tr>
