@@ -17,82 +17,50 @@
             <h6 class="m-0 font-weight-bold text-primary">Detail Profil</h6>
           </div>
           <div class="card-body">
-            <table class="table-responsive">
-              <tr>
-                <th><span><i class="far fa-address-card"></i></span>&nbsp; Nama</th>
-                <td></td>
-                <td>:</td>
-                <td></td>
-                <td><?php echo $u->nama_user ?></td>
-              </tr>
-              <tr>
-                <th><span><i class="far fa-user"></i></span>&nbsp; Username</th>
-                <td></td>
-                <td>:</td>
-                <td></td>
-                <td><?php echo $u->username ?></td>
-              </tr>
-              <tr>
-                <th><span><i class="fas fa-phone"></i></span>&nbsp; No Handphone</th>
-                <td></td>
-                <td>:</td>
-                <td></td>
-                <td><?php echo $u->no_hp ?></td>
-              </tr>
-              <tr>
-                <th><span><i class="fas fa-envelope"></i></span>&nbsp; Email</th>
-                <td></td>
-                <td>:</td>
-                <td></td>
-                <td><?php echo $u->email ?></td>
-              </tr>
-              <tr>
-                <th><span><i class="fas fa-user-tag"></i></span>&nbsp; Sebagai</th>
-                <td></td>
-                <td>:</td>
-                <td></td>
-                <td>
-                  <?php foreach ($role->result() as $r) : ?>
-                    <?php echo $r->nama; ?>
-                  <?php endforeach; ?>
-                </td>
-              </tr>
-              <tr>
-                <th><span><i class="fas fa-home"></i></span>&nbsp; Alamat</th>
-                <td></td>
-                <td>:</td>
-                <td></td>
-                <td><?php echo $u->alamat ?></td>
-              </tr>
-              <tr>
-                <td></td>
-              </tr>
-              <tr>
-
-                <!-- <td colspan="5"><a href="<?php echo base_url('AuthController/daftar'); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a></td> -->
-              </tr>
-            </table>
-            <a href="<?php echo base_url('AuthController/daftar') ?>" class="btn btn-secondary btn-icon-split" style="margin-top: 2%;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" class="card-img" style="position: relative; transform:translate(0, -50%); top:49%">
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-7">
+                <h4 style="text-align: center;"><b><?php echo $u->nama_user ?></b></h4>
+                <div class="table-responsive">
+                  <table class="table">
+                    <tr>
+                      <th><span><i class="far fa-user"></i></span>&nbsp; Username</th>
+                      <td>: <?php echo $u->username ?></td>
+                    </tr>
+                    <tr>
+                      <th><span><i class="fas fa-phone"></i></span>&nbsp; No Handphone</th>
+                      <td>: <?php echo $u->no_hp ?></td>
+                    </tr>
+                    <tr>
+                      <th><span><i class="fas fa-envelope"></i></span>&nbsp; Email</th>
+                      <td>: <?php echo $u->email ?></td>
+                    </tr>
+                    <tr>
+                      <th><span><i class="fas fa-user-tag"></i></span>&nbsp; Sebagai</th>
+                      <td>:
+                        <?php foreach ($role->result() as $r) : ?>
+                          <?php echo $r->nama; ?>
+                        <?php endforeach; ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><span><i class="fas fa-home"></i></span>&nbsp; Alamat</th>
+                      <td>: <?php echo $u->alamat ?></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <a href="<?php echo base_url('AuthController/daftar') ?>" class="btn btn-secondary btn-icon-split" style="text-align:center">
               <span class="icon text-white-600">
                 <i class="fas fa-chevron-left"></i>
               </span>
               <span class="text">Kembali</span>
             </a>
 
-          </div>
-        </div>
-      </div>
-
-      <!-- Donut Chart -->
-      <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Foto Profil</h6>
-          </div>
-          <!-- Card Body -->
-          <div class="card-body">
-            <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" style="width: 220px; height:220px; border-radius:100%; display:block; margin:auto">
           </div>
         </div>
       </div>
@@ -103,3 +71,9 @@
   ?>
 </div>
 <!-- /.container-fluid -->
+
+<style>
+  .table tr th {
+    width: -50%;
+  }
+</style>
