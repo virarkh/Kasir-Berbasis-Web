@@ -12,14 +12,21 @@
       <div class="col-xl-8 col-lg-7">
 
         <!-- Area Chart -->
-        <div class="card shadow mb-4">
+        <div class="card shadow mb-4" id="body">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Detail Profil</h6>
           </div>
           <div class="card-body">
             <div class="row no-gutters">
+              <!-- GAK JADI -->
+              <!-- <div class="view overlay zoom">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" class="img-fluid " alt="smaple image">
+                <div class="mask flex-center">
+                  <p class="white-text">Zoom effect</p>
+                </div>
+              </div> -->
               <div class="col-md-4">
-                <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" class="card-img" style="position: relative; transform:translate(0, -50%); top:49%">
+                <img src="<?php echo base_url('./assets/profil/' . $u->foto_profil) ?>" class="card-img">
               </div>
               <div class="col-md-1"></div>
               <div class="col-md-7">
@@ -69,11 +76,87 @@
   <?php
   }
   ?>
+
+
+
 </div>
 <!-- /.container-fluid -->
 
+
 <style>
-  .table tr th {
-    width: -50%;
+  .card-img {
+    transition: transform .2s;
+    position: relative;
+  }
+
+  .card-img:hover {
+    transform: scale(1.5);
+  }
+
+  /* .card-body {}
+
+  .card-img {
+    background-position: center;
+    transition: 1s;
+    cursor: zoom-in;
+  }
+
+  .card-img :hover {
+    background-size: 150% !important;
+    backgrousnd-position: center;
+  } */
+
+  #magnifying_area {
+    /* width: 800px;
+    height: 500px; */
+    overflow: hidden;
+    /* border: 3px solid #fff; */
+    position: relative;
+    /* display: flex; */
+  }
+
+  #magnifying_img {
+    /* max-width: 100%;
+    min-width: 100%; */
+    /* position: absolute; */
+    /* left: 50%;
+    top: 50%; */
+    /* transform: translate(-50%, -50%) */
+    position: relative;
+    transform: translate(0%, -50%);
+    top: 49%;
+    pointer-events: none;
   }
 </style>
+
+<script src="<?php echo base_url() ?>assets/js/zoom.js"></script>
+
+<script>
+  // var magnifying_area = document.getElementById("magnifying_area");
+  // var magnifying_img = document.getElementById("magnifying_img");
+
+  // magnifying_area.addEventListener("mousemove", function() {
+
+  //   magnifying_img.style.transform = 'translate(-0%, -50%) scale(2)'
+
+  // });
+
+  // magnifying_area.addEventListener("mouseleave", function() {
+
+  //   magnifying_img.style.transform = 'translate(-0%, -50%) scale(1)'
+
+  // });
+  // var options = {
+  //   width: 400,
+  //   height: 250,
+  //   zoomWidth: 500,
+  //   offset: {
+  //     vertical: 0,
+  //     horizontal: 10
+  //   },
+  //   scale: 1.5,
+  //   zoomPosition: original
+  // }
+
+  // new ImageZoom(document.getElementById("img-zoom"), options);
+</script>
