@@ -61,12 +61,6 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <!-- <th>No</th>
-              <th>Kode Nota</th>
-              <th>Tanggal</th>
-              <th>Pengeluaran</th>
-              <th>Biaya</th>
-              <th>Action</th> -->
               <th style="width: 1%;">No</th>
               <th>Tanggal</th>
               <th>Invoice</th>
