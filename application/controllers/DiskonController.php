@@ -17,7 +17,7 @@ class DiskonController extends CI_Controller
 		}
 	}
 
-	public function indexDiskon()
+	public function indexDiskon() // index diskon 
 	{
 		$data['diskon'] = $this->diskon_model->indexDiskon();
 		$this->load->view('pemilik/master/header', $data);
@@ -27,7 +27,7 @@ class DiskonController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function addDiskon()
+	public function addDiskon() // form add diskon
 	{
 		$this->load->view('pemilik/master/header');
 		$this->load->view('pemilik/master/sidebar');
@@ -36,14 +36,14 @@ class DiskonController extends CI_Controller
 		$this->load->view('pemilik/master/footer');
 	}
 
-	public function addDataDiskon()
+	public function addDataDiskon() // proses add diskon
 	{
 		$nama_diskon    = $this->input->post('nama_diskon');
 		$potongan_harga = $this->input->post('potongan_harga');
 
 		$data = array(
-			'nama_diskon'       => $nama_diskon,
-			'potongan_harga'    => $potongan_harga
+			'nama_diskon'    => $nama_diskon,
+			'potongan_harga' => $potongan_harga
 		);
 		$this->session->set_flashdata('success', 'Data Berhasil di Tambah');
 
@@ -51,7 +51,7 @@ class DiskonController extends CI_Controller
 		redirect('DiskonController/indexDiskon');
 	}
 
-	public function editDiskon($id)
+	public function editDiskon($id) // form edit diskon
 	{
 		$where          = array('id' => $id);
 		$data['diskon'] = $this->diskon_model->editModelDiskon($where, 'diskon')->result();
@@ -62,19 +62,19 @@ class DiskonController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function editDataDiskon()
+	public function editDataDiskon() // proses edit diskon
 	{
 		$id             = $this->input->post('id');
 		$nama_diskon    = $this->input->post('nama_diskon');
 		$potongan_harga = $this->input->post('potongan_harga');
 
 		$data = array(
-			'nama_diskon'       => $nama_diskon,
-			'potongan_harga'    => $potongan_harga
+			'nama_diskon'    => $nama_diskon,
+			'potongan_harga' => $potongan_harga
 		);
 
-		$where      = array(
-			'id'    => $id
+		$where = array(
+			'id' => $id
 		);
 
 		$this->session->set_flashdata('success', 'Data Berhasil di Ubah');
@@ -83,13 +83,17 @@ class DiskonController extends CI_Controller
 		redirect('DiskonController/indexDiskon');
 	}
 
-	public function delDiskon($id)
+	public function delDiskon($id) // proses delete diskon
 	{
 		$where = array('id' => $id);
 		$this->diskon_model->delModelDiskon($where, 'diskon');
 
-		$this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
-
+		$error = $this->db->error();
+		if ($error['code'] != 0) {
+			$this->session->set_flashdata('warning', 'Data Tidak Dapat di Hapus');
+		} else {
+			$this->session->set_flashdata('success', 'Data Berhasil di Hapus');
+		}
 		redirect('DiskonController/indexDiskon');
 	}
 }
