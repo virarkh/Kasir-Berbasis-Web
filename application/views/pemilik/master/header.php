@@ -38,9 +38,12 @@
   <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 
   <!-- ZOOM -->
-  <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+  <!-- <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script> -->
 
   <!-- ZOMM VANILA JS -->
-  <script src="<?php echo base_url() ?>assets/js/zoom.js"></script>
+  <!-- <script src="<?php echo base_url() ?>assets/js/zoom.js"></script> -->
+
+  <!-- ckeditor -->
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js" ?></script>
 
 </head>

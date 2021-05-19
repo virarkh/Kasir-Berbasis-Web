@@ -7,12 +7,12 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url() . 'DashboardController/index' ?>">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url() . 'TransaksiController/indexTransaksi' ?>">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-motorcycle"></i>
         </div>
         <div class="sidebar-brand-text mx-3">
-          Hello
+          Welcome
         </div>
       </a>
 
@@ -31,7 +31,7 @@
 
       <li class="nav-item" style="margin-top: -15px;">
         <a class="nav-link" href="<?php echo base_url() . 'TransaksiController/indexTransaksi' ?>">
-          <i class="fas fa-shopping-cart"></i>
+          <i class="fas fa-cart-plus"></i>
           <span>Transaksi</span></a>
       </li>
 
@@ -39,23 +39,31 @@
 
       <li class="nav-item" style="margin-top: -15px;">
         <a class="nav-link" href="<?php echo base_url() . 'PengeluaranController/indexPengeluaran' ?>">
-          <i class="fas fa-book"></i>
+          <i class="fas fa-hand-holding-usd"></i>
           <span>Pengeluaran</span></a>
       </li>
 
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
-        <a class="nav-link" href="<?php echo base_url() . 'JenisPengeluaranController/indexJP' ?>">
-          <i class="fas fa-tasks"></i>
-          <span>Jenis Pengeluaran</span></a>
+        <a class="nav-link" href="<?php echo base_url() . 'DetailController/indexDetail' ?>">
+          <i class="fas fa-receipt"></i>&nbsp;
+          <span>Item Pengeluaran</span></a>
+      </li>
+
+      <hr class="sidebar-divider">
+
+      <li class="nav-item" style="margin-top: -15px;">
+        <a class="nav-link" href="<?php echo base_url() . 'SuppliersController/indexSup' ?>">
+          <i class="fas fa-people-arrows"></i>
+          <span>Suppliers</span></a>
       </li>
 
       <hr class="sidebar-divider">
 
       <li class="nav-item" style="margin-top: -15px;">
         <a class="nav-link" href="<?php echo base_url() . 'JenisKendaraanController/indexJK' ?>">
-          <i class="fas fa-truck"></i>
+          <i class="fas fa-motorcycle"></i>
           <span>Jenis Kendaraan</span></a>
       </li>
 
@@ -63,7 +71,7 @@
 
       <li class="nav-item" style="margin-top: -15px;">
         <a class="nav-link" href="<?php echo base_url() . 'DiskonController/indexDiskon' ?>">
-          <i class="fas fa-star"></i>
+          <i class="fas fa-percent"></i>&nbsp;
           <span>Diskon</span></a>
       </li>
 
@@ -71,7 +79,7 @@
 
       <li class="nav-item" style="margin-top: -15px;">
         <a class="nav-link" href="<?php echo base_url() . 'MetodeController/indexMM' ?>">
-          <i class="fas fa-magic"></i>
+          <i class="fas fa-hands-wash"></i>
           <span>Metode Cuci</span></a>
       </li>
 
