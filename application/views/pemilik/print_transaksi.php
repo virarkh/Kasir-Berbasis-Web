@@ -10,16 +10,18 @@
   <hr>
   <table class="table">
     <thead><tr>
-     <th>Invoice</th>
-     <th>Tanggal</th>
-     <th>Kasir</th>
-     <th>Customer</th>
-     <th style="text-align:right">Sub Total</th>
-     <th style="text-align:right">Total</th>
-     </tr></thead>
+      <th style="text-align:center;" id="no">No</th>
+      <th id="invoice">Invoice</th>
+      <th id="tgl">Tanggal</th>
+      <th id="kasir">Kasir</th>
+      <th id="customer">Customer</th>
+      <th style="text-align:right" id="sub_total">Sub Total</th>
+      <th style="text-align:right" id="total">Total</th>
+      </tr></thead>
     <?php
       if(empty($transaksi)){
         echo "<tbody><tr>
+          <td> - </td>
           <td> - </td>
           <td> - </td>
           <td> - </td>
@@ -32,16 +34,16 @@
             <td>Rp 0</td>
           </tr></tfoot>";
       }else {
-        // $no = 1;
+        $no = 1;
         $grand_total = 0;
         foreach ($transaksi as $t) {
           setlocale(LC_ALL, 'id-ID', 'id-ID');
           $tanggal = strftime('%d-%m-%y, %H:%M', strtotime($t->tanggal));
-
           echo "<tbody><tr>
+            <td style=text-align:center>".$no++."</td>
             <td>$t->invoice</td>
             <td>$tanggal</td>
-            <td>$t->nama_user</td>
+            <td>$t->username</td>
             <td>$t->nama_customer</td>
             <td style=text-align:right>Rp ".number_format($t->sub_total, 0, ',', '.') ."</td>
             <td style=text-align:right>Rp ".number_format($t->total, 0, ',', '.')."</td>
@@ -50,7 +52,7 @@
           $grand_total += $t->total;
         }
         echo "<tfoot><tr>
-            <td colspan=5>Grand Total</td>
+            <td colspan=6>Grand Total</td>
             <td>Rp ".number_format($grand_total, 0, ',', '.')."</td>
           </tr></tfoot>";
       }
@@ -59,11 +61,30 @@
         <td colspan="5">Grand Total</td>
         <td>Rp <?php echo number_format($grand_total, 0, ',','.')?></td>
       </tr></tfoot> -->
-  </table>
-</body><style>
+  </table></body><style>
   body {
     font-family: sans-serif;
     font-size: 15px;
+  }
+
+  #id {
+    width:8%;
+  }
+
+  #invoice {
+    width: 17%;
+  }
+
+  #tgl {
+    width: 20%;
+  }
+
+  #kasir, #customer {
+    width: 15%
+  }
+
+  #sub_total, #total {
+    width: 15%
   }
 
   #title {

@@ -27,7 +27,7 @@ class TransaksiController extends CI_Controller
 		}
 	}
 
-	public function indexTransaksi()
+	public function indexTransaksi() // index transaksi
 	{
 		$tgl_awal   = $this->input->get('tgl_awal');
 		$tgl_akhir  = $this->input->get('tgl_akhir');
@@ -55,7 +55,7 @@ class TransaksiController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function cetak()
+	public function cetak() // menampilkan file pdf
 	{
 		$tgl_awal   = $this->input->get('tgl_awal');
 		$tgl_akhir  = $this->input->get('tgl_akhir');
@@ -89,7 +89,7 @@ class TransaksiController extends CI_Controller
 		$this->dompdf->stream("Laporan Transaksi " . $label_name . ".pdf", array('Attachment' => 0));
 	}
 
-	public function addTransaksi()
+	public function addTransaksi() // form menambah transaksi
 	{
 		$data['transaksi']          = $this->transaksi_model->indexTransaksi();
 		$data['jenis_kendaraan']    = $this->jeniskendaraan_model->indexJK();
@@ -105,7 +105,7 @@ class TransaksiController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function addDataTransaksi()
+	public function addDataTransaksi() // proses menambah transaksi
 	{
 		$data =  [
 			'tanggal'           => $this->input->post('tanggal'),
@@ -125,7 +125,7 @@ class TransaksiController extends CI_Controller
 		redirect('TransaksiController/indexTransaksi');
 	}
 
-	public function jenis_kendaraan()
+	public function jenis_kendaraan() // mengambil daftar jenis kendaraan di form tambah
 	{
 		$id = $_GET['jenis_kendaraan'];
 		$this->db->select('*');
@@ -138,7 +138,7 @@ class TransaksiController extends CI_Controller
 		endforeach;
 	}
 
-	public function metode_mencuci()
+	public function metode_mencuci() // mengambil daftar metode di form tambah
 	{
 		$id2 = $_GET['metode_mencuci'];
 		$this->db->select('*');
@@ -151,9 +151,9 @@ class TransaksiController extends CI_Controller
 		endforeach;
 	}
 
-	public function diskon()
+	public function diskon() // mengambil daftar diskon do form tambah
 	{
-		$id3 = $_GET['diskon'];
+		$id3 	= $_GET['diskon'];
 		$this->db->select('*');
 		$this->db->from('diskon');
 		$this->db->where('id', $id3);
@@ -164,7 +164,7 @@ class TransaksiController extends CI_Controller
 		endforeach;
 	}
 
-	public function subtotal()
+	public function subtotal() // menghitung subtotal di form tambah
 	{
 		$id     = $_GET['jenis_kendaraan'];
 		$id2    = $_GET['metode_mencuci'];
@@ -194,7 +194,7 @@ class TransaksiController extends CI_Controller
 		endforeach;
 	}
 
-	public function total()
+	public function total() // menghitung total di form tambah
 	{
 		$id     = $_GET['jenis_kendaraan'];
 		$id2    = $_GET['metode_mencuci'];
@@ -231,7 +231,7 @@ class TransaksiController extends CI_Controller
 		endforeach;
 	}
 
-	public function detailTransaksi($id)
+	public function detailTransaksi($id) // menampilkan detail transaksi
 	{
 		$where  = array('id' => $id);
 		$data['transaksi'] = $this->transaksi_model->detailModelTransaksi($where, 'transaksi')->result();
@@ -245,7 +245,7 @@ class TransaksiController extends CI_Controller
 		$diskon                     = $this->transaksi_model->get_diskon($id);
 		$data['diskon']             = $diskon;
 
-		$user   = $this->transaksi_model->get_user($id);
+		$user   				= $this->transaksi_model->get_user($id);
 		$data['user']   = $user;
 
 		$this->load->view('pemilik/master/header', $data);
@@ -255,11 +255,16 @@ class TransaksiController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function delTransaksi($id)
+	public function delTransaksi($id) // menghapus transaksi
 	{
 		$where = array('id' => $id);
 		$this->transaksi_model->delModelTransaksi($where, 'transaksi');
-		$this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
+		$error = $this->db->error();
+		if ($error['code'] != 0) {
+			$this->session->set_flashdata('warning', 'Data Tidak Dapat di Hapus');
+		} else {
+			$this->session->set_flashdata('success', 'Data Berhasil di Hapus');
+		}
 		redirect('TransaksiController/indexTransaksi');
 	}
 }

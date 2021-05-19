@@ -20,8 +20,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 					<form action="<?php echo base_url() . 'TransaksiController/addDataTransaksi' ?>" method="POST">
 						<div class="row">
 							<div class="col-md-4">
-								<!-- value="<?php echo strftime('%a, %d %B %Y, %H:%M:%S') ?>" -->
-								<!-- <?= date('l, j F Y H:i:s') ?> -->
+								<!-- format date menyesuaikan dengan db transaksi  -->
 								Tanggal :
 								<input type="text" name="tanggal" value="<?= date('Y-m-j H:i:s') ?>" class="form-control" readonly>
 							</div>
@@ -38,7 +37,6 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 						<br>
 
 						<div class="row">
-
 							<div class="col-sm">
 								<div class="row form-group">
 									<div class="col-md-4">

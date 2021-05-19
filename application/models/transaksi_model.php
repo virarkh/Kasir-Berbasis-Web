@@ -2,7 +2,7 @@
 
 class transaksi_model extends CI_Model
 {
-	public function indexTransaksi()
+	public function indexTransaksi() // mengambil data di tabel transaksi, Controller -> indexTransaksi
 	{
 		$this->db->select('transaksi.*, jenis_kendaraan.nama_kendaraan, jenis_kendaraan.tarif, metode_mencuci.tarif_tambahan, metode_mencuci.nama_metode, diskon.nama_diskon, diskon.potongan_harga, user.nama_user, user.username');
 		$this->db->from('transaksi');
@@ -15,7 +15,7 @@ class transaksi_model extends CI_Model
 		return $query->result();
 	}
 
-	public function view_by_date($tgl_awal, $tgl_akhir)
+	public function view_by_date($tgl_awal, $tgl_akhir) // menampilkan data berdasarkan tanggal
 	{
 		$tgl_awal = $this->db->escape($tgl_awal);
 		$tgl_akhir = $this->db->escape($tgl_akhir);
@@ -32,7 +32,7 @@ class transaksi_model extends CI_Model
 		return $query->result();
 	}
 
-	public function invoice()
+	public function invoice() // menampilkan invoice
 	{
 		$sql = "SELECT MAX(MID(invoice,9,4)) AS invoice_no FROM transaksi WHERE MID(invoice,3,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
 		$query = $this->db->query($sql);
@@ -47,18 +47,18 @@ class transaksi_model extends CI_Model
 		return $invoice;
 	}
 
-	public function addModelTransaksi($data)
+	public function addModelTransaksi($data) // proses insert transaksi
 	{
 		return $this->db->insert('transaksi', $data);
 	}
 
-	public function delModelTransaksi($where, $table)
+	public function delModelTransaksi($where, $table) // proses delete transaksi
 	{
 		$this->db->where($where);
 		$this->db->delete($table);
 	}
 
-	public function get_jenis_kendaraan($id)
+	public function get_jenis_kendaraan($id) // mengambil daftar jenis kendaraan
 	{
 		$this->db->select('*');
 		$this->db->from('transaksi t');
@@ -67,7 +67,7 @@ class transaksi_model extends CI_Model
 		return $this->db->get();
 	}
 
-	public function get_metode_mencuci($id)
+	public function get_metode_mencuci($id) // mengambil daftar metode 
 	{
 		$this->db->select('*');
 		$this->db->from('transaksi t');
@@ -76,7 +76,7 @@ class transaksi_model extends CI_Model
 		return $this->db->get();
 	}
 
-	public function get_diskon($id)
+	public function get_diskon($id) // mengambil daftar diskon
 	{
 		$this->db->select('*');
 		$this->db->from('transaksi t');
@@ -85,7 +85,7 @@ class transaksi_model extends CI_Model
 		return $this->db->get();
 	}
 
-	public function get_user($id)
+	public function get_user($id) // mengambil daftar user
 	{
 		$this->db->select('t.*, u.nama_user');
 		$this->db->from('transaksi t');
@@ -94,7 +94,7 @@ class transaksi_model extends CI_Model
 		return $this->db->get();
 	}
 
-	public function detailModelTransaksi($where, $table)
+	public function detailModelTransaksi($where, $table) // proses detail transaksi
 	{
 		return $this->db->get_where($table, $where);
 	}

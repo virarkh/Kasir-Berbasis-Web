@@ -17,22 +17,14 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
             <h6 class="m-0 font-weight-bold text-primary">Detail Transaksi</h6>
           </div>
           <div class="card-body">
-            <!-- <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p> -->
-            <!-- <p><b>Tanggal</b> &nbsp;: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></p>
-                        <p><b>Kasir</b> &nbsp;: <?php foreach ($user->result() as $u) : ?>
-                                <?php echo $u->nama_user; ?>
-                            <?php endforeach; ?>
-                        </p> -->
             <div class="table-responsive">
               <table>
                 <tr>
                   <th>Tanggal </th>
-                  <!-- <td>:</td> -->
                   <td>: <?php echo strftime('%A, %d %B %Y %H:%M:%S', strtotime($t->tanggal)) ?></td>
                 </tr>
                 <tr>
                   <th>Kasir</th>
-                  <!-- <td>:</td> -->
                   <td>:
                     <?php foreach ($user->result() as $u) : ?>
                       <?php echo $u->nama_user; ?>
@@ -89,18 +81,9 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                     <th colspan="4">Total</th>
                     <td><b>Rp <?php echo number_format($t->total, 0, ',', '.') ?></b></td>
                   </tr>
-                  <!-- <tr style="text-align: right;">
-                                    <th colspan="4">Bayar</th>
-                                    <td>Rp <?php echo number_format($t->bayar, 0, ',', '.') ?></td>
-                                </tr>
-                                <tr style="text-align: right;">
-                                    <th colspan="4">Kembalian</th>
-                                    <td>Rp <?php echo number_format($t->kembalian, 0, ',', '.') ?></td>
-                                </tr> -->
                 </tbody>
               </table>
             </div>
-
 
             <div class="row">
               <div class="col-sm">
@@ -115,15 +98,10 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
-
   <?php
   }
   ?>
-
-
 </div>
 <!-- /.container-fluid -->
