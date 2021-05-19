@@ -9,29 +9,27 @@ class user_model extends CI_Model
 		$this->db->select('user.*, role.nama');
 		$this->db->from('user');
 		$this->db->join('role', 'role.id = user.role_id');
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get();
 		return $result->result();
+	}
+
+	public function get($id = null)
+	{
+		$this->db->select('user.*, role.nama');
+		$this->db->from('user');
+		$this->db->join('role', 'role.id = user.role_id');
+		if ($id != null) {
+			$this->db->where('id', $id);
+		}
+		$query = $this->db->get();
+		return $query;
 	}
 
 	public function login($table, $where)
 	{
 		return $this->db->get_where($table, $where);
 	}
-
-
-	// public function login($username, $password)
-	// {
-
-	// MODEL SUKSES
-
-	//     $this->db->select('*');
-	//     $this->db->from('user');
-	//     $this->db->join('role', 'role.id = user.role_id');
-	//     $this->db->where('username', $username);
-	//     $this->db->where('password', $password);
-	//     $result = $this->db->get();
-	//     return $result;
-	// }
 
 	public function sign_in($data)
 	{
@@ -48,15 +46,6 @@ class user_model extends CI_Model
 		$this->db->where($where);
 		$this->db->update($table, $data);
 	}
-
-	// public function hapus_data($id)
-	// {
-	//     $row = $this->db->where('id', $id)->get('foto_profil')->row();
-	//     unlink('./assets/profil/' . $row->foto_profil);
-	//     $this->db->where('id', $id);
-	//     $this->db->delete($this->table);
-	//     return true;
-	// }
 
 	public function hapus_data($where, $table)
 	{

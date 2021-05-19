@@ -1,18 +1,14 @@
 <div class="container-fluid">
-
 	<!-- Page Heading -->
 	<h2 class="h4 text-gray-800">Daftar Pengguna</h2><br>
-
 	<div class="row">
 		<div class="col-lg-12">
-
 			<!-- Circle Buttons -->
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">Tambah Data Pengguna</h6>
 				</div>
 				<div class="card-body">
-					<!-- <form action="<?php echo base_url() . 'AuthController/registrasi' ?>" method="POST"> -->
 					<?php echo form_open_multipart('AuthController/registrasi'); ?>
 					<div class="row">
 						<div class="col-md-6">
@@ -24,9 +20,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- <p>Foto Profil<br>
-							<input type="file" name="foto_profil" class="form-file" style="margin-top: 5px;" required>
-						</p> -->
 					</div>
 					<div class="row">
 						<div class="col-md-6">
@@ -68,16 +61,6 @@
 						<div class="col-md-6 ">
 							<p>
 								Level
-								<!-- <div class="dropdown">
-								<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Pilih Hak Akses
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuBotton">
-									<a class="dropdown-item" value="1">Pegawai</a>
-									<a class="dropdown-item" value="2">Pemilik</a>
-								</div>
-							</div> -->
-
 								<select name="role_id" class="form-control">
 									<option class="dropdown-item" value="" disabled selected style="display:none">Pilih Hak Akses</option>
 									<option class="dropdown-item" value="1">Pegawai</option>
@@ -104,14 +87,12 @@
 								<i class="far fa-check-square"></i>
 							</span>
 							<span class="text">Simpan</span></button>
-						<!-- <button class="btn btn-success col-sm-2" style="margin-top: 3%;">Simpan</button> -->
 					</div>
 					<?php echo form_close(); ?>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <script>

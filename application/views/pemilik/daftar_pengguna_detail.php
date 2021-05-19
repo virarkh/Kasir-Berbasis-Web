@@ -77,11 +77,8 @@
   }
   ?>
 
-
-
 </div>
 <!-- /.container-fluid -->
-
 
 <style>
   .card-img {

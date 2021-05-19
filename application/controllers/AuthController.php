@@ -13,13 +13,12 @@ class AuthController extends CI_Controller
 		$this->load->helper('url', 'form');
 	}
 
-	public function index()
+	public function index() //form login
 	{
 		$this->load->view('login.php');
 	}
 
-	// untuk login
-	public function loginForm()
+	public function loginForm() // proses login
 	{
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
@@ -27,34 +26,34 @@ class AuthController extends CI_Controller
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('login.php');
 		} else {
-			$email = $this->input->post('email', TRUE);
+			$email 		= $this->input->post('email', TRUE);
 			$password = md5($this->input->post('password', TRUE));
 
 			$where = array(
-				'email'	=> $email,
+				'email'			=> $email,
 				'password'	=> $password,
 			);
 
 			$cek = $this->user_model->login('user', $where);
 			if ($cek->num_rows() > 0) {
-				$data = $cek->row_array();
-				$id			= $data['id'];
-				$nama_user	= $data['nama_user'];
-				$username 	= $data['username'];
-				$role_id	= $data['role_id'];
-				$user_id	= $data['user_id'];
-				$email		= $data['email'];
-				$foto_profil = $data['foto_profil'];
+				$data 				= $cek->row_array();
+				$id						= $data['id'];
+				$nama_user		= $data['nama_user'];
+				$username 		= $data['username'];
+				$role_id			= $data['role_id'];
+				$user_id			= $data['user_id'];
+				$email				= $data['email'];
+				$foto_profil 	= $data['foto_profil'];
 
 				$data_session = array(
-					'id'		=> $id,
-					'nama_user'	=> $nama_user,
-					'username' 	=> $username,
-					'role_id'	=> $role_id,
-					'user_id'	=> $user_id,
-					'email'		=> $email,
+					'id'					=> $id,
+					'nama_user'		=> $nama_user,
+					'username' 		=> $username,
+					'role_id'			=> $role_id,
+					'user_id'			=> $user_id,
+					'email'				=> $email,
 					'foto_profil' => $foto_profil,
-					'logged_in'	=> TRUE
+					'logged_in'		=> TRUE
 				);
 
 				$this->session->set_userdata($data_session);
@@ -73,19 +72,18 @@ class AuthController extends CI_Controller
 		}
 	}
 
-	public function logout()
+	public function logout() //proses logout
 	{
 		$this->session->unset_userdata('logged_in');
 		session_destroy();
 		redirect('AuthController/index');
 	}
 
-	// menampilkan daftar pengguna
-	public function daftar()
+
+	public function daftar() // index daftar pengguna
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
-			// $this->session->set_flashdata('notif', 'Anda harus login dulu');
 			redirect('AuthController');
 		}
 
@@ -97,8 +95,7 @@ class AuthController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	//view tambah user
-	public function tambah()
+	public function tambah() // form tambah user
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
@@ -112,8 +109,7 @@ class AuthController extends CI_Controller
 		$this->load->view('pemilik/master/footer');
 	}
 
-	// proses sign up
-	public function registrasi()
+	public function registrasi() // proses tambah user
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
@@ -121,40 +117,35 @@ class AuthController extends CI_Controller
 		}
 
 		$config = array(
-			'upload_path'	=> './assets/profil',
+			'upload_path'		=> './assets/profil',
 			'allowed_types'	=> 'jpg|jpeg|png',
-			'max_size'		=> '10000'
-			// 'max_size'		=> '2086',
-			// 'max_width'		=> '1024',
-			// 'max_height'	=> '768'
+			'max_size'			=> '2048', // ukuran 2 MB
+			'file_name'			=> 'profil-' . substr(md5(rand()), 0, 5)
 		);
 
 		$this->load->library('upload', $config);
 
 		$this->upload->do_upload('foto_profil');
-		$info 		= $this->upload->data();
+		$info 			= $this->upload->data();
 		$nama_foto 	= $info['file_name'];
-
 		$nama_user	= $this->input->post("nama_user");
-		$username	= $this->input->post("username");
-		// $password 	= $this->input->post("password");
-		$password	= md5($this->input->post("password"));
+		$username		= $this->input->post("username");
+		$password		= md5($this->input->post("password"));
 		$view_pass	= $this->input->post("password");
-		$no_hp		= $this->input->post("no_hp");
-		$email		= $this->input->post("email");
-		$alamat		= $this->input->post("alamat");
-		$role_id	= $this->input->post("role_id");
+		$no_hp			= $this->input->post("no_hp");
+		$email			= $this->input->post("email");
+		$alamat			= $this->input->post("alamat");
+		$role_id		= $this->input->post("role_id");
 
 		$data = array(
-
-			'nama_user'		=> $nama_user,
-			'username' 		=> $username,
-			'password'		=> $password,
+			'nama_user'			=> $nama_user,
+			'username' 			=> $username,
+			'password'			=> $password,
 			'view_password' => $view_pass,
-			'foto_profil'	=> $nama_foto,
-			'no_hp'			=> $no_hp,
-			'email'			=> $email,
-			'alamat'		=> $alamat,
+			'foto_profil'		=> $nama_foto,
+			'no_hp'					=> $no_hp,
+			'email'					=> $email,
+			'alamat'				=> $alamat,
 			'role_id'       => $role_id
 		);
 
@@ -164,8 +155,7 @@ class AuthController extends CI_Controller
 		redirect('AuthController/daftar');
 	}
 
-	// view edit
-	public function edit($id)
+	public function edit($id) // form edit user
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
@@ -181,8 +171,7 @@ class AuthController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	// proses edit
-	public function edit_data()
+	public function edit_data() // proses edit user
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
@@ -192,39 +181,35 @@ class AuthController extends CI_Controller
 		$id		= $this->input->post('id');
 
 		$config = array(
-			'upload_path'	=> './assets/profil',
+			'upload_path'		=> './assets/profil',
 			'allowed_types'	=> 'jpg|jpeg|png',
-			'max_size'		=> '10000'
-			// 'max_size'		=> '2086',
-			// 'max_width'		=> '1024',
-			// 'max_height'	=> '768'
+			'max_size'			=> '2048',
+			'file_name'			=> 'profil-' . substr(md5(rand()), 0, 5)
 		);
 
 		$this->load->library('upload', $config);
-
 		$this->upload->do_upload('foto_profil');
-		$info 		= $this->upload->data();
+		$info 			= $this->upload->data();
 		$nama_foto 	= $info['file_name'];
 
 		$nama_user	= $this->input->post("nama_user");
-		$username	= $this->input->post("username");
-		$password	= md5($this->input->post("password"));
-		// $password 	= $this->input->post("password");
+		$username		= $this->input->post("username");
+		$password		= md5($this->input->post("password"));
 		$view_pass	= $this->input->post("password");
-		$no_hp		= $this->input->post("no_hp");
-		$email		= $this->input->post("email");
-		$alamat		= $this->input->post("alamat");
-		$role_id	= $this->input->post("role_id");
+		$no_hp			= $this->input->post("no_hp");
+		$email			= $this->input->post("email");
+		$alamat			= $this->input->post("alamat");
+		$role_id		= $this->input->post("role_id");
 
 		$data = array(
-			'nama_user'		=> $nama_user,
-			'username' 		=> $username,
-			'password'		=> $password,
+			'nama_user'			=> $nama_user,
+			'username' 			=> $username,
+			'password'			=> $password,
 			'view_password' => $view_pass,
-			'foto_profil'	=> $nama_foto,
-			'no_hp'			=> $no_hp,
-			'email'			=> $email,
-			'alamat'		=> $alamat,
+			'foto_profil'		=> $nama_foto,
+			'no_hp'					=> $no_hp,
+			'email'					=> $email,
+			'alamat'				=> $alamat,
 			'role_id'       => $role_id
 		);
 
@@ -238,25 +223,35 @@ class AuthController extends CI_Controller
 		redirect('AuthController/daftar');
 	}
 
-	public function hapus($id)
-	// public function hapus()
+	public function hapus($id) // proses hapus user
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
 			redirect('AuthController');
 		}
 
-		$where = array('id' => $id);
-		$this->user_model->hapus_data($where, 'user');
-		// $id = $this->input->get('foto');
+		// $item = $this->user_model->get($id)->;
+		// if ($item->foto_profil != null) {
+		// 	$target_file = './assets/profil/' . $item->foto_profil;
+		// 	unlink($target_file);
+		// }
+
 		// $this->user_model->hapus_data($id);
 
-		$this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
+		$where = array('id' => $id);
+		$this->user_model->hapus_data($where, 'user');
+
+		$error = $this->db->error();
+		if ($error['code'] != 0) {
+			$this->session->set_flashdata('warning', 'Data Tidak Dapat di Hapus');
+		} else {
+			$this->session->set_flashdata('success', 'Data Berhasil di Hapus');
+		}
 
 		redirect('AuthController/daftar');
 	}
 
-	public function detail($id)
+	public function detail($id) // form detail user
 	{
 		if ($this->session->userdata('logged_in') != TRUE) {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" >Anda Harus Login Terlebih Dahulu!</div>');
@@ -265,11 +260,6 @@ class AuthController extends CI_Controller
 
 		$where				= array('id' => $id);
 		$data['user']		= $this->user_model->detail_profil($where, 'user')->result();
-		// $data['role']	= $this->user_model->role($where, 'role')->result();
-
-		// $user = $this->user_model->get_user_id($id);
-		// $data['user'] = $user;
-
 		$role 				= $this->user_model->get_user_id($id);
 		$data['role']		= $role;
 
@@ -309,7 +299,6 @@ class AuthController extends CI_Controller
 				<a href="' . base_url() . 'AuthController/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '" class="btn btn-danger btn-icon-split"><h2>RESET PASSWORD</h2></a>'
 			);
 		}
-
 
 		if ($this->email->send()) {
 			return true;
