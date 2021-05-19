@@ -25,21 +25,21 @@ class KasirController extends CI_Controller
 		}
 	}
 
-	public function indexKasir()
+	public function indexKasir() // index kasir
 	{
 		$tgl_awal   = $this->input->get('tgl_awal');
 		$tgl_akhir  = $this->input->get('tgl_akhir');
 
 		if (empty($tgl_awal) or empty($tgl_akhir)) {
-			$transaksi      = $this->kasir_model->indexKasir();
-			$url_cetak      = 'KasirController/cetak';
-			$label          = 'Semua Data Pengeluaran';
+			$transaksi	= $this->kasir_model->indexKasir();
+			$url_cetak  = 'KasirController/cetak';
+			$label      = 'Semua Data Pengeluaran';
 		} else {
-			$transaksi      = $this->kasir_model->view_by_date($tgl_awal, $tgl_akhir);
-			$url_cetak			= 'KasirController/cetak?tgl_awal=' . $tgl_awal . '&tgl_akhir=' . $tgl_akhir;
-			$tgl_awal       = strftime('%d %B %Y', strtotime($tgl_awal));
-			$tgl_akhir      = strftime('%d %B %Y', strtotime($tgl_akhir));
-			$label          = 'Periode Tanggal &nbsp;' . $tgl_awal . ' - ' . $tgl_akhir;
+			$transaksi  = $this->kasir_model->view_by_date($tgl_awal, $tgl_akhir);
+			$url_cetak	= 'KasirController/cetak?tgl_awal=' . $tgl_awal . '&tgl_akhir=' . $tgl_akhir;
+			$tgl_awal   = strftime('%d %B %Y', strtotime($tgl_awal));
+			$tgl_akhir  = strftime('%d %B %Y', strtotime($tgl_akhir));
+			$label      = 'Periode Tanggal &nbsp;' . $tgl_awal . ' - ' . $tgl_akhir;
 		}
 
 		$data['transaksi']  = $transaksi;
@@ -52,7 +52,7 @@ class KasirController extends CI_Controller
 		$this->load->view('kasir/master/footer', $data);
 	}
 
-	public function cetak()
+	public function cetak() // cetak laporan
 	{
 		$tgl_awal		= $this->input->get('tgl_awal');
 		$tgl_akhir	= $this->input->get('tgl_akhir');
@@ -86,14 +86,14 @@ class KasirController extends CI_Controller
 		$this->dompdf->stream("Laporan Transaksi " . $label_name . ".pdf", array('Attachment' => 0));
 	}
 
-	public function addKasir()
+	public function addKasir() //form tambah
 	{
-		$data['transaksi']          = $this->kasir_model->indexKasir();
-		$data['jenis_kendaraan']    = $this->jeniskendaraan_model->indexJK();
-		$data['metode_mencuci']     = $this->metodecuci_model->indexMM();
-		$data['diskon']             = $this->diskon_model->indexDiskon();
-		$data['user']               = $this->user_model->index();
-		$data['invoice']            = $this->kasir_model->invoice();
+		$data['transaksi']				= $this->kasir_model->indexKasir();
+		$data['jenis_kendaraan']  = $this->jeniskendaraan_model->indexJK();
+		$data['metode_mencuci']   = $this->metodecuci_model->indexMM();
+		$data['diskon']           = $this->diskon_model->indexDiskon();
+		$data['user']             = $this->user_model->index();
+		$data['invoice']          = $this->kasir_model->invoice();
 
 		$this->load->view('kasir/master/header', $data);
 		$this->load->view('kasir/master/topbar', $data);
@@ -144,7 +144,6 @@ class KasirController extends CI_Controller
 	{
 		$id     = $_GET['jenis_kendaraan'];
 		$id2    = $_GET['metode_mencuci'];
-		// $id3    = $_GET['diskon'];
 
 		$this->db->select('*');
 		$this->db->from('jenis_kendaraan');
@@ -207,18 +206,18 @@ class KasirController extends CI_Controller
 		endforeach;
 	}
 
-	public function addDataKasir()
+	public function addDataKasir() //proses insert
 	{
 		$data =  [
-			'tanggal'           => $this->input->post('tanggal'),
-			'invoice '          => $this->input->post('invoice'),
-			'user_id'           => $this->input->post('user_id'),
-			'nama_customer '    => $this->input->post('nama_customer'),
-			'jenis_id'          => $this->input->post('jenis_id'),
-			'metode_id'         => $this->input->post('metode_id'),
-			'sub_total'         => $this->input->post('sub_total'),
-			'diskon_id'         => $this->input->post('diskon_id'),
-			'total'             => $this->input->post('total'),
+			'tanggal'					=> $this->input->post('tanggal'),
+			'invoice '      	=> $this->input->post('invoice'),
+			'user_id'       	=> $this->input->post('user_id'),
+			'nama_customer ' 	=> $this->input->post('nama_customer'),
+			'jenis_id'        => $this->input->post('jenis_id'),
+			'metode_id'       => $this->input->post('metode_id'),
+			'sub_total'       => $this->input->post('sub_total'),
+			'diskon_id'       => $this->input->post('diskon_id'),
+			'total'           => $this->input->post('total'),
 		];
 		$this->session->set_flashdata('success', 'Data Berhasil di Tambah');
 
@@ -226,7 +225,7 @@ class KasirController extends CI_Controller
 		redirect('KasirController/indexKasir');
 	}
 
-	public function profil()
+	public function profil() // index profil user
 	{
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -236,7 +235,7 @@ class KasirController extends CI_Controller
 		$this->load->view('kasir/master/footer', $data);
 	}
 
-	public function edit()
+	public function edit() //edit profil
 	{
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
