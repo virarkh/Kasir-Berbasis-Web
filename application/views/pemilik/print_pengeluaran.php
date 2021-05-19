@@ -1,103 +1,138 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laporan Pengeluaran</title>
-  <style type="text/css">
-    .table1{
-      font-family: sans-serif;
-      color: #000;
-      border-collapse: collapse;
-      width: 100%;
-      /* border: 1px solid #000; */
-      font-size: 15px;
-    }
-
-    .table1 thead th{
-      background-color: #808080;
-      color: white;
-      text-align: center;
-      border: 1px solid gainsboro;
-    }
-
-    .table1 tbody td{
-      text-align: center;
-      background-color: #F5F5F5;
-      /* border-bottom: 1px solid gainsboro; */
-      border-right: 1px solid gainsboro;
-    }
-
-    #title{
-      text-align: center;
-      font-family: sans-serif;
-      margin-top: 5px;
-    }
-
-    .line-title{
-        border: 0;
-        /* border-style: solid ; */
-        border-top: 3px solid #000;
-      }
-
-  </style>
 </head><body>
-    <h2 id="title">Laporan Pengeluaran </h2>
-    <p id="title"><?php echo $label ?></p>
-
-    <hr class="line-title">
-
-  <table class="table1">
+  <h2 id="title">Laporan Pengeluaran</h2>
+  <p id="title2"><?php echo $label ?></p>
+  <hr>
+  <table class="table">
+    <thead><tr>
+    <th style="text-align:center" id="no">No</th>
+    <th id="tgl">Tanggal</th>
+    <th id="nota">Nota</th>
+    <th id="supplier">Supplier</th>
+    <th id="bersangkutan">Bersangkutan</th>
+    <th id="item">Item</th>
+    <th id="bayar">Biaya</th>
+    </tr></thead>
     <?php
-        if (empty($pengeluaran)) {
-            echo "<tr>
-                    <td style=text-align:center>Data tidak ada</td>
-                  </tr>";
-        } else {
-            $no = 1;
-            foreach ($pengeluaran as $p) {
-              setlocale(LC_ALL, 'id-ID', 'id_ID');
-        $tanggal = strftime('%e %B %Y', strtotime($p->tanggal));
+      if(empty($detail_pengeluaran)){
+        echo "<tbody><tr>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+          <td style=text-align:right>Rp 0</td>
+        </tr></tbody>";
+        echo "<tfoot><tr>
+            <td colspan=6>Grand Total</td>
+            <td>Rp 0</td>
+          </tr></tfoot>";
+      }else {
+        $no = 1;
+        $grand_total = 0;
+        foreach ($detail_pengeluaran as $t) {
+          setlocale(LC_ALL, 'id-ID', 'id-ID');
+          $tanggal = strftime('%e %B %Y', strtotime($t->tanggal));
 
-                    echo "<tr>
-                      <td><b>Tanggal</b></td><td>: $tanggal</td>
-                    </tr>
-                    <tr>
-                      <td><b>Bersangkutan</b></td><td> : $p->nama_user</td>
-                    </tr>";
+          echo "<tbody><tr>
+            <td style=text-align:center>".$no++."</td>
+            <td>$tanggal</td>
+            <td>$t->kode</td>
+            <td>$t->nama_suppliers</td>
+            <td>$t->username</td>
+            <td>$t->item</td>
+            <td style=text-align:right>Rp ".number_format($t->harga, 0, ',', '.') ."</td>
+          </tr></tbody>";
 
-                    echo "<thead><tr>
-                      <th style=text-align:center>No</th>
-                      <th>No. Nota</th>
-                      <th>Pengeluaran</th>
-                      <th>Detail</th>
-                      <th style=text-align:center>Biaya</th>
-                    </tr></thead>";
+          $grand_total += $t->harga;
+        }
+        echo "<tfoot><tr>
+            <td colspan=6>Grand Total</td>
+            <td>Rp ".number_format($grand_total, 0, ',', '.')."</td>
+          </tr></tfoot>";
+      }
+    ?>
+    <!-- <tfoot><tr>
+        <td colspan="5">Grand Total</td>
+        <td>Rp <?php echo number_format($grand_total, 0, ',','.')?></td>
+      </tr></tfoot> -->
+  </table>
+</body><style>
+  body {
+    font-family: sans-serif;
+    font-size: 15px;
+  }
 
-                    echo "<tbody><tr>
-                      <td style=text-align:center>" . $no++ ." </td>
-                      <td> $p->kode </td>
-                      <td> $p->nama_pengeluaran </td>
-                      <td> $p->detail </td>
-                      <td>Rp " . number_format($p->biaya, 0, ',', '.') . "</td>
-                    </tr></tbody>";
+  #no {
+    width: 5%
+  }
 
-                    echo "<tr>
-                      <td style=border:none></td>
-                    </tr>";
-                    echo "<tr>
-                      <td style=border:none></td>
-                    </tr>";
-                    echo "<tr>
-                      <td style=border:none></td>
-                    </tr>";
-                    echo "<tr>
-                      <td style=border:none></td>
-                    </tr>";
-                    echo "<tr>
-                      <td style=border:none></td>
-                    </tr>";
-                    echo "<tr>
-                      <td style=border:none></td>
-                    </tr>";
-                }
-            }
-            ?>
-  </table></body></html>
+  #tgl {
+    width: 15%
+  }
+
+  #nota {
+    width: 12%
+  }
+
+  #supplier {
+    width: 23%
+  }
+
+  #bersangkutan {
+    width: 12%
+  }
+
+  #item {
+    width: 20%
+  }
+
+  #bayar {
+    width: 20%;
+  }
+
+  #title {
+    text-align: center;
+  }
+
+  #title2 {
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  hr {
+    border: 0px;
+    border-top: 3px solid #000;
+  }
+
+  .table {
+    width: 100%;
+    /* border: 1px solid #000; */
+    border-collapse: collapse;
+  }
+
+  .table thead th, .table tbody td, .table tfoot td {
+    border: 1px solid #ddd;
+    padding: 3px;
+  }
+
+  .table thead th {
+    text-align: left;
+    background-color: #808080;
+    color: white;
+  }
+
+  .table tfoot td {
+    text-align: right;
+    font-weight: bold;
+    background-color: #808080;
+    color: white;
+  }
+
+</style></html>

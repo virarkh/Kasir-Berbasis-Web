@@ -64,7 +64,7 @@
               <th>No</th>
               <th>Kode Nota</th>
               <th>Tanggal</th>
-              <th>Pengeluaran</th>
+              <th>Suppliers</th>
               <th>Biaya</th>
               <th>Action</th>
             </tr>
@@ -79,22 +79,21 @@
                 <td style="width: 1%; text-align:center"><?php echo $no++ ?></td>
                 <td><?php echo $p->kode ?></td>
                 <td><?php echo strftime('%A, %e %B %Y', strtotime($p->tanggal)) ?></td>
-                <td><?php echo $p->nama_pengeluaran ?></td>
+                <td><?php echo $p->nama_suppliers ?></td>
                 <td>Rp <?php echo number_format($p->biaya, 0, ',', '.') ?></td>
-                <td style="width: 35%;">
-
+                <td>
                   <a href="<?php echo base_url('PengeluaranController/detailPengeluaran/' . $p->id); ?>" class="btn btn-info btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-info-circle"></i>
                     </span>
                     <span class="text">Detail</span>
                   </a>
-                  <a href="<?php echo base_url('PengeluaranController/editPengeluaran/' . $p->id) ?>" class="btn btn-success btn-icon-split">
+                  <!-- <a href="<?php echo base_url('PengeluaranController/editPengeluaran/' . $p->id) ?>" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-edit"></i>
                     </span>
                     <span class="text">Edit</span>
-                  </a>
+                  </a> -->
                   <a href="<?php echo base_url('PengeluaranController/delPengeluaran/' . $p->id) ?>" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-100">
                       <i class="fas fa-trash"></i>
