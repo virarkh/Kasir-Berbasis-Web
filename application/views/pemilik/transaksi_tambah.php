@@ -76,9 +76,6 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 									<div class="col-md-7">
 										<select name="metode_id" id="metode_mencuci" class="form-control" required>
 											<option value="0" disabled selected style="display:none">Pilih Metode Mencuci</option>
-											<!-- <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option> -->
 											<?php foreach ($metode_mencuci as $metode) : ?>
 												<option value="<?php echo $metode->id ?>"><?php echo $metode->nama_metode ?></option>
 											<?php endforeach ?>
@@ -138,23 +135,6 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 									</div>
 								</div>
 
-								<!-- <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Bayar
-                                    </div>
-                                    <div class="col-md-7">
-                                        <input name="bayar" id="bayar" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        Kembalian
-                                    </div>
-                                    <div class="col-md-7">
-                                        <input name="kembalian" id="kembalian" class="form-control" readonly>
-                                    </div>
-                                </div> -->
 								<div class="row form-group">
 									<div class="col-md-4">
 									</div>
@@ -179,7 +159,6 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <!-- <script text="text/javascript" src="<?php echo base_url() ?>assets/js/jquery-3.5.1.min.js"></script> -->
