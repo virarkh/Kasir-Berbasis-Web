@@ -4,7 +4,7 @@
 	<h2 class="h4 text-gray-800">Metode Cuci</h2><br>
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-6">
 
 			<!-- Circle Buttons -->
 			<div class="card shadow mb-4">

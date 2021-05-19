@@ -16,7 +16,7 @@ class MetodeController extends CI_Controller
 		}
 	}
 
-	public function indexMM()
+	public function indexMM() // index metode
 	{
 		$data['metode_mencuci'] = $this->metodecuci_model->indexMM();
 		$this->load->view('pemilik/master/header', $data);
@@ -26,7 +26,7 @@ class MetodeController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function addMM()
+	public function addMM() // form tambah metode
 	{
 		$this->load->view('pemilik/master/header');
 		$this->load->view('pemilik/master/sidebar');
@@ -35,7 +35,7 @@ class MetodeController extends CI_Controller
 		$this->load->view('pemilik/master/footer');
 	}
 
-	public function addDataMM()
+	public function addDataMM() // proses tambah metode
 	{
 		$nama_metode    = $this->input->post('nama_metode');
 		$tarif_tambahan = $this->input->post('tarif_tambahan');
@@ -51,7 +51,7 @@ class MetodeController extends CI_Controller
 		redirect('MetodeController/indexMM');
 	}
 
-	public function editMM($id)
+	public function editMM($id) //form edit metode
 	{
 		$where                  = array('id' => $id);
 		$data['metode_mencuci'] = $this->metodecuci_model->editModelMM($where, 'metode_mencuci')->result();
@@ -62,19 +62,19 @@ class MetodeController extends CI_Controller
 		$this->load->view('pemilik/master/footer', $data);
 	}
 
-	public function editDataMM()
+	public function editDataMM() // proses edit metode
 	{
 		$id             = $this->input->post('id');
 		$nama_metode    = $this->input->post('nama_metode');
 		$tarif_tambahan = $this->input->post('tarif_tambahan');
 
 		$data = array(
-			'nama_metode'       => $nama_metode,
-			'tarif_tambahan'    => $tarif_tambahan
+			'nama_metode'    => $nama_metode,
+			'tarif_tambahan' => $tarif_tambahan
 		);
 
 		$where = array(
-			'id'    => $id
+			'id' => $id
 		);
 
 		$this->session->set_flashdata('success', 'Data Berhasil di Ubah');
@@ -83,12 +83,17 @@ class MetodeController extends CI_Controller
 		redirect('MetodeController/indexMM');
 	}
 
-	public function delMM($id)
+	public function delMM($id) // proses delete metode
 	{
 		$where = array('id' => $id);
 		$this->metodecuci_model->delModelMM($where, 'metode_mencuci');
 
-		$this->session->set_flashdata('warning', 'Data Berhasil di Hapus');
+		$error = $this->db->error();
+		if ($error['code'] != 0) {
+			$this->session->set_flashdata('warning', 'Data Tidak Dapat di Hapus');
+		} else {
+			$this->session->set_flashdata('success', 'Data Berhasil di Hapus');
+		}
 
 		redirect('MetodeController/indexMM');
 	}
